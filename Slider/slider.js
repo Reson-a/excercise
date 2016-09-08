@@ -75,7 +75,6 @@
             this._onNav();
         },
 
-
         _onNav: function() { //图片状态的更新 slider=1 对应当前图片,在nav和_step后调用
             for (var i = 0; i < this.slidesNum; i++) {
                 var img = this.slides[i].querySelector('img');
