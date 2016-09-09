@@ -1,7 +1,5 @@
-/**
- * Created by Reson-a on 2016/9/6.
- * slider组件脚本
- */
+//Created by Reson-a on 2016/9/6. slider组件脚本
+
 (function(_) {
     var sliderTemplate = '<div class="m-slider">\
         <div class="slide"></div>\
@@ -129,7 +127,7 @@
             }
         },
         //清除选区
-        _clearSelection() {
+        _clearSelection: function() {
             if (window.getSelection) window.getSelection().removeAllRanges();
             else if (window.document.selection) window.document.selection.empty();
         }
@@ -201,4 +199,5 @@
 
     //暴露到全局
     window.Slider = Slider;
-}(utils))
+
+}(utils));
