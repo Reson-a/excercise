@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>三栏式布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body,
+        html {
+            width: 100%;
+        }
+        
+        .container {
+            padding: 20px;
+            overflow: hidden;
+            background-color: #eee;
+            border: 1px solid #999;
+        }
+        
+        .left {
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+        }
+        
+        .left img {
+            width: 80px;
+            height: 80px;
+            float: left;
+            margin-right: 20px;
+        }
+        
+        .main {
+            overflow: hidden;
+        }
+        
+        .right {
+            width: 120px;
+            height: 100%;
+            float: right;
+            margin-left: 20px;
+        }
+        
+        .right img {
+            width: 80px;
+            height: 80px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="" alt="团队logo">
+            <p>名称</p>
+        </div>
+        <div class="right">
+            <img src="" alt="个人logo">
+            <img src="" alt="个人logo">
+            <img src="" alt="个人logo">
+            <img src="" alt="个人logo">
+        </div>
+        <div class="main">
+            <p>对父容器使用overflow:hidden可使得其被浮动的子元素撑开 会触发BFC，BFC的意思是，我这个元素里面的子孙元素，不会影响外部元素的布局。 而浮动本身会造成行内宽度的压缩，进而可以影响布局。所以这违反了其自己设置的规则啊，子孙元素还是会影响外部元素布局啊，于是，说话算话的BFC就反其道而行，不让浮动元素造成宽度的压缩，将其撑起来，由此，实现了我们的目的，让float元素成功的撑起了外部标签的高度。BFC 定义BFC(Block formatting context)直译为"块级格式化上下文"。它是一个独立的渲染区域，只有Block-level
+                box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。BFC布局规则： 内部的Box会在垂直方向，一个接一个地放置。Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。 BFC的区域不会与float box重叠。BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。计算BFC的高度时，浮动元素也参与计算二、哪些元素会生成BFC?根元素
+                float属性不为none position为absolute或fixed display为inline-block, table-cell, table-caption, flex, inline-flexoverflow不为visible 附注：container不要设置width100% 否则边缘会撑开</p>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
