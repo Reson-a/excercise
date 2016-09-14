@@ -2,8 +2,6 @@ body {
     min-width: 1205px;
 }
 
-.g-hd {}
-
 .m-topbar {
     width: 100%;
     height: 36px;
@@ -16,6 +14,11 @@ body {
     line-height: 36px;
 }
 
+.m-topbar p span {
+    padding-left: 15px;
+    background: url(../img/bg.png) 0 13px no-repeat;
+}
+
 .m-header {
     width: 1205px;
     height: 89px;
@@ -23,15 +26,121 @@ body {
 }
 
 .m-header .logo {
-    width: 266px;
+    margin: 30px 0 37px;
 }
 
 .m-header .logo h1 {
-    margin: 30px 0 37px;
     line-height: 22px;
     padding-left: 84px;
-    font-size: 22px;
-    background: url(../img/bg.png) -168px 0 no-repeat;
+    background: url(../img/bg.png) -170px 0 no-repeat;
+}
+
+.m-header .m-follow {
+    margin: 31px 0 37px 30px;
+    line-height: 21px;
+}
+
+.m-header .m-follow button {
+    margin-right: 14px;
+    padding-left: 22px;
+    width: 54px;
+    height: 21px;
+    line-height: 21px;
+    color: #fff;
+    background: url(../img/bg.png) -80px 0 no-repeat #21A557;
+    border: 0;
+    border-radius: 1px;
+}
+
+.m-follow p {
+    width: 52px;
+}
+
+.m-header .m-nav {
+    margin: 37px 0;
+}
+
+.m-header .m-nav a {
+    margin: 0 28px;
+    line-height: 18px;
+}
+
+.m-header .m-nav .search {
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    background: url(../img/bg.png) -150px 0 no-repeat;
+}
+
+.g-bdtop {
+    width: 100%;
+    height: 460px;
+}
+
+.m-slider {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.m-slider .slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: all .5s ease-out;
+}
+
+.m-slider .slide img {
+    display: inline-block;
+    min-width: 1205px;
+}
+
+.m-cursor {
+    position: absolute;
+    display: inline-block;
+    bottom: 15px;
+    line-height: 20px;
+}
+
+.m-cursor li {
+    list-style: none;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color .5s;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.m-cursor .z-ac {
+    background-color: #333;
+}
+
+.m-product {
+    width: 1205px;
+    height: 297px;
+    margin: 0 auto;
+}
+
+.m-product div {
+    width: 33.33%;
+    padding: 62px 0;
+}
+
+.m-product img {
+    width: 80px;
+    height: 80px;
+}
+
+.m-product p {
+    overflow: hidden;
+    margin: 14px 0 0 12px;
+    line-height: 24px;
+    font-size: 14px;
+    width: 238px;
 }
 
 
@@ -46,12 +155,40 @@ body {
 }
 
 .f-hv:hover {
-    color: #39A030;
+    color: #21A557;
+}
+
+.f-db {
+    display: block;
+}
+
+.f-ib {
+    display: inline-block;
+}
+
+.f-pa {
+    position: absolute;
+}
+
+.f-pr {
+    position: relative;
+}
+
+.f-mw {
+    min-width: 1205px;
 }
 
 
 /*皮肤样式*/
 
 .s-title {
-    color: #39A030;
+    color: #21A557;
+}
+
+.clearfix::after {
+    content: '.';
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
 }

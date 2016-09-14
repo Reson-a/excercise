@@ -1,246 +1,198 @@
-/**
- *      -------------------
- *      |     |     |     |  <- 只有三栏是常驻的
- * -------------------------------
- * |    |     |     |     |      |
- * |    |     |     |     |      |
- * |    |  1  |  2  |  3  |      |
- * |    |     |     |     |      |
- * |    |     |     |     |      |
- * |    |     |     |     |      |
- * -------------------------------
- *      |     |     |     |
- *      -------------------
- */
+//Created by Reson-a on 2016/9/6. slider组件脚本
 
+(function(_) {
+    var sliderTemplate = '<div class="m-slider">\
+        <div class="slide"></div>\
+        <div class="slide"></div>\
+        <div class="slide"></div>\
+        </div>';
 
-;(function(_){
+    var cursorTemplate = '<ul class="m-cursor"></ul>';
 
+    function Slider(options) {
+        if (options) _.extend(this, options);
+        this.container = this.container || document.body;
+        this.container.style.overflow = 'hidden';
 
+        this.slider = this._layout.cloneNode(true); //
+        this.slides = [].slice.call(this.slider.querySelectorAll('.slide'), 0);
+        this.slidesNum = this.slides.length;
 
-  // 将HTML转换为节点
-  function html2node(str){
-    var container = document.createElement('div');
-    container.innerHTML = str;
-    return container.children[0];
-  }
+        this.container.appendChild(this.slider);
 
+        this.pageNum = this.images.length; //图片总数
+        this.pageIndex = this.pageIndex || 0; //当前页码
 
-  var template = 
-  '<div class="m-slider" >\
-    <div class="slide"></div>\
-    <div class="slide"></div>\
-    <div class="slide"></div>\
-  </div>'
+        if (this.isCursor) this._initCursor();
+        if (this.isDrag) this._initDrag();
+        if (this.isAutoPlay) this._initAutoPlay();
 
+        // 拖拽相关
+        this.offsetWidth = this.container.offsetWidth;
+        this.breakPoint = this.offsetWidth / 4;
 
-  function Slider( opt ){
+        this._step(0);
 
-    _.extend(this, opt);
+    };
 
-    // 容器节点 以及 样式设置
-    this.container = this.container || document.body;
-    this.container.style.overflow = 'hidden';
+    _.extend(Slider.prototype, _.emitter);
 
+    _.extend(Slider.prototype, {
+        _layout: _.html2node(sliderTemplate),
+        //导航向指定页
+        nav: function(pageIndex) {
+            this.pageIndex = pageIndex;
+            for (var i = 0, l = this.slidesNum; i < l; i++) {
+                this.slides[i].style.transitionDuration = '0s'; //直接导航时 不播放动画
+            }
+            this._onNav();
+        },
+        prev: function() {
+            this._step(-1);
+        },
+        next: function() {
+            this._step(1);
+        },
+        _step: function(num) {
+            this.pageIndex = this._normal(this.pageIndex + num, this.pageNum);
 
-    // 组件节点
-    this.slider = this._layout.cloneNode(true);
-    this.slides = [].slice.call(this.slider.querySelectorAll('.slide'));
+            for (var i = 0; i < this.slidesNum; i++) {
+                if (this.slides[i].posIndex === undefined) { //动画初始化操作
+                    this.slides[i].posIndex = i - 1;
+                    this.slides[i].style.transitionDuration = '0s';
+                } else if (!num) this.slides[i].style.transitionDuration = '.5s'; //用于拖拽回弹
+                else if (this.slides[i].posIndex + num) this.slides[i].style.transitionDuration = '.5s'; //翻页时播放动画
+                else this.slides[i].style.transitionDuration = '0s';
 
-    // 拖拽相关
-    this.offsetWidth = this.container.offsetWidth;
-    this.breakPoint = this.offsetWidth / 4;
+                var index = this.slides[i].posIndex - num;
+                if (index < -1) index = 1;
+                else if (index > 1) index = -1;
+                this.slides[i].style.left = index * 100 + '%';
+                this.slides[i].posIndex = index;
+            }
+            this._onNav();
+        },
 
-    this.pageNum = this.images.length;
+        _onNav: function() { //图片状态的更新 slider=1 对应当前图片,在nav和_step后调用
+            for (var i = 0; i < this.slidesNum; i++) {
+                var img = this.slides[i].querySelector('img');
+                if (!img) {
+                    img = document.createElement('img');
+                    this.slides[i].appendChild(img);
+                }
+                img.src = this.images[this._normal(this.pageIndex + this.slides[i].posIndex, this.pageNum)];
+            }
+            if (this.isCursor) this._upDateCursor();
+        },
 
-    // 内部数据结构
-    this.slideIndex = 1;
-    this.pageIndex = this.pageIndex || 0;
-    this.offsetAll = this.pageIndex;
-
-    // this.pageNum 必须传入
-    // 初始化动作
-    this.container.appendChild(this.slider);
-
-    // 如果需要拖拽切换
-    if(this.drag) this._initDrag(); 
-    
-  }
-
-  _.extend( Slider.prototype, _.emitter );
-
-  _.extend( Slider.prototype, {
-
-    _layout: html2node(template),
-
-    // 直接跳转到指定页
-    nav: function( pageIndex ){
-
-      this.pageIndex = pageIndex 
-      this.slideIndex = typeof this.slideIndex === 'number'? this.slideIndex: (pageIndex+1) % 3;
-      this.offsetAll = pageIndex;
-
-      this.slider.style.transitionDuration = '0s';
-
-      this._calcSlide();
-
-    },
-    // 下一页
-    next: function(){
-      this._step(1);
-    },
-    // 上一页
-    prev: function(){
-      this._step(-1);
-    },
-    // 单步移动
-    _step: function(offset){
-
-      this.offsetAll += offset;
-      this.pageIndex += offset;
-      this.slideIndex +=offset;
-      this.slider.style.transitionDuration = '.5s';
-
-      this._calcSlide();
-
-    },
-    // 计算Slide
-    // 每个slide的left = (offsetAll + offset(1, -1)) * 100%;
-    // 外层容器 (.m-slider) 的偏移 = offsetAll * 宽度
-    _calcSlide: function(){
-
-      // 
-      var slideIndex = this.slideIndex= this._normIndex(this.slideIndex, 3);
-      var pageIndex = this.pageIndex= this._normIndex(this.pageIndex, this.pageNum);
-      var offsetAll = this.offsetAll;
-      var pageNum = this.pageNum;
-
-      var prevSlideIndex = this._normIndex( slideIndex - 1, 3 );
-      var nextSlideIndex = this._normIndex( slideIndex + 1, 3);
-
-      var slides = this.slides;
-
-      // 三个slide的偏移
-      slides[slideIndex].style.left = (offsetAll) * 100 + '%'
-      slides[prevSlideIndex].style.left = (offsetAll-1) * 100 + '%'
-      slides[nextSlideIndex].style.left = (offsetAll+1) * 100 + '%'
-
-      // 容器偏移
-      this.slider.style.transform = 'translateX('+ (-offsetAll * 100)+'%) translateZ(0)'
-
-
-      // 当前slide 添加 'z-active'的className
-      slides.forEach(function(node){ _.delClass(node, 'z-active') })
-      _.addClass(slides[slideIndex], 'z-active');
-
-      this._onNav(this.pageIndex, this.slideIndex);
-
-
-    },
-    // 标准化下标
-    _normIndex: function(index, len){
-      return (len + index) % len
-    },
-
-    // 跳转时完成的逻辑， 这里是设置图片的url
-    _onNav: function(pageIndex, slideIndex){
-
-      var slides = this.slides;
-
-      for(var i =-1; i<= 1; i++){
-        var index = (slideIndex + i+3)%3; 
-        var img = slides[index].querySelector('img')
-        if(!img){
-          img = document.createElement('img');
-          slides[index].appendChild(img);
+        //处理下标的方法
+        _normal: function(index, length) {
+            return (index + length) % length;
         }
-        img.src = './imgs/pic0' + ( this._normIndex(pageIndex + i, this.pageNum)+1 ) + '.jpg';
-      }
-
-      this.emit('nav', {
-        pageIndex: pageIndex,
-        slideIndex: slideIndex
-      }) 
-
-    },
+    });
 
 
+    _.extend(Slider.prototype, {
+        //初始化cursor
+        _initCursor: function() {
+            this.m_cursor = _.html2node(cursorTemplate);
+            this.cursors = [];
+            //添加前后翻页           
 
-  //   // 拖动相关, 有兴趣的同学
-  //   // ----------
+            for (var i = 0; i < this.pageNum; i++) {
+                var cursor = document.createElement('li');
+                cursor.className = 'cursor';
+                this.cursors.push(cursor)
+                addEvent(cursor, 'click', this.nav.bind(this, i));
+                this.m_cursor.insertBefore(cursor, this.m_cursor.lastChild);
+            }
 
-    _initDrag: function(){
+            //清除选区
+            addEvent(this.m_cursor, 'mousemove', this._clearSelection.bind(this));
+            addEvent(this.m_cursor, 'click', this._clearSelection.bind(this));
 
-      this._dragInfo = {};
-      this.slider.addEventListener('mousedown', this._dragstart.bind(this));
-      this.slider.addEventListener('mousemove', this._dragmove.bind(this));
-      this.slider.addEventListener('mouseup', this._dragend.bind(this));
-      this.slider.addEventListener('mouseleave', this._dragend.bind(this));
+            this.slider.appendChild(this.m_cursor);
+        },
 
-    },
+        //更新cursor状态,在onNav中调用
+        _upDateCursor: function() {
+            for (var i = 0; i < this.pageNum; i++) {
+                if (this.pageIndex === i) _.addClass(this.cursors[i], 'z-ac');
+                else _.delClass(this.cursors[i], 'z-ac');
+            }
+        },
+        //清除选区
+        _clearSelection: function() {
+            if (window.getSelection) window.getSelection().removeAllRanges();
+            else if (window.document.selection) window.document.selection.empty();
+        }
+    });
 
-    _dragstart: function(ev){
-      var dragInfo = this._dragInfo;
-      dragInfo.start = {x: ev.pageX, y: ev.pageY};
-    },
+    _.extend(Slider.prototype, {
+        //初始化autoPlay
+        _initAutoPlay: function() {
+            addEvent(this.container, 'mouseout', this.setAutoPlay.bind(this));
+            addEvent(this.container, 'mouseover', this.clearAutoPlay.bind(this));
+        },
 
-    _dragmove: function(ev){
+        setAutoPlay: function() {
+            if (!this.intervalID) this.intervalID = setInterval(this.next.bind(this), 5000);
+        },
 
-      var dragInfo = this._dragInfo;
-      // 如果还没有开始拖拽则退出
-      if(!dragInfo.start) return;
-
-      ev.preventDefault();
-      this.slider.style.transitionDuration = '0s';
-
-      var start = dragInfo.start;
-      // 清除恼人的选区
-      if (window.getSelection) {
-        window.getSelection().removeAllRanges();
-      } else if (window.document.selection) {
-        window.document.selection.empty();
-      }
-
-      // 加translateZ 分量是为了触发硬件加速
-      this.slider.style.transform = 
-       'translateX(' +  (-(this.offsetWidth * this.offsetAll - ev.pageX+start.x)) + 'px) translateZ(0)'
-
-    },
-
-    _dragend: function( ev ){
-
-      var dragInfo = this._dragInfo;
-      if(!dragInfo.start) return;
-
-      ev.preventDefault();
-      var start = dragInfo.start;
-      this._dragInfo = {};
-      var pageX = ev.pageX;
-
-      // 看走了多少距离
-      var deltX = pageX - start.x;
-      if( Math.abs(deltX) > this.breakPoint ){
-        this._step(deltX>0? -1: 1)
-      }else{
-        this._step(0)
-      }
-
-    }
-
-    
-  })
+        clearAutoPlay: function() {
+            if (this.intervalID) clearInterval(this.intervalID);
+            this.intervalID = undefined;
+        },
+    });
 
 
-  window.Slider = Slider;
+    _.extend(Slider.prototype, {
+        //初始化拖拽
+        _initDrag: function() {
+            this.dragInfo = {};
+            for (var i = 0; i < this.slidesNum; i++) {
+                this.slides[i].style.transitionDuration = '0s';
+            }
+            addEvent(this.slider, 'mousedown', this._dragStart.bind(this));
+            addEvent(this.slider, 'mousemove', this._dragMove.bind(this));
+            addEvent(this.slider, 'mouseup', this._dragEnd.bind(this));
+            addEvent(this.slider, 'mouseleave', this._dragEnd.bind(this));
+        },
 
+        _dragStart: function(event) {
+            this.dragInfo.start = { x: event.pageX };
+            event.preventDefault();
+            return false;
+        },
 
+        _dragMove: function(event) {
+            if (!this.dragInfo.start) return;
+            event.preventDefault();
+            this._clearSelection();
 
-})(util);
+            this.offsetX = event.pageX - this.dragInfo.start.x;
 
+            for (var i = 0; i < this.slidesNum; i++) {
+                this.slides[i].style.transitionDuration = '0s';
+                this.slides[i].style.left = (this.slides[i].posIndex + this.offsetX / this.slides[i].firstChild.width) * 100 + '%';
+            }
+            return false;
+        },
 
+        _dragEnd: function(event) {
+            if (!this.dragInfo.start) return;
+            this.dragInfo = {};
+            event.preventDefault();
 
+            if (this.offsetX > this.breakPoint) this._step(-1);
+            else if (this.offsetX < -this.breakPoint) this._step(1);
+            else this._step(0);
+            return false;
+        }
 
+    });
 
+    //暴露到全局
+    window.Slider = Slider;
 
-
-
+}(utils));
