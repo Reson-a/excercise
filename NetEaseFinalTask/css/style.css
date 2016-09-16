@@ -4,7 +4,6 @@ body {
 
 .m-topbar {
     width: 100%;
-    height: 36px;
     background-color: #F3F3F3;
 }
 
@@ -21,7 +20,6 @@ body {
 
 .m-header {
     width: 1205px;
-    height: 89px;
     margin: 0 auto;
 }
 
@@ -57,7 +55,7 @@ body {
 }
 
 .m-header .m-nav {
-    margin: 37px 0;
+    margin: 35px 0 0 36px;
 }
 
 .m-header .m-nav a {
@@ -74,14 +72,18 @@ body {
 
 .g-bdtop {
     width: 100%;
+}
+
+.m-sliderbox {
+    width: 100%;
     height: 460px;
 }
 
 .m-slider {
     width: 100%;
     height: 100%;
-    text-align: center;
     position: relative;
+    text-align: center;
 }
 
 .m-slider .slide {
@@ -121,7 +123,6 @@ body {
 
 .m-product {
     width: 1205px;
-    height: 297px;
     margin: 0 auto;
 }
 
@@ -133,14 +134,155 @@ body {
 .m-product img {
     width: 80px;
     height: 80px;
+    margin: 8px 20px 0 0;
 }
 
 .m-product p {
     overflow: hidden;
-    margin: 14px 0 0 12px;
+    margin: 14px 0 0 0;
     line-height: 24px;
     font-size: 14px;
     width: 238px;
+}
+
+.m-workplace {
+    min-width: 1616px;
+    text-align: center;
+}
+
+.g-bdbot {
+    width: 1205px;
+    margin: 81px auto 120px;
+}
+
+.m-tab .tab {
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #21A557;
+}
+
+.m-course ul {
+    width: 980px;
+    padding: 20px 0;
+    margin-left: -20px;
+}
+
+.m-course ul li {
+    width: 225px;
+    height: 228px;
+    line-height: 22px;
+    margin: 10px 0 10px 20px;
+    box-shadow: 0 1px 1px 1px #D3D3D3;
+}
+
+.m-course img {
+    width: 223px;
+    height: 124px;
+    margin: 1px;
+}
+
+.m-course h3 {
+    font-size: 12px;
+    margin: 0 5px;
+}
+
+.m-course p {
+    font-size: 12px;
+    margin: 0 5px;
+    color: #BBB;
+}
+
+.m-course span {
+    display: inline-block;
+    line-height: 16px;
+    font-size: 9px;
+    padding: 0 3px 0 18px;
+    margin: 5px 0 3px;
+    color: #BBB;
+    border: 1px solid #BBB;
+    border-radius: 2px;
+}
+
+.m-course strong {
+    font-size: 10px;
+    color: #FF3F00
+}
+
+.m-page li {
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 7px;
+}
+
+.m-page .page {
+    width: 20px;
+    height: 20px;
+    color: #8A8A8A
+}
+
+.m-page .prev,
+.m-page .next {
+    font-size: 14px;
+    width: 30px;
+    height: 20px;
+    color: #FFF;
+    background-color: #9DD8B1;
+}
+
+.m-org,
+.m-rank {
+    width: 223px;
+    box-shadow: 0 1px 1px 1px #D3D3D3;
+}
+
+.m-org .videobox,
+.m-rank ul {
+    padding: 20px;
+}
+
+.m-org h2,
+.m-rank h2 {
+    padding: 20px;
+    border-bottom: 1px solid #DDD;
+}
+
+.m-org p {
+    margin-bottom: 8px;
+}
+
+.m-rank {
+    margin-top: 21px;
+}
+
+.m-rank ul li {
+    overflow: hidden;
+}
+
+.m-rank ul li+li {
+    margin-top: 20px;
+}
+
+.m-rank ul li img {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+}
+
+.m-rank ul li h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.m-rank ul li span {
+    padding-left: 16px;
+    font-size: 9px;
+    color: #999;
 }
 
 
@@ -178,11 +320,21 @@ body {
     min-width: 1205px;
 }
 
+.f-oh {
+    overflow: hidden;
+}
+
+.f-ep {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 
 /*皮肤样式*/
 
 .s-title {
-    color: #21A557;
+    color: #39A030;
 }
 
 .clearfix::after {

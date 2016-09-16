@@ -1,4 +1,4 @@
-var sliderContainer = $('.g-bdtop');
+var sliderContainer = $('.m-sliderbox');
 
 var slider = new Slider({
     container: sliderContainer,

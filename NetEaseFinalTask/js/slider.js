@@ -1,6 +1,6 @@
 //Created by Reson-a on 2016/9/6. slider组件脚本
 
-(function(_) {
+(function (_) {
     var sliderTemplate = '<div class="m-slider">\
         <div class="slide"></div>\
         <div class="slide"></div>\
@@ -40,20 +40,20 @@
     _.extend(Slider.prototype, {
         _layout: _.html2node(sliderTemplate),
         //导航向指定页
-        nav: function(pageIndex) {
+        nav: function (pageIndex) {
             this.pageIndex = pageIndex;
             for (var i = 0, l = this.slidesNum; i < l; i++) {
                 this.slides[i].style.transitionDuration = '0s'; //直接导航时 不播放动画
             }
             this._onNav();
         },
-        prev: function() {
+        prev: function () {
             this._step(-1);
         },
-        next: function() {
+        next: function () {
             this._step(1);
         },
-        _step: function(num) {
+        _step: function (num) {
             this.pageIndex = this._normal(this.pageIndex + num, this.pageNum);
 
             for (var i = 0; i < this.slidesNum; i++) {
@@ -73,7 +73,7 @@
             this._onNav();
         },
 
-        _onNav: function() { //图片状态的更新 slider=1 对应当前图片,在nav和_step后调用
+        _onNav: function () { //图片状态的更新 slider=1 对应当前图片,在nav和_step后调用
             for (var i = 0; i < this.slidesNum; i++) {
                 var img = this.slides[i].querySelector('img');
                 if (!img) {
@@ -86,7 +86,7 @@
         },
 
         //处理下标的方法
-        _normal: function(index, length) {
+        _normal: function (index, length) {
             return (index + length) % length;
         }
     });
@@ -94,7 +94,7 @@
 
     _.extend(Slider.prototype, {
         //初始化cursor
-        _initCursor: function() {
+        _initCursor: function () {
             this.m_cursor = _.html2node(cursorTemplate);
             this.cursors = [];
             //添加前后翻页           
@@ -115,14 +115,14 @@
         },
 
         //更新cursor状态,在onNav中调用
-        _upDateCursor: function() {
+        _upDateCursor: function () {
             for (var i = 0; i < this.pageNum; i++) {
                 if (this.pageIndex === i) _.addClass(this.cursors[i], 'z-ac');
                 else _.delClass(this.cursors[i], 'z-ac');
             }
         },
         //清除选区
-        _clearSelection: function() {
+        _clearSelection: function () {
             if (window.getSelection) window.getSelection().removeAllRanges();
             else if (window.document.selection) window.document.selection.empty();
         }
@@ -130,16 +130,16 @@
 
     _.extend(Slider.prototype, {
         //初始化autoPlay
-        _initAutoPlay: function() {
+        _initAutoPlay: function () {
             addEvent(this.container, 'mouseout', this.setAutoPlay.bind(this));
             addEvent(this.container, 'mouseover', this.clearAutoPlay.bind(this));
         },
 
-        setAutoPlay: function() {
+        setAutoPlay: function () {
             if (!this.intervalID) this.intervalID = setInterval(this.next.bind(this), 5000);
         },
 
-        clearAutoPlay: function() {
+        clearAutoPlay: function () {
             if (this.intervalID) clearInterval(this.intervalID);
             this.intervalID = undefined;
         },
@@ -148,7 +148,7 @@
 
     _.extend(Slider.prototype, {
         //初始化拖拽
-        _initDrag: function() {
+        _initDrag: function () {
             this.dragInfo = {};
             for (var i = 0; i < this.slidesNum; i++) {
                 this.slides[i].style.transitionDuration = '0s';
@@ -159,13 +159,13 @@
             addEvent(this.slider, 'mouseleave', this._dragEnd.bind(this));
         },
 
-        _dragStart: function(event) {
+        _dragStart: function (event) {
             this.dragInfo.start = { x: event.pageX };
             event.preventDefault();
             return false;
         },
 
-        _dragMove: function(event) {
+        _dragMove: function (event) {
             if (!this.dragInfo.start) return;
             event.preventDefault();
             this._clearSelection();
@@ -179,7 +179,7 @@
             return false;
         },
 
-        _dragEnd: function(event) {
+        _dragEnd: function (event) {
             if (!this.dragInfo.start) return;
             this.dragInfo = {};
             event.preventDefault();
@@ -195,4 +195,4 @@
     //暴露到全局
     window.Slider = Slider;
 
-}(utils));
+} (utils));
