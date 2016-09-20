@@ -13,6 +13,13 @@ function $(selector) {
     else return elements;
 }
 
+Function.prototype.bind = Function.prototype.bind || function(arg) {
+    var method = this,
+        obj = arguments[0],
+        args = arguments.slice(1);
+    return function() { method.apply(obj, args) };
+};
+
 //封装的工具，避免全局变量污染
 var utils = function() {
     return {
@@ -45,6 +52,7 @@ var utils = function() {
                 calls.push(fn);
                 return this;
             },
+
             //解绑事件
             off: function(event, fn) {
                 if (!event || !this._handles) this._handles = {};
@@ -64,6 +72,7 @@ var utils = function() {
                 }
                 return this;
             },
+
             //触发事件
             emit: function(event) {
                 var args = [].slice.call(arguments, 1),
@@ -82,6 +91,55 @@ var utils = function() {
             var container = document.createElement('div');
             container.innerHTML = str;
             return container.children[0];
+        },
+
+        //清除选区
+        clearSelection: function(event) {
+            if (window.getSelection) window.getSelection().removeAllRanges();
+            else if (window.document.selection) window.document.selection.empty();
+        },
+
+        //支持任意属性数值变化的动画函数，需要对属性进行额外加工，这里只实现了透明度和百分比left，
+        anime: function(node, prop, targetValue, options) {
+            var frameRate = options && options.frameRate ? options.frameRate : 30,
+                duration = options && options.duration ? options.duration : 500,
+                callback = options && options.callback ? options.callback : undefined;
+
+            //属性相关加工和处理
+            function propFactory(node, prop) {
+                this.propName = prop;
+                this.node = node;
+                switch (prop) {
+                    case 'opacity':
+                        this.getValue = node.style[prop] = targetValue ? 0 : 1;
+                        this.setValue = function(value) {
+                            node.style[prop] = value + '';
+                        }
+                        return;
+                    case 'left':
+                        this.getValue = node.style[prop] === '' ? 0 : parseInt(node.style[prop].slice(0, -1));
+                        this.setValue = function(value) {
+                            node.style[prop] = value + '%';
+                        }
+                        return;
+                }
+            }
+
+            var _prop = new propFactory(node, prop);
+            var currentValue = _prop.getValue,
+                offset = targetValue - currentValue,
+                dir = offset > 0 ? 1 : (offset < 0 ? -1 : 0); //表示数值变化方向
+
+            function anime() {
+                currentValue = currentValue + offset * 1000 / (duration * frameRate);
+                _prop.setValue(currentValue);
+                if ((targetValue - currentValue) * dir <= 0) {
+                    _prop.setValue(targetValue);
+                    clearInterval(animeIntervalID);
+                    callback && callback();
+                }
+            }
+            var animeIntervalID = setInterval(anime, 1000 / frameRate);
         }
     }
 }();
