@@ -15,15 +15,7 @@
 </head>
 
 <body>
-
-    <!-- 通知条 -->
-    <div class="m-topbar">
-        <p class="g-wrap clearfix">网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！
-            <a href="#" target="_blank" class="s-title">立即查看&gt;</a>
-            <span class="f-fr">不再提醒</span>
-        </p>
-    </div>
-    <!-- 顶栏 -->
+    <!-- 头部-->
     <header class="clearfix g-wrap ">
         <!-- LOGO -->
         <div class="logo f-fl">
@@ -31,8 +23,9 @@
         </div>
         <!-- 关注按钮 -->
         <div class="m-follow f-fl">
-            <button type="" class="u-btn f-fl">关注</button>
-            <p class="f-fl">粉丝&nbsp;<span>45</span></p>
+            <button type="button" class="u-btn f-fl" id="btn-follow">关注</button>
+            <button type="button" class="u-btn f-fl" id="btn-unfollow">已关注<span class="f-sp">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span class="s-link" id="unfollow">取消</span></button>
+            <p class="f-fl">粉丝&nbsp;<span> 45</span></p>
         </div>
         <!-- 导航栏 -->
         <nav class="f-fr">
@@ -50,37 +43,30 @@
         <!-- 产品介绍-->
         <div class="m-product g-wrap clearfix">
             <div class="f-fl">
-                <img src="#" alt="网易公开课" class="f-fl">
+                <div class="f-fl icon open"></div>
                 <h1>网易公开课</h1>
                 <p>推出国内外名校公开课，涉及广泛的学科，名校老师认真讲解深度剖析，网易视频公开课频道搭建起强有力的网络视频教学平台。
-                    <br><br><a href="http://open.163.com/" target="_blank" title="网易公开课" class="s-title">了解更多&gt;</a>
+                    <br><br><a href="http://open.163.com/" target="_blank" title="网易公开课" class="s-link">了解更多&gt;</a>
                 </p>
             </div>
             <div class="f-fl">
-                <img src="#" alt="网易云课堂" class="f-fl">
+                <div class="f-fl icon study"></div>
                 <h1>云课堂</h1>
                 <p>网易旗下大型在线学习平台，该平台面向学习者提供海量免费、优质课程，创新的个性化学习体验，自由开放的交流互动环境。
-                    <br><br><a href="http://study.163.com/" target="_blank" title="网易云课堂" class="s-title">了解更多&gt;</a>
+                    <br><br><a href="http://study.163.com/" target="_blank" title="网易云课堂" class="s-link">了解更多&gt;</a>
                 </p>
             </div>
             <div class="f-fl">
-                <img src="#" alt="中国大学MOOC" class="f-fl">
+                <div class="f-fl icon icourse"></div>
                 <h1>中国大学MOOC</h1>
                 <p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人，都可以在这里学习中国最好的大学课程，学完还能获得认证证书。
-                    <br><br><a href="http://www.icourse163.org/" target="_blank" title="中国大学MOOC" class="s-title">了解更多&gt;</a>
+                    <br><br><a href="http://www.icourse163.org/" target="_blank" title="中国大学MOOC" class="s-link">了解更多&gt;</a>
                 </p>
             </div>
         </div>
 
         <!-- 工作环境 -->
         <div class="m-scrollbox">
-            <!--
-            <img src="img/workplace1.jpg" alt="工作环境">
-            <img src="img/workplace2.jpg" alt="工作环境">
-            <img src="img/workplace3.jpg" alt="工作环境">
-            <img src="img/workplace4.jpg" alt="工作环境">
-            <img src="img/workplace5.jpg" alt="工作环境">
-            -->
         </div>
     </section>
     <!-- 主体下部 -->
@@ -357,7 +343,7 @@
                     <ul>
                         <li><a href="">关于</a></li>
                         <li><a href="">联系</a></li>
-                        <li><a href="">关注</a></li>
+                        <li><a href="">关注<span class="microblog"></span></a></li>
                     </ul>
                 </div>
                 <!-- 更多 -->
@@ -377,6 +363,8 @@
     </script>
     <script type="text/javascript" src="js/utils.js">
     </script>
+    <script type="text/javascript" src="js/topbar.js"></script>
+    <script type="text/javascript" src="js/loginModal.js"></script>
     <script type="text/javascript" src="js/slider.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 

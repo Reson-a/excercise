@@ -20,6 +20,108 @@ Function.prototype.bind = Function.prototype.bind || function(arg) {
     return function() { method.apply(obj, args) };
 };
 
+
+/*/XHR兼容
+window.XMLHttpRequest = window.XMLHttpRequest || function () {
+    var version = [
+        "MSXML2.XMLHttp.6.0",
+        "MSXML2.XMLHttp.3.0",
+        "MSXML2.XMLHttp"
+    ];
+    for (var i = 0; version.length; i++) {
+        try {
+            return new ActiveXObject(version[i]);
+        } catch (e) { }
+    }
+    throw new Error("您的系统或浏览器不支持XHR对象！");
+}*/
+
+//ajax get方法
+function get(url, options, callback) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.onreadystatechange = function(event) {
+        if (xhr.readyState == 4) {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
+            else alert('Request was unsuccessful:' + xhr.status);
+        }
+    }
+    xhr.open('get', url + '?' + serialize(options), true);
+    xhr.send(null);
+}
+
+//ajax post方法
+function post(url, options, callback) {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.onreadystatechange = function(event) {
+        if (xhr.readyState == 4) {
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
+            else alert('Request was unsuccessful:' + xhr.status);
+        }
+    }
+    xhr.open('post', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send(serialize(options));
+}
+
+
+//字符串序列化
+function serialize(data) {
+    if (!data) return '';
+    var arr = [];
+    for (var name in data) {
+        if (!data.hasOwnProperty(name) || typeof data[name] === 'function') continue;
+        var value = data[name].toString();
+        name = encodeURIComponent(name);
+        value = encodeURIComponent(value);
+        arr.push(name + '=' + value);
+    }
+    return arr.join('&');
+}
+
+//设置Cookie
+function setCookie(name, value, expires, path, domain, secure) {
+    var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+    if (expires)
+        cookie += '; expires=' + expires.toGMTString();
+    if (path)
+        cookie += '; path=' + path;
+    if (domain)
+        cookie += '; domain=' + domain;
+    if (secure)
+        cookie += '; secure=' + secure;
+    document.cookie = cookie;
+}
+
+//获取从当前时间算起指定天数以后的日期,用于设置Cookie
+function getFutureDate(day) {
+    var date = new Date();
+    date.setDate((date.getDate() + day));
+    return date;
+}
+
+//取得Cookie
+function getCookies() {
+    var cookie = {}; //新建空对象用于返回
+    var all = document.cookie; //获取cookie
+    if (all === '') return cookie; //如果不存在则直接返回
+    var list = all.split('; '); //用分号分隔
+    for (var i = 0, len = list.length; i < len; i++) {
+        var item = list[i];
+        var p = item.indexOf('='); //获取等号位置
+        var name = item.substring(0, p); //分割出name字符串
+        name = decodeURIComponent(name); //name解码
+        var value = item.substring(p + 1); //分割出value字符串
+        value = decodeURIComponent(value); //value解码
+        cookie[name] = value; //设置为对象的属性
+    }
+    return cookie;
+};
+
+//删除Cookie
+function removeCookie(name, path, domain) {
+    document.cookie = 'name=' + name + '; path=' + path + '; domain=' + domain + '; max-age=0';
+}
+
 //封装的工具，避免全局变量污染
 var utils = function() {
     return {
@@ -47,7 +149,7 @@ var utils = function() {
         emitter: {
             //注册事件
             on: function(event, fn) {
-                var handles = this._handles || (this.handles = {}),
+                var handles = this._handles || (this._handles = {}),
                     calls = handles[event] || (handles[event] = []);
                 calls.push(fn);
                 return this;
@@ -77,10 +179,10 @@ var utils = function() {
             emit: function(event) {
                 var args = [].slice.call(arguments, 1),
                     handles = this._handles,
-                    call;
+                    calls;
                 if (!handles || !(calls = handles[event])) return this;
                 for (var i = 0, len = calls.length; i < len; i++) {
-                    calls[i].apply(this, args)
+                    calls[i].apply(this, args);
                 }
                 return this;
             }
@@ -101,7 +203,7 @@ var utils = function() {
 
         //支持任意属性数值变化的动画函数，需要对属性进行额外加工，这里只实现了透明度和百分比left，
         anime: function(node, prop, targetValue, options) {
-            var frameRate = options && options.frameRate ? options.frameRate : 30,
+            var frameRate = options && options.frameRate ? options.frameRate : 20,
                 duration = options && options.duration ? options.duration : 500,
                 callback = options && options.callback ? options.callback : undefined;
 
@@ -117,7 +219,7 @@ var utils = function() {
                         }
                         return;
                     case 'left':
-                        this.getValue = node.style[prop] === '' ? 0 : parseInt(node.style[prop].slice(0, -1));
+                        this.getValue = node.style[prop] === '' ? 0 : parseFloat(node.style[prop].slice(0, -1));
                         this.setValue = function(value) {
                             node.style[prop] = value + '%';
                         }
@@ -140,6 +242,6 @@ var utils = function() {
                 }
             }
             var animeIntervalID = setInterval(anime, 1000 / frameRate);
-        }
+        },
     }
 }();

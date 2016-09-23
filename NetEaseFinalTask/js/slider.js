@@ -77,7 +77,7 @@
             this.offsetAll += n;
             this.sliderIndex = this._normal();
             for (var i = 0; i < this.slidesNum; i++) {
-                if (this.slides[i].posIndex === -n * this.offsetCenter) { //与容器移动方向相同的末端的slider移动到另一末端
+                if (this.slides[i].posIndex === -n * this.offsetCenter) { //与容器移动方向相同的末端的某个slider移动到另一末端
                     this.slides[i].posIndex = n * this.offsetCenter;
                     this.slides[i].style.left = (this.offsetAll + n * this.offsetCenter + this.offsetCenter - 1) / this.showNum * 100 + '%';
                 } else this.slides[i].posIndex -= n; //重新计算posIndex,便于计算图片和状态重置
@@ -85,11 +85,12 @@
             this.pageIndex = this._normal(this.pageIndex + n, this.pageNum);
 
             //容器移动
-            this._moveX(this.slider, -this.offsetAll / this.showNum * 100, function() {
-                if (!(this.offsetAll % this.slidesNum)) { //位置重置，避免offsetAll数值过大
+            this._moveX(this.slider, -this.offsetAll / this.showNum * 100, function(offsetAll) {
+                if (offsetAll >= this.slidesNum) { //位置重置，避免offsetAll数值过大
                     this._initPos();
                 }
-            }.bind(this));
+            }.bind(this, this.offsetAll));
+
 
             //更新图片状态
             this._onNav();
@@ -196,12 +197,12 @@
         },
 
         setAutoPlay: function() {
-            if (this.intervalID === undefined) this.intervalID = setInterval(this.next.bind(this), this.autoPlayTime);
+            this.clearAutoPlay();
+            this.intervalID = setInterval(this.next.bind(this), this.autoPlayTime);
         },
 
         clearAutoPlay: function() {
             if (this.intervalID) clearInterval(this.intervalID);
-            this.intervalID = undefined;
         },
     });
 
