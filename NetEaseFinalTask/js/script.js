@@ -5,10 +5,12 @@ if (!getCookies().topbar) {
         href: "#"
     });
 
+    //注册自定义事件。关闭同时设置cookie
     topbar.on('ignore', function() {
         setCookie('topbar', true, getFutureDate(7)); //设置cookie 7天后过期
     });
 }
+
 
 
 //关注及登录模块
@@ -66,7 +68,6 @@ function popLogin() {
     }
 }
 
-
 addEvent(followBtn, 'click', function() {
     if (!getCookies().loginSuc) popLogin();
     else follow();
@@ -88,20 +89,24 @@ var sliderContainer = $('.m-sliderbox');
 var slider = new Slider({
     container: sliderContainer,
     images: ['img/banner1.jpg', 'img/banner2.jpg', 'img/banner3.jpg'],
+    links: ['http://open.163.com/', 'http://study.163.com/', 'http://www.icourse163.org/'],
     isCursor: true,
-    isAutoPlay: true
+    isAutoPlay: true,
+    animeOptions: {
+        fadeIn: 500
+    }
 });
 
 
 
 //滚动图模块，展示数量为5
 var scrollContainer = $('.m-scrollbox');
-var scoll = new Slider({
+var scroll = new Slider({
     container: scrollContainer,
     showNum: 5,
     images: ['img/workplace1.jpg', 'img/workplace2.jpg', 'img/workplace3.jpg', 'img/workplace4.jpg', 'img/workplace5.jpg'],
-    isCursor: false,
-    isAutoPlay: true,
-    autoPlayTime: 8000,
-    animeDuration: 8000
+    isScroll: true,
+    animeOptions: {
+        moveX: 8000
+    }
 });

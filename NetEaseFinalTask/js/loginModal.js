@@ -69,7 +69,7 @@
         },
 
         //用户名验证，返回true即为验证通过
-        _userNameValidity() {
+        _userNameValidity: function() {
             if (new RegExp(this.pattern.userName).test(this._userName.value)) return true;
             if (this._userName.value === '') this.invalidHint.innerText = '请输入您的账号';
             else this.invalidHint.innerText = '用户名必须为5-12位';
@@ -77,7 +77,7 @@
         },
 
         //密码验证，返回true即为验证通过  
-        _passwordValidity() {
+        _passwordValidity: function() {
             if (new RegExp(this.pattern.password).test(this._password.value)) return true;
             if (this._password.value === '') this.invalidHint.innerText = '请输入您的密码';
             else this.invalidHint.innerText = '密码为6-20位，必须包含字母和数字';
@@ -89,7 +89,7 @@
             this.invalidHint.innerText = '';
         },
 
-        //获取提交参数
+        //获取md5加密参数
         _getOptions: function() {
             return {
                 userName: hex_md5(this._userName.value),
@@ -121,5 +121,6 @@
         }
     });
 
+    //暴露至全局
     window.LoginModal = LoginModal;
 }(utils))

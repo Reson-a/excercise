@@ -140,8 +140,10 @@ header nav .search:hover {
 
 .m-cursor {
     position: absolute;
-    display: inline-block;
     bottom: 15px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
     line-height: 20px;
 }
 
@@ -204,10 +206,6 @@ header nav .search:hover {
     width: 20%;
     height: 100%;
     position: absolute;
-}
-
-.m-scrollbox img {
-    display: inline-block;
 }
 
 .g-bdbot {
@@ -348,7 +346,7 @@ header nav .search:hover {
 }
 
 footer {
-    color: #999;
+    color: #A2A4A5;
     width: 100%;
     height: 262px;
     background-color: #2C3339;
@@ -357,14 +355,16 @@ footer {
 footer .g-ftlt {
     margin: 93px 152px auto 50px;
     line-height: 25px;
+    letter-spacing: 1px;
+    word-spacing: 2px;
 }
 
 footer a {
-    color: #999;
+    color: #A2A4A5;
 }
 
 footer a:hover {
-    color: #999;
+    color: #A2A4A5;
     text-decoration: underline;
 }
 
@@ -379,10 +379,11 @@ footer .logo h1 {
 .g-ftrt {
     margin-top: 83px;
     line-height: 29px;
+    font-size: 13px;
 }
 
 .g-ftrt ul {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .g-ftrt .link {
@@ -407,7 +408,6 @@ footer .logo h1 {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 10;
     background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
 }

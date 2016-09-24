@@ -203,14 +203,12 @@ var utils = function() {
 
         //支持任意属性数值变化的动画函数，需要对属性进行额外加工，这里只实现了透明度和百分比left，
         anime: function(node, prop, targetValue, options) {
-            var frameRate = options && options.frameRate ? options.frameRate : 20,
-                duration = options && options.duration ? options.duration : 500,
-                callback = options && options.callback ? options.callback : undefined;
+            var frameRate = options && options.frameRate ? options.frameRate : 30, //每秒帧数
+                speed = options && options.speed, //动画播放速度,单位长度/ms
+                callback = options && options.callback; //回调函数，只有动画正常播放完才会执行回调
 
             //属性相关加工和处理
             function propFactory(node, prop) {
-                this.propName = prop;
-                this.node = node;
                 switch (prop) {
                     case 'opacity':
                         this.getValue = node.style[prop] = targetValue ? 0 : 1;
@@ -231,17 +229,24 @@ var utils = function() {
             var currentValue = _prop.getValue,
                 offset = targetValue - currentValue,
                 dir = offset > 0 ? 1 : (offset < 0 ? -1 : 0); //表示数值变化方向
+            node.animeIntervalID = undefined;
 
             function anime() {
-                currentValue = currentValue + offset * 1000 / (duration * frameRate);
+                currentValue = currentValue + dir * speed * 1000 / frameRate;
                 _prop.setValue(currentValue);
-                if ((targetValue - currentValue) * dir <= 0) {
-                    _prop.setValue(targetValue);
-                    clearInterval(animeIntervalID);
-                    callback && callback();
-                }
+                if ((targetValue - currentValue) * dir <= 0) endAnime();
             }
-            var animeIntervalID = setInterval(anime, 1000 / frameRate);
+
+            function endAnime() {
+                if (node.animeIntervalID) clearInterval(node.animeIntervalID);
+                _prop.setValue(targetValue);
+                callback && callback();
+            }
+
+            (function startAnime() {
+                if (!speed) endAnime(); //speed不存在动画直接播放至终点
+                else node.animeIntervalID = setInterval(anime, 1000 / frameRate); //id注册在node上方便外部操作直接删除
+            }());
         },
     }
 }();
