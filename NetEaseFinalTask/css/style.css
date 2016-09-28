@@ -32,6 +32,7 @@ header .logo h1 {
 }
 
 .m-follow {
+    font-family: 'SimSun';
     margin: 31px 0 37px 30px;
     line-height: 21px;
 }
@@ -40,12 +41,16 @@ header .logo h1 {
     color: #666;
 }
 
-.m-follow #btn-follow {
+.m-follow button {
+    display: none;
+    font-family: 'SimSun';
     margin-right: 14px;
-    padding-left: 22px;
-    padding-right: 8px;
     height: 21px;
-    line-height: 12px;
+    padding-left: 22px;
+}
+
+.m-follow #btn-follow {
+    padding-right: 8px;
     color: #fff;
     background: url(../img/sprite.png) -245px -22px no-repeat #21A557;
     border: 0;
@@ -57,11 +62,8 @@ header .logo h1 {
 }
 
 .m-follow #btn-unfollow {
-    margin-right: 14px;
-    height: 21px;
-    padding-left: 22px;
+    font-family: 'SimSun';
     padding-right: 6px;
-    line-height: 12px;
     color: #535353;
     background: url(../img/sprite.png) -244px -40px no-repeat #F8F8F8;
     border: 1px solid #F0F0F0;
@@ -83,10 +85,6 @@ header .logo h1 {
     vertical-align: text-top;
 }
 
-.m-follow p {
-    width: 52px;
-}
-
 header nav {
     margin: 35px 0 0 36px;
 }
@@ -106,7 +104,7 @@ header nav .search {
 }
 
 header nav .search:hover {
-    background: url(../img/sprite.png) -243px -84px no-repeat;
+    background: url(../img/sprite.png) -243px -86px no-repeat;
 }
 
 .g-bdtop {
@@ -114,7 +112,7 @@ header nav .search:hover {
 }
 
 .m-sliderbox {
-    width: 1616px;
+    width: 1615px;
     height: 460px;
     margin: 0 auto;
     position: relative;
@@ -135,7 +133,7 @@ header nav .search:hover {
 
 .m-sliderbox .slide img {
     display: inline-block;
-    width: 1616px;
+    width: 1615px;
 }
 
 .m-cursor {
@@ -176,15 +174,15 @@ header nav .search:hover {
 }
 
 .m-product .icon.open {
-    background: url(../img/sprite.png) 0 -23px no-repeat;
+    background: url(../img/sprite.png) 0 -50px no-repeat;
 }
 
 .m-product .icon.study {
-    background: url(../img/sprite.png) -80px -23px no-repeat;
+    background: url(../img/sprite.png) -80px -50px no-repeat;
 }
 
 .m-product .icon.icourse {
-    background: url(../img/sprite.png) -160px -23px no-repeat;
+    background: url(../img/sprite.png) -160px -50px no-repeat;
 }
 
 .m-product p {
@@ -196,7 +194,7 @@ header nav .search:hover {
 }
 
 .m-scrollbox {
-    width: 1616px;
+    width: 1615px;
     height: 220px;
     text-align: center;
     margin: 0 auto;
@@ -213,30 +211,44 @@ header nav .search:hover {
     background-color: #F8F8F8;
 }
 
-.m-tab .tab {
+.m-tab li {
     display: inline-block;
     width: 200px;
     height: 50px;
     text-align: center;
     line-height: 50px;
     font-size: 20px;
+    color: #21A557;
+    background-color: #FFF;
+    box-shadow: 0 1px 1px 1px #D3D3D3;
+}
+
+.m-tab li.z-ac {
     color: #FFF;
     background-color: #21A557;
 }
 
-.m-course ul {
+.m-tab li:hover {
+    box-shadow: 0 1px 2px 2px #D0D0D0;
+}
+
+.m-coursebox ul {
     width: 980px;
     padding: 20px 0;
     margin-left: -20px;
 }
 
-.m-course ul li {
+.m-coursebox li {
+    position: relative;
     width: 225px;
-    height: 228px;
     line-height: 22px;
     margin: 10px 0 10px 20px;
     background-color: #FFF;
     box-shadow: 0 1px 1px 1px #D3D3D3;
+}
+
+.m-coursebox ul li:hover {
+    box-shadow: 0 1px 2px 2px #D0D0D0;
 }
 
 .m-course img {
@@ -246,48 +258,97 @@ header nav .search:hover {
 }
 
 .m-course h3 {
-    font-size: 12px;
     margin: 0 5px;
 }
 
 .m-course p {
-    font-size: 12px;
-    margin: 0 5px;
+    margin: 0 5px 3px;
     color: #BBB;
 }
 
-.m-course span {
+.m-course .count {
     display: inline-block;
     line-height: 16px;
-    font-size: 9px;
-    padding: 0 3px 0 18px;
-    margin: 5px 0 3px;
-    color: #BBB;
+    font-size: 8px;
+    padding: 0 3px 0 17px;
+    margin: 4px 0;
+    background: url(../img/sprite.png) 3px -16px no-repeat;
     border: 1px solid #BBB;
     border-radius: 2px;
 }
 
 .m-course strong {
-    font-size: 10px;
+    margin-left: 2px;
+    font-weight: 600;
     color: #FF3F00
 }
 
-.m-page li {
+li.m-detail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 480px;
+    padding: 11px;
+    margin: 0;
+    z-index: 1;
+}
+
+.m-detail img {
+    width: 223px;
+    height: 124px;
+    margin: 0 20px 20px 0;
+}
+
+.m-detail h3 {
+    margin: 4px 0 10px;
+    font-size: 17px;
+}
+
+.m-detail .count {
+    border: none;
+    margin: 0;
+}
+
+.m-detail p {
+    color: #989898;
+}
+
+.m-detail .description {
+    clear: both;
+    font-size: 14px;
+    color: #666;
+    margin: 0 -11px -11px;
+    padding: 22px;
+    background-color: #F8F8F8;
+}
+
+.m-pager li {
+    font-size: 14px;
     display: inline-block;
     text-align: center;
     line-height: 20px;
-    margin-left: 7px;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
-.m-page .page {
+.m-pager .page:hover {
+    color: #FFF;
+    background-color: #9DD8B1;
+}
+
+.m-pager .page {
     width: 20px;
     height: 20px;
     color: #8A8A8A
 }
 
-.m-page .prev,
-.m-page .next {
-    font-size: 14px;
+.m-pager .page.z-ac {
+    color: #39A030;
+}
+
+.m-pager .prev,
+.m-pager .next {
+    font-weight: bold;
     width: 30px;
     height: 20px;
     color: #FFF;
@@ -295,54 +356,109 @@ header nav .search:hover {
 }
 
 .m-org,
-.m-rank {
+.m-hot {
     width: 223px;
     box-shadow: 0 1px 1px 1px #D3D3D3;
     background-color: #FFF;
 }
 
+.m-org:hover,
+.m-hot:hover {
+    box-shadow: 0 1px 2px 2px #D0D0D0;
+}
+
 .m-org .videobox,
-.m-rank ul {
+.m-hot ul {
+    position: relative;
     padding: 20px;
 }
 
 .m-org h2,
-.m-rank h2 {
+.m-hot h2 {
     padding: 20px;
     border-bottom: 1px solid #DDD;
 }
 
 .m-org p {
-    margin-bottom: 8px;
+    margin-bottom: 9px;
+    margin-left: 2px;
 }
 
-.m-rank {
+.m-org #video-trigger {
+    margin-left: 2px;
+    margin-right: 1px;
+    cursor: pointer;
+}
+
+.m-org img {
+    width: 180px;
+    height: 110px;
+}
+
+.m-org i {
+    position: absolute;
+    bottom: 54px;
+    left: 89px;
+    width: 46px;
+    height: 46px;
+    background: url(../img/sprite.png) -67px 0px no-repeat;
+}
+
+.m-video {
+    padding: 29px 30px 40px 31px;
+    background-color: #FFF;
+    text-align: left;
+    position: relative;
+    height: 542px;
+}
+
+.m-video span {
+    position: absolute;
+    width: 12px;
+    line-height: 10px;
+    top: 13px;
+    right: 11px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.m-video h2 {
+    font-size: 18px;
+    margin-bottom: 22px;
+}
+
+.m-video video {
+    width: 889px;
+}
+
+.m-hot {
     margin-top: 21px;
 }
 
-.m-rank ul li {
+.m-hot ul li {
     overflow: hidden;
 }
 
-.m-rank ul li+li {
+.m-hot ul li+li {
     margin-top: 20px;
 }
 
-.m-rank ul li img {
+.m-hot ul li img {
     width: 50px;
     height: 50px;
     margin-right: 12px;
 }
 
-.m-rank ul li h3 {
+.m-hot ul li h3 {
     font-size: 14px;
     margin-bottom: 12px;
 }
 
-.m-rank ul li span {
+.m-hot ul li span {
     padding-left: 16px;
     font-size: 9px;
     color: #999;
+    background: url(../img/sprite.png) 3px -17px no-repeat;
 }
 
 footer {
@@ -403,16 +519,6 @@ footer .logo h1 {
 }
 
 .m-login {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    text-align: center;
-}
-
-.m-login form {
     position: relative;
     width: 308px;
     height: 218px;
@@ -509,6 +615,16 @@ footer .logo h1 {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.f-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
 }
 
 

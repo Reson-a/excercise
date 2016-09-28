@@ -1,7 +1,7 @@
 (function(_) {
-    var template = '<div class="m-login">\
+    var template = '<div class="f-mask">\
         <div class="g-align"></div>\
-        <form class="g-align">\
+        <form class="g-align m-login">\
             <span id="login-close">×</span>\
             <h2></h2>\
             <input type="text" id="userName">\
@@ -55,6 +55,8 @@
             addEvent(this.form, 'submit', this._login.bind(this));
             addEvent(this._userName, 'blur', this._userNameValidity.bind(this));
             addEvent(this._password, 'blur', this._passwordValidity.bind(this));
+            addEvent(this._userName, 'focus', this._clearUserNameHint.bind(this));
+            addEvent(this._password, 'focus', this._clearPassWordHint.bind(this));
         },
 
         //关闭登录Modal
@@ -73,6 +75,7 @@
             if (new RegExp(this.pattern.userName).test(this._userName.value)) return true;
             if (this._userName.value === '') this.invalidHint.innerText = '请输入您的账号';
             else this.invalidHint.innerText = '用户名必须为5-12位';
+            this.invalidType = 'userName';
             return false;
         },
 
@@ -81,12 +84,18 @@
             if (new RegExp(this.pattern.password).test(this._password.value)) return true;
             if (this._password.value === '') this.invalidHint.innerText = '请输入您的密码';
             else this.invalidHint.innerText = '密码为6-20位，必须包含字母和数字';
+            this.invalidType = 'password';
             return false;
         },
 
-        //清楚提示文本
-        _clearHint: function() {
-            this.invalidHint.innerText = '';
+        //用户名focus时清除无效提示
+        _clearUserNameHint: function() {
+            if (this.invalidType !== 'password') this.invalidHint.innerText = '';
+        },
+
+        //密码focus时清除无效提示
+        _clearPassWordHint: function() {
+            if (this.invalidType !== 'userName') this.invalidHint.innerText = '';
         },
 
         //获取md5加密参数
@@ -105,6 +114,7 @@
             } else {
                 this.failCallback && this.failCallback();
                 this.invalidHint.innerText = '用户名或密码错误，请重新输入';
+                this.invalidType = 'loginfailed';
                 this.loginbtn.disabled = false; //恢复submit按钮
             }
         },

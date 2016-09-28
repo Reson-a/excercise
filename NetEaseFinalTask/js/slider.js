@@ -35,11 +35,12 @@
             animationName2:animationDuration2,
             ...
         }*/
-        this.animeOptions = this.animeOptions || {
-            fadeOut: 500,
-            fadeIn: 500,
-            moveX: 500,
-        }
+        this.animeOptions = this.animeOptions || { fadeOut: 500, fadeIn: 500, moveX: 500 };
+        this.animeSpeed = { //计算动画播放速度
+            fadeOut: this.animeOptions.fadeOut && (1 / this.animeOptions.fadeOut),
+            fadeIn: this.animeOptions.fadeIn && (1 / this.animeOptions.fadeIn),
+            moveX: this.animeOptions.moveX && (100 / this.showNum / this.animeOptions.moveX)
+        };
 
         //初始化操作        
         if (this.isCursor) this._initCursor();
@@ -95,7 +96,7 @@
             this._moveX(this.slider, -this.offsetAll / this.showNum * 100, function(offsetAll) {
                 if (offsetAll >= this.slidesNum) this._initPos(); //位置重置，避免offsetAll数值过大
                 if (this.isScroll) this.startScroll(); //若为滚动图则在回调中前进到下一页
-                this._onNav(); //更新图片状态
+                this._onNav(true); //更新图片状态
             }.bind(this, this.offsetAll));
         },
 
@@ -112,7 +113,7 @@
         //导航向指定页
         nav: function(index) {
             this.pageIndex = index;
-            this._onNav();
+            this._onNav(true);
         },
 
         //向前一页
@@ -127,24 +128,21 @@
 
         //淡出动画
         _fadeOut: function(node, callback) {
-            var speed = this.animeOptions.fadeOut && (1 / this.animeOptions.fadeOut);
-            _.anime(node, 'opacity', 0, { 'speed': speed, 'callback': callback });
+            _.anime(node, 'opacity', 0, { 'speed': this.animeSpeed.fadeOut, 'callback': callback });
         },
 
         //淡入动画
         _fadeIn: function(node, callback) {
-            var speed = this.animeOptions.fadeIn && (1 / this.animeOptions.fadeIn);
-            _.anime(node, 'opacity', 1, { 'speed': speed, 'callback': callback });
+            _.anime(node, 'opacity', 1, { 'speed': this.animeSpeed.fadeIn, 'callback': callback });
         },
 
         //水平方向单位平移动画
         _moveX: function(node, targetX, callback) {
-            var speed = this.animeOptions.moveX && (100 / this.showNum / this.animeOptions.moveX);
-            _.anime(node, 'left', targetX, { 'speed': speed, 'callback': callback });
+            _.anime(node, 'left', targetX, { 'speed': this.animeSpeed.moveX, 'callback': callback });
         },
 
-        //图片状态的更新
-        _onNav: function() {
+        //图片状态的更新,isFade表示播放淡入淡出效果
+        _onNav: function(isFade) {
             for (var i = 0; i < this.slidesNum; i++) {
                 var img = this.slides[i].querySelector('img'),
                     imgIndex = this._normal(this.pageIndex + this.slides[i].posIndex, this.pageNum),
@@ -162,10 +160,11 @@
                     if (this.links) a.appendChild(img);
                     else this.slides[i].appendChild(img);
                 }
-                //播放淡入淡出效果,相关参数未设置时，实际上是直接执行callback
-                this._fadeOut(img, outCallBack.bind(this, img, newSrc, a, href));
+                //播放淡入淡出效果,否则直接执行callback
+                if (isFade) this._fadeOut(img, outCallBack.bind(this, img, newSrc, a, href));
+                else outCallBack.call(this, img, newSrc, a, href);
             }
-            //淡出回调
+            //淡出回调方法中更新图片
             function outCallBack(img, src, a, href) {
                 img.src = src;
                 if (a) a.href = href;
@@ -188,7 +187,7 @@
         _initCursor: function() {
             this.m_cursor = _.html2node(cursorTemplate);
             this.cursors = [].slice.call(this.m_cursor.querySelectorAll('.cursor'), 0);
-
+            //数量超过3，在模板基础上继续添加cursor
             for (var i = 0; i < this.pageNum; i++) {
                 if (i > 3) {
                     var cursor = document.createElement('li');
@@ -246,57 +245,12 @@
         },
         //停止滚动
         stopScroll: function() {
-            if (this.slider.animeIntervalID) clearInterval(this.slider.animeIntervalID);
+            if (this.slider.animeIntervalID) {
+                clearInterval(this.slider.animeIntervalID);
+                this.slider.animeIntervalID = undefined;
+            }
         }
     });
-
-
-    /*/拖拽
-    _.extend(Slider.prototype, {
-        //初始化拖拽
-        _initDrag: function() {
-            this.dragInfo = {};
-            for (var i = 0; i < this.slidesNum; i++) {
-                this.slides[i].style.transitionDuration = '0s';
-            }
-            addEvent(this.slider, 'mousedown', this._dragStart.bind(this));
-            addEvent(this.slider, 'mousemove', this._dragMove.bind(this));
-            addEvent(this.slider, 'mouseup', this._dragEnd.bind(this));
-            addEvent(this.slider, 'mouseleave', this._dragEnd.bind(this));
-        },
-
-        _dragStart: function(event) {
-            this.dragInfo.start = { x: event.pageX };
-            event.preventDefault();
-            return false;
-        },
-
-        _dragMove: function(event) {
-            if (!this.dragInfo.start) return;
-            event.preventDefault();
-            this._clearSelection();
-
-            this.offsetX = event.pageX - this.dragInfo.start.x;
-
-            for (var i = 0; i < this.slidesNum; i++) {
-                this.slides[i].style.transitionDuration = '0s';
-                this.slides[i].style.left = (this.slides[i].posIndex + this.offsetX / this.slides[i].firstChild.width) * 100 + '%';
-            }
-            return false;
-        },
-
-        _dragEnd: function(event) {
-            if (!this.dragInfo.start) return;
-            this.dragInfo = {};
-            event.preventDefault();
-
-            if (this.offsetX > this.breakPoint) this._step(-1);
-            else if (this.offsetX < -this.breakPoint) this._step(1);
-            else this._step(0);
-            return false;
-        }
-
-    });*/
 
     //暴露到全局
     window.Slider = Slider;

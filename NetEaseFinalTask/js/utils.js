@@ -13,6 +13,7 @@ function $(selector) {
     else return elements;
 }
 
+//函数bind方法兼容
 Function.prototype.bind = Function.prototype.bind || function(arg) {
     var method = this,
         obj = arguments[0],
@@ -20,21 +21,18 @@ Function.prototype.bind = Function.prototype.bind || function(arg) {
     return function() { method.apply(obj, args) };
 };
 
-
-/*/XHR兼容
-window.XMLHttpRequest = window.XMLHttpRequest || function () {
-    var version = [
-        "MSXML2.XMLHttp.6.0",
-        "MSXML2.XMLHttp.3.0",
-        "MSXML2.XMLHttp"
-    ];
-    for (var i = 0; version.length; i++) {
-        try {
-            return new ActiveXObject(version[i]);
-        } catch (e) { }
+//数组slice方法兼容
+Array.prototype.slice = Array.prototype.slice || function(start, end) {
+    var l = this.length,
+        result = [];
+    if (start < 0) start += l;
+    if (end && end < 0) end += l;
+    else end = l;
+    for (var i = start; i < end; i++) {
+        result.push(this[i]);
     }
-    throw new Error("您的系统或浏览器不支持XHR对象！");
-}*/
+    return result;
+}
 
 //ajax get方法
 function get(url, options, callback) {
@@ -42,7 +40,7 @@ function get(url, options, callback) {
     xhr.onreadystatechange = function(event) {
         if (xhr.readyState == 4) {
             if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
-            else alert('Request was unsuccessful:' + xhr.status);
+            //else alert('Request was unsuccessful:' + xhr.status);
         }
     }
     xhr.open('get', url + '?' + serialize(options), true);
@@ -55,7 +53,7 @@ function post(url, options, callback) {
     xhr.onreadystatechange = function(event) {
         if (xhr.readyState == 4) {
             if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
-            else alert('Request was unsuccessful:' + xhr.status);
+            //else alert('Request was unsuccessful:' + xhr.status);
         }
     }
     xhr.open('post', url, true);
@@ -119,7 +117,7 @@ function getCookies() {
 
 //删除Cookie
 function removeCookie(name, path, domain) {
-    document.cookie = 'name=' + name + '; path=' + path + '; domain=' + domain + '; max-age=0';
+    setCookie(name, '', new Date(), path, domain);
 }
 
 //封装的工具，避免全局变量污染
@@ -138,11 +136,20 @@ var utils = function() {
             node.className = (" " + cur + " ").replace(" " + className + " ", " ").trim();
         },
 
-        //扩展原型的方法 mixin模式
+        //扩展原型的方法 
         extend: function(o1, o2) {
             for (var i in o2) {
                 if (o1[i] === undefined) o1[i] = o2[i];
             }
+            return o1;
+        },
+
+        //改写原型的方法,即只修改原型里已有的属性，不知道有没有标准叫法自己随便起的名
+        rewrite: function(o1, o2) {
+            for (var i in o1) {
+                if (o2[i] !== undefined) o1[i] = o2[i];
+            }
+            return o1;
         },
 
         //添加自定义监听事件
@@ -229,7 +236,8 @@ var utils = function() {
             var currentValue = _prop.getValue,
                 offset = targetValue - currentValue,
                 dir = offset > 0 ? 1 : (offset < 0 ? -1 : 0); //表示数值变化方向
-            node.animeIntervalID = undefined;
+            if (!speed) endAnime(); //speed不存在动画直接播放完成
+            if (node.animeIntervalID) return; // 防止多次触发
 
             function anime() {
                 currentValue = currentValue + dir * speed * 1000 / frameRate;
@@ -239,14 +247,13 @@ var utils = function() {
 
             function endAnime() {
                 if (node.animeIntervalID) clearInterval(node.animeIntervalID);
+                node.animeIntervalID = undefined;
                 _prop.setValue(targetValue);
                 callback && callback();
+                return;
             }
 
-            (function startAnime() {
-                if (!speed) endAnime(); //speed不存在动画直接播放至终点
-                else node.animeIntervalID = setInterval(anime, 1000 / frameRate); //id注册在node上方便外部操作直接删除
-            }());
+            node.animeIntervalID = setInterval(anime, 1000 / frameRate); //id注册在node上方便外部操作直接删除            
         },
     }
 }();
