@@ -8,7 +8,7 @@ function addEvent(node, event, handler) {
 
 //全局下的类选择器，如果只有一个元素则返回该元素，
 function $(selector) {
-    var elements = [].slice.call(document.querySelectorAll(selector), 0);
+    var elements = [].concat.apply([], document.querySelectorAll(selector)); //兼容IE8的写法 slice.call方法不兼容
     if (elements.length === 1) return elements[0];
     else return elements;
 }
@@ -17,8 +17,10 @@ function $(selector) {
 Function.prototype.bind = Function.prototype.bind || function(arg) {
     var method = this,
         obj = arguments[0],
-        args = arguments.slice(1);
-    return function() { method.apply(obj, args) };
+        args = [].slice.call(arguments, 1);
+    return function() {
+        method.apply(obj, [].concat.apply(args, arguments));
+    };
 };
 
 //数组slice方法兼容
@@ -33,6 +35,10 @@ Array.prototype.slice = Array.prototype.slice || function(start, end) {
     }
     return result;
 }
+
+String.prototype.trim = String.prototype.trim || function() {
+    return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+};
 
 //ajax get方法
 function get(url, options, callback) {
@@ -218,13 +224,21 @@ var utils = function() {
             function propFactory(node, prop) {
                 switch (prop) {
                     case 'opacity':
-                        this.getValue = node.style[prop] = targetValue ? 0 : 1;
+                        this.getValue = function() {
+                            var value = targetValue ? 0 : 1;
+                            if (prop in node.style) node.style[prop] = value;
+                            else node.style.filter = 'alpha(opacity=' + 100 * value + ')'; //兼容ie8
+                            return value;
+                        }
                         this.setValue = function(value) {
-                            node.style[prop] = value + '';
+                            if (prop in node.style) node.style[prop] = value + '';
+                            else node.style.filter = 'alpha(opacity=' + 100 * value + ')';
                         }
                         return;
                     case 'left':
-                        this.getValue = node.style[prop] === '' ? 0 : parseFloat(node.style[prop].slice(0, -1));
+                        this.getValue = function() {
+                            return node.style[prop] === '' ? 0 : parseFloat(node.style[prop].slice(0, -1));
+                        }
                         this.setValue = function(value) {
                             node.style[prop] = value + '%';
                         }
@@ -233,7 +247,7 @@ var utils = function() {
             }
 
             var _prop = new propFactory(node, prop);
-            var currentValue = _prop.getValue,
+            var currentValue = _prop.getValue(),
                 offset = targetValue - currentValue,
                 dir = offset > 0 ? 1 : (offset < 0 ? -1 : 0); //表示数值变化方向
             if (!speed) endAnime(); //speed不存在动画直接播放完成
@@ -253,7 +267,7 @@ var utils = function() {
                 return;
             }
 
-            node.animeIntervalID = setInterval(anime, 1000 / frameRate); //id注册在node上方便外部操作直接删除            
+            if (speed) node.animeIntervalID = setInterval(anime, 1000 / frameRate); //id注册在node上方便外部操作直接删除   
         },
     }
 }();

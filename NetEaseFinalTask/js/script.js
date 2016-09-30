@@ -2,11 +2,11 @@
 if (!getCookies().topbar) {
     var topbar = new Topbar({
         content: '网易云课堂微专业，帮助你掌握专业技能，令你求职或加薪多一份独特优势！',
-        href: "#"
+        href: "http://study.163.com/smartSpec/intro.htm#/smartSpecIntro"
     });
 
     //注册自定义事件。关闭同时设置cookie
-    topbar.on('ignore', function () {
+    topbar.on('ignore', function() {
         setCookie('topbar', true, getFutureDate(7)); //设置cookie 7天后过期
     });
 }
@@ -68,12 +68,12 @@ function popLogin() {
     }
 }
 
-addEvent(followBtn, 'click', function () {
+addEvent(followBtn, 'click', function() {
     if (!getCookies().loginSuc) popLogin();
     else follow();
 });
 
-addEvent(unfollow, 'click', function () {
+addEvent(unfollow, 'click', function() {
     removeCookie('followSuc');
     notFollowed();
 });
@@ -131,15 +131,13 @@ function popVideo() {
 var tabContainer = $('.m-tabbox');
 var courseContainer = $('.m-coursebox ul');
 var pageSize = 20; //每页课程的数量
+var pageMaxSize = 20;
 var typeList = ['10', '20']; //产品设计类型为10 编程语言20
 var typeIndex = 0; //初始状态为产品设计
-var pageIndex = 1; //当前页码
+var pageIndex = 0; //当前页码
 var courseList = []; //课程列表
 var detailCourseList = []; //课程详细信息列表
-var courseDataList = [
-    [],
-    []
-];
+
 
 
 //获取课程数据，每次点击时触发，防止一次性请求数据量过大
@@ -148,12 +146,8 @@ function getCourse(pageNo, psize, typeIndex) {
     function courseCallback(responseText) {
         var data = JSON.parse(responseText);
         var newCourseData = [].slice.call(data.list);
-        var start = pageNo * psize;
-        for (var i = 0; i < psize; i++) {
-            courseDataList[typeIndex][start + i] = newCourseData[i]
-        }
-        addCourse(pageNo, psize, typeIndex);
-        if (!pageNo) createPager(data.totalPage);
+        addCourse(pageNo, pageSize, typeIndex, newCourseData);
+        createPager(pageNo, data.totalPage);
     }
     get('http://study.163.com/webDev/couresByCategory.htm', {
         pageNo: pageNo + 1,
@@ -163,10 +157,9 @@ function getCourse(pageNo, psize, typeIndex) {
 }
 
 //添加课程的方法
-function addCourse(pageNo, psize, typeIndex) {
-    var start = pageNo * psize;
-    for (var i = 0; i < psize; i++) {
-        var options = courseDataList[typeIndex][start + i];
+function addCourse(pageNo, psize, typeIndex, data) {
+    for (var i = 0; i < pageMaxSize; i++) {
+        var options = data[i];
         var course = courseList[i];
         var detailCourse = detailCourseList[i];
         if (!course) { //课程不存在则添加课程
@@ -185,7 +178,6 @@ function addCourse(pageNo, psize, typeIndex) {
             utils.rewrite(detailCourse.contentOptions, options); //浮动层操作
             detailCourse.init();
         }
-
     }
 }
 
@@ -257,12 +249,13 @@ function tabClick(index) {
     //更新数据状态,切换后回到初始页
     pageIndex = 0;
     typeIndex = index;
-    //如果数据不存在，则发起数据请求
+    /*/如果数据不存在，则发起数据请求
     if (!courseDataList[index].length) getCourse(pageIndex, pageSize, typeIndex);
     else {
         pager.click(0);
         addCourse(pageIndex, pageSize, typeIndex);
-    }
+    }*/
+    getCourse(pageIndex, pageSize, typeIndex);
 }
 
 var tab = new Tab({
@@ -272,8 +265,54 @@ var tab = new Tab({
     tabOptions: ['产品设计', '编程语言']
 });
 
+checkSize();
 tab.on('tabClick', tabClick);
 tab.emit('tabClick', 0);
+
+
+
+
+var pagerContainer = $('.m-pagerbox');
+
+function createPager(pageIndex, totalNum) {
+    pagerContainer.innerText = '';
+    var pager = new Pager({
+        container: pagerContainer,
+        pageIndex: pageIndex,
+        pageNum: totalNum,
+        showNum: 8
+    });
+    window.pager = pager;
+    pager.on('pageClick', pageClick);
+}
+
+function pageClick(index) {
+    //更新数据状态,切换后回到初始页
+    pageIndex = index;
+    //发送数据请求:网页大小Resize情况下获取的数据size不统一，无法通过简单的判断在本地验证所需数据是否全部存在，因此这里统一重新发送请求
+    getCourse(pageIndex, pageSize, typeIndex);
+}
+
+
+
+window.onresize = function() {
+    if (checkSize()) {
+        getCourse(pageIndex, pageSize, typeIndex);
+    }
+}
+
+function checkSize() {
+    changed = false; //布局是否发生变化,如果未发生变化不会执行后续函数
+    var checkWidth = window.innerWidth || document.body.offsetWidth; //优先使用innerwidth(与@media中值相等) 没有则使用offsetWidth代替（会有一个滚动条宽度的误差）
+    if (parseFloat(checkWidth) >= 1205) {
+        if (pageSize == 15) changed = true;
+        pageSize = 20;
+    } else {
+        if (pageSize == 20) changed = true;
+        pageSize = 15;
+    }
+    return changed;
+}
 
 
 //课程数据列表
@@ -288,20 +327,18 @@ var hotDataList = [];
 function getHot() {
     //回调方法
     function hotCallback(responseText) {
-        var newHotData = [].slice.call(JSON.parse(responseText));
-        hotDataList = hotDataList.concat(newHotData);
-        addHot(hotIndex, hotSize, 0);
+        hotDataList = [].slice.call(JSON.parse(responseText));
+        addHot(hotIndex, hotSize, 0, hotDataList);
     }
     get('http://study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
 }
 
 
-function addHot(pageNo, psize, index) {
-    var start = pageNo * psize + index;
+function addHot(pageNo, psize, startIndex, data) {
     for (var i = 0; i < psize; i++) {
-        var index = start + i;
-        if (index >= hotDataList.length) index -= hotDataList.length;
-        var options = hotDataList[index];
+        var index = startIndex + i;
+        if (index >= data.length) index -= data.length;
+        var options = data[index];
         var hot = hotList[i];
         if (!hot) { //课程不存在则添加课程
             var hot = createHot();
@@ -332,29 +369,6 @@ function createHot() {
 }
 getHot();
 
-var pagerContainer = $('.m-pagerbox');
-
-
-
-function createPager(totalNum) {
-    pagerContainer.innerText = '';
-    var pager = new Pager({
-        container: pagerContainer,
-        pageNum: totalNum,
-        showNum: 8
-    });
-    window.pager = pager;
-    pager.on('pageClick', pageClick)
-
-    function pageClick(index) {
-        //更新数据状态,切换后回到初始页
-        pageIndex = index;
-        //如果数据不存在，则发起数据请求
-        if (courseDataList[typeIndex][index * pageSize] === undefined) getCourse(pageIndex, pageSize, typeIndex);
-        else addCourse(pageIndex, pageSize, typeIndex);
-    }
-}
-
 function updateHot() {
     var index = 0;
     setInterval(showNewHot, 5000);
@@ -362,7 +376,7 @@ function updateHot() {
     function showNewHot() {
         index++;
         if (index == 20) index = 0;
-        addHot(0, 10, index);
+        addHot(0, 10, index, hotDataList);
     }
 }
 updateHot();

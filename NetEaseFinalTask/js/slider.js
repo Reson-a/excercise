@@ -24,8 +24,7 @@
 
         this._initLayout();
         this.slider = this._layout.cloneNode(true);
-        this.slides = [].slice.call(this.slider.querySelectorAll('.slide'), 0);
-
+        this.slides = [].concat.apply([], this.slider.querySelectorAll('.slide')); //兼容IE8的写法
         this.container.appendChild(this.slider);
 
 
@@ -186,7 +185,7 @@
         //初始化cursor
         _initCursor: function() {
             this.m_cursor = _.html2node(cursorTemplate);
-            this.cursors = [].slice.call(this.m_cursor.querySelectorAll('.cursor'), 0);
+            this.cursors = [].concat.apply([], this.m_cursor.querySelectorAll('.cursor'));
             //数量超过3，在模板基础上继续添加cursor
             for (var i = 0; i < this.pageNum; i++) {
                 if (i > 3) {

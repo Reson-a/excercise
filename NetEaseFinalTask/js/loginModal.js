@@ -121,13 +121,14 @@
 
         //提交事件
         _login: function(event) {
-            event.preventDefault(); //取消表单默认提交
+            event = event || window.event;
+            if (event.preventDefault) event.preventDefault(); //取消表单默认提交
+            else event.returnValue = false;
             if (this._userNameValidity() && this._passwordValidity()) { //表单验证通过即发送ajax请求
                 this.loginbtn.disabled = true; //禁用按钮防止重复提交
                 if (this.form.method === 'post') post(this.form.action, this._getOptions(), this._callback.bind(this));
                 else get(this.form.action, this._getOptions(), this._callback.bind(this)); //默认为get提交方式
             }
-            return false;
         }
     });
 

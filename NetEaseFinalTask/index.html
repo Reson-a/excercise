@@ -17,15 +17,15 @@
 <body>
     <!-- 顶部通知条-->
     <!-- 头部-->
-    <header class="clearfix g-wrap ">
+    <header class="clearfix g-wrap">
         <!-- LOGO -->
         <div class="logo f-fl">
             <h1>网易教育产品部</h1>
         </div>
         <!-- 关注按钮 -->
         <div class="m-follow f-fl">
-            <button type="button" class="u-btn f-fl" id="btn-follow">关注</button>
-            <button type="button" class="u-btn f-fl" id="btn-unfollow">已关注<span class="f-sp"> | </span><span class="s-link" id="unfollow">取消</span></button>
+            <div class="u-btn f-fl" id="btn-follow">关注</div>
+            <div class="u-btn f-fl" id="btn-unfollow">已关注<span class="f-sp"> | </span><span class="s-link" id="unfollow">取消</span></div>
             <p class="f-fl">粉丝<span> 45</span></p>
         </div>
         <!-- 导航栏 -->
@@ -39,35 +39,38 @@
     <!-- 主体上部 -->
     <section class="g-bdtop">
         <!--滑动条-->
-        <div class="m-sliderbox">
+        <div class="m-sliderbox g-max">
         </div>
         <!-- 产品介绍-->
-        <div class="m-product g-wrap clearfix">
-            <div class="f-fl">
-                <div class="f-fl icon open"></div>
-                <h1>网易公开课</h1>
-                <p>推出国内外名校公开课，涉及广泛的学科，名校老师认真讲解深度剖析，网易视频公开课频道搭建起强有力的网络视频教学平台。
-                    <br><br><a href="http://open.163.com/" target="_blank" title="网易公开课" class="s-link">了解更多&gt;</a>
-                </p>
-            </div>
-            <div class="f-fl">
-                <div class="f-fl icon study"></div>
-                <h1>云课堂</h1>
-                <p>网易旗下大型在线学习平台，该平台面向学习者提供海量免费、优质课程，创新的个性化学习体验，自由开放的交流互动环境。
-                    <br><br><a href="http://study.163.com/" target="_blank" title="网易云课堂" class="s-link">了解更多&gt;</a>
-                </p>
-            </div>
-            <div class="f-fl">
-                <div class="f-fl icon icourse"></div>
-                <h1>中国大学MOOC</h1>
-                <p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人，都可以在这里学习中国最好的大学课程，学完还能获得认证证书。
-                    <br><br><a href="http://www.icourse163.org/" target="_blank" title="中国大学MOOC" class="s-link">了解更多&gt;</a>
-                </p>
+        <div class="m-productbox g-wrap">
+            <div class="m-product clearfix">
+                <div class="f-fl">
+                    <div class="f-fl icon open"></div>
+                    <h1>网易公开课</h1>
+                    <p>推出国内外名校公开课，涉及广泛的学科，名校老师认真讲解深度剖析，网易视频公开课频道搭建起强有力的网络视频教学平台。
+                        <br><br><a href="http://open.163.com/" target="_blank" title="网易公开课" class="s-link">了解更多&gt;</a>
+                    </p>
+                </div>
+                <div class="f-fl">
+                    <div class="f-fl icon study"></div>
+                    <h1>云课堂</h1>
+                    <p>网易旗下大型在线学习平台，该平台面向学习者提供海量免费、优质课程，创新的个性化学习体验，自由开放的交流互动环境。
+                        <br><br><a href="http://study.163.com/" target="_blank" title="网易云课堂" class="s-link">了解更多&gt;</a>
+                    </p>
+                </div>
+                <div class="f-fl">
+                    <div class="f-fl icon icourse"></div>
+                    <h1>中国大学MOOC</h1>
+                    <p>是爱课程网携手云课堂打造的在线学习平台，每一个有提升愿望的人，都可以在这里学习中国最好的大学课程，学完还能获得认证证书。
+                        <br><br><a href="http://www.icourse163.org/" target="_blank" title="中国大学MOOC" class="s-link">了解更多&gt;</a>
+                    </p>
+                </div>
             </div>
         </div>
-
         <!-- 工作环境 -->
-        <div class="m-scrollbox">
+        <div class="m-scrollwrapper g-max">
+            <div class="m-scrollbox g-max">
+            </div>
         </div>
     </section>
     <!-- 主体下部 -->
@@ -75,12 +78,12 @@
         <!-- 主栏 -->
         <div class="g-wrap clearfix">
 
-            <article class="f-fl">
+            <article class="f-fl clearfix">
                 <!-- tab切换 -->
-                <div class="m-tabbox">
+                <div class="m-tabbox f-fl">
                 </div>
                 <!-- 课程列表 -->
-                <div class="m-coursebox">
+                <div class="m-coursebox f-fl">
                     <ul class="clearfix">
                     </ul>
                 </div>
@@ -124,31 +127,31 @@
                 </div>
             </div>
             <!-- 尾部右侧 -->
-            <div class="g-ftrt f-fl clearfix">
+            <div class="g-ftrt f-fr clearfix">
                 <!-- 友情链接 -->
                 <div class="link f-fl">
                     <p>友情链接：</p>
                     <ul>
-                        <li><a href="">网易公开课</a></li>
-                        <li><a href="">网易云课堂</a></li>
-                        <li><a href="">中国大学MOOC</a></li>
+                        <li><a href="http://open.163.com/" target="_blank" title="网易公开课">网易公开课</a></li>
+                        <li><a href="http://study.163.com/" target="_blank" title="网易云课堂">网易云课堂</a></li>
+                        <li><a href="http://www.icourse163.org/" target="_blank" title="中国大学MOOC">中国大学MOOC</a></li>
                     </ul>
                 </div>
                 <!-- 我们 -->
                 <div class="about f-fl">
                     <p>我们：</p>
                     <ul>
-                        <li><a href="">关于</a></li>
-                        <li><a href="">联系</a></li>
-                        <li><a href="">关注<i class="microblog"></i></a></li>
+                        <li><a href="#" target="_blank" title="关于">关于</a></li>
+                        <li><a href="#" target="_blank" title="联系">联系</a></li>
+                        <li><a href="#" target="_blank" title="关注">关注<i class="microblog"></i></a></li>
                     </ul>
                 </div>
                 <!-- 更多 -->
                 <div class="more f-fl">
                     <p>更多：</p>
                     <ul>
-                        <li><a href="">常见问题</a></li>
-                        <li><a href="">意见反馈</a></li>
+                        <li><a href="#" target="_blank" title="常见问题">常见问题</a></li>
+                        <li><a href="#" target="_blank" title="意见反馈">意见反馈</a></li>
                     </ul>
                 </div>
             </div>
