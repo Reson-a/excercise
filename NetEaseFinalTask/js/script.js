@@ -34,7 +34,7 @@ function notFollowed() {
 
 //关注功能
 function follow() {
-    get('http://study.163.com/webDev/attention.htm', null, followCallback);
+    get('//study.163.com/webDev/attention.htm', null, followCallback);
     //关注成功回调
     function followCallback(responseText) {
         if (responseText == 1) {
@@ -48,7 +48,7 @@ function follow() {
 function popLogin() {
     //弹出登录Modal
     var loginModal = new LoginModal({
-        action: 'http://study.163.com/webDev/login.htm',
+        action: '//study.163.com/webDev/login.htm',
         method: 'get',
         titleName: '登录网易云课堂',
         placeholder: {
@@ -149,7 +149,7 @@ function getCourse(pageNo, psize, typeIndex) {
         addCourse(pageNo, pageSize, typeIndex, newCourseData);
         createPager(pageNo, data.totalPage);
     }
-    get('http://study.163.com/webDev/couresByCategory.htm', {
+    get('//study.163.com/webDev/couresByCategory.htm', {
         pageNo: pageNo + 1,
         psize: psize,
         type: typeList[typeIndex]
@@ -330,7 +330,7 @@ function getHot() {
         hotDataList = [].slice.call(JSON.parse(responseText));
         addHot(hotIndex, hotSize, 0, hotDataList);
     }
-    get('http://study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
+    get('//study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
 }
 
 
