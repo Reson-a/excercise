@@ -1,14 +1,16 @@
-//Created by Reson-a on 2016/9/6. slider组件脚本
-//学习借鉴自波神的slider组件,出于大作业中复用性的考虑添加对多张图片同时滑动展示的支持
-//滑动及淡入淡出效果均未使用CSS3，纯js实现。兼容至IE8，默认为线性变化函数，其它效果需自行实现
+//学习借鉴自波神的slider组件,出于大作业中复用性的考虑添加对多张图片同时横向滚动展示的支持
+//滑动及淡入淡出效果均未使用CSS3，纯js实现。兼容IE8，只实现了默认变化函数linear，有其他需求请在工具类中的anime函数中添加
 
 (function(_) {
+
+    //slider模板
     var sliderTemplate = '<div class="m-slider">\
         <div class="slide"></div>\
         <div class="slide"></div>\
         <div class="slide"></div>\
         </div>';
 
+    //cursor模板    
     var cursorTemplate = '<ul class="m-cursor"><li class="cursor"></li><li class="cursor"></li><li class="cursor"></li></ul>';
 
     function Slider(options) {
@@ -16,46 +18,41 @@
         this.container = this.container || document.body;
         this.container.style.overflow = 'hidden';
 
+        //内部数据结构
         this.pageNum = this.images.length; //图片总数
         this.showNum = this.showNum || 1; //同时展示图片数目
         this.slidesNum = this.showNum + 2; //滑动条数目，   
-        this.pageIndex = this.pageIndex || (this.slidesNum % 2 ? 0 : -0.5); //初始页码，页码为偶数时第一页从-0.5开始
+        this.pageIndex = this.pageIndex || (this.slidesNum % 2 ? 0 : -0.5); //初始页码，页码为偶数时第一页默认从-0.5开始
+        this.offsetAll = 0; //slider初始偏移
         this.offsetCenter = (this.slidesNum - 1) / 2; //中心偏移量，用于计算两端的index值
 
+        //获取相关节点
         this._initLayout();
         this.slider = this._layout.cloneNode(true);
         this.slides = [].concat.apply([], this.slider.querySelectorAll('.slide')); //兼容IE8的写法
-        this.container.appendChild(this.slider);
 
-
-        /*动画参数配置,此处为统一配置,若想控制在特定条件下播放特定动画，在调用动画函数时添加判断即可
-        animeOptions:{
-            animationName1:animationDuration1,//时间以毫秒为单位
-            animationName2:animationDuration2,
-            ...
-        }*/
-        this.animeOptions = this.animeOptions || { fadeOut: 500, fadeIn: 500, moveX: 500 };
-        this.animeSpeed = { //计算动画播放速度
+        //动画参数配置,此处为统一配置,若想控制在特定条件下播放特定动画，在对应动画函数出添加判断即可
+        this.animeOptions = this.animeOptions || { fadeOut: 500, fadeIn: 500 };
+        this.animeSpeed = { //计算动画对应播放速度
             fadeOut: this.animeOptions.fadeOut && (1 / this.animeOptions.fadeOut),
             fadeIn: this.animeOptions.fadeIn && (1 / this.animeOptions.fadeIn),
             moveX: this.animeOptions.moveX && (100 / this.showNum / this.animeOptions.moveX)
         };
 
-        //初始化操作        
+        //初始化操作
+        this.container.appendChild(this.slider);
         if (this.isCursor) this._initCursor();
-        if (this.isDrag) this._initDrag();
-        this._initPos();
         if (this.isScroll) this._initScroll(); //滚动图
         else if (this.isAutoPlay) { //定时播放
             this.autoPlayTime = this.autoPlayTime === undefined ? 5000 : this.autoPlayTime;
             this._initAutoPlay();
         }
+        this._initPos();
 
         //清除选区
         addEvent(this.container, 'mousemove', _.clearSelection);
-    };
+    }
 
-    _.extend(Slider.prototype, _.emitter);
 
     _.extend(Slider.prototype, {
         //节点初始化
@@ -81,7 +78,7 @@
 
         //单步移动 n取值为-1到1,必须在初始化后调用  
         _step: function(n) {
-            //判断只有先前移动完成后才会更新数据状态
+            //判断只有先前移动完成后才会更新数据状态，否则继续移动到先前目标位置
             var leftPos = parseFloat(this.slider.style.left.slice(0, -1));
             if (Math.abs(this.offsetAll / this.showNum * 100) <= Math.abs(leftPos)) {
                 //更新偏移量
@@ -95,7 +92,7 @@
             this._moveX(this.slider, -this.offsetAll / this.showNum * 100, function(offsetAll) {
                 if (offsetAll >= this.slidesNum) this._initPos(); //位置重置，避免offsetAll数值过大
                 if (this.isScroll) this.startScroll(); //若为滚动图则在回调中前进到下一页
-                this._onNav(true); //更新图片状态
+                this._onNav(); //更新图片状态,true表示有fade效果
             }.bind(this, this.offsetAll));
         },
 
@@ -112,7 +109,7 @@
         //导航向指定页
         nav: function(index) {
             this.pageIndex = index;
-            this._onNav(true);
+            this._onNav();
         },
 
         //向前一页
@@ -140,9 +137,10 @@
             _.anime(node, 'left', targetX, { 'speed': this.animeSpeed.moveX, 'callback': callback });
         },
 
-        //图片状态的更新,isFade表示播放淡入淡出效果
-        _onNav: function(isFade) {
+        //图片状态的更新
+        _onNav: function() {
             for (var i = 0; i < this.slidesNum; i++) {
+                //取得节点和相关属性
                 var img = this.slides[i].querySelector('img'),
                     imgIndex = this._normal(this.pageIndex + this.slides[i].posIndex, this.pageNum),
                     newSrc = this.images[imgIndex],
@@ -159,16 +157,17 @@
                     if (this.links) a.appendChild(img);
                     else this.slides[i].appendChild(img);
                 }
-                //播放淡入淡出效果,否则直接执行callback
-                if (isFade) this._fadeOut(img, outCallBack.bind(this, img, newSrc, a, href));
-                else outCallBack.call(this, img, newSrc, a, href);
+                //播放淡入淡出效果,相关参数不存在时相当于直接执行callback
+                this._fadeOut(img, outCallBack.bind(this, img, newSrc, a, href));
             }
-            //淡出回调方法中更新图片
+
+            //在淡出回调方法中更新图片
             function outCallBack(img, src, a, href) {
                 img.src = src;
                 if (a) a.href = href;
                 this._fadeIn(img);
             }
+
             //更新cursor
             if (this.isCursor) this._upDateCursor();
         },
@@ -197,6 +196,7 @@
                 addEvent(this.cursors[i], 'click', this.nav.bind(this, i));
             }
 
+            //添加到节点
             this.container.appendChild(this.m_cursor);
         },
 
@@ -211,37 +211,42 @@
 
     //自动播放
     _.extend(Slider.prototype, {
-        //自动轮播初始化
+        //自动轮播初始化，添加监听事件
         _initAutoPlay: function() {
-            addEvent(this.container, 'mouseout', this.setAutoPlay.bind(this));
-            addEvent(this.container, 'mouseover', this.clearAutoPlay.bind(this));
+            addEvent(this.container, 'mouseleave', this.setAutoPlay.bind(this));
+            addEvent(this.container, 'mouseenter', this.clearAutoPlay.bind(this));
             this.setAutoPlay();
         },
+
         //设置自动轮播
         setAutoPlay: function() {
             this.clearAutoPlay();
             this.intervalID = setInterval(this.next.bind(this), this.autoPlayTime);
         },
+
         //清除自动轮播
         clearAutoPlay: function() {
             if (this.intervalID) clearInterval(this.intervalID);
+            this.intervalID = undefined;
         }
     });
 
 
     //滚动播放模式
     _.extend(Slider.prototype, {
-        //滚动初始化
+        //滚动初始化，添加监听事件
         _initScroll: function() {
-            addEvent(this.container, 'mouseout', this.startScroll.bind(this));
-            addEvent(this.container, 'mouseover', this.stopScroll.bind(this));
+            addEvent(this.container, 'mouseleave', this.startScroll.bind(this));
+            addEvent(this.container, 'mouseenter', this.stopScroll.bind(this));
             this.startScroll();
         },
+
         //开始滚动
         startScroll: function() {
             this.stopScroll();
             this.next();
         },
+
         //停止滚动
         stopScroll: function() {
             if (this.slider.animeIntervalID) {

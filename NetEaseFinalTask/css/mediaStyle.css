@@ -1,0 +1,32 @@
+/*ie8时引入,兼容媒体查询*/
+
+html,
+body {
+    min-width: 1205px;
+}
+
+.g-wrap {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.g-bd2 article {
+    width: 715px;
+}
+
+footer .g-ftlt {
+    margin-left: 0;
+}
+
+footer .g-ftrt {
+    margin-right: 0;
+}
+
+.m-sliderbox {
+    width: 1205px;
+    height: 336px;
+}
+
+.m-scrollwrapper {
+    width: 1205px;
+}

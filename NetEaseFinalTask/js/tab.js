@@ -1,4 +1,6 @@
+//tab组件
 (function(_) {
+
     var template = '<ul class="m-tab">\
                         <li class="tab"></li><li> class="tab"</li>\
                     </ul>';
@@ -6,18 +8,19 @@
     function Tab(options) {
         if (options) _.extend(this, options);
 
+        //获取相关节点
+        this.container = this.container || document.body;
         this.tab = this._layout.cloneNode(true);
         this.tabItems = this.tab.querySelectorAll('li');
 
-        this.container = this.container || document.body;
         this.tabNum = this.tabNum || 2; //tab数目
         this.tabIndex = this.tabIndex || 0; //初始为选中状态的tab
-        this.tabOptions = this.tabOptions || ['tab1', 'tab2'];
+        this.tabOptions = this.tabOptions || ['tab1', 'tab2']; //tab名称
 
         this._init();
         this.container.appendChild(this.tab);
 
-    };
+    }
     _.extend(Tab.prototype, _.emitter);
     _.extend(Tab.prototype, {
         //模板转换为节点
@@ -47,7 +50,10 @@
 
         //点击事件
         _click: function(index) {
+            //触发自定义事件
             this.emit('tabClick', index);
+
+            //更新激活状态
             for (var i = 0; i < this.tabNum; i++) {
                 if (index === i) _.addClass(this.tabItems[i], 'z-ac');
                 else _.delClass(this.tabItems[i], 'z-ac');
@@ -58,4 +64,4 @@
     //暴露到全局
     window.Tab = Tab;
 
-}(utils))
+}(utils));
