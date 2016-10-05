@@ -1,6 +1,7 @@
 # works
  
-网易云课堂前端工程师微专业大作业（注释版）
+网易云课堂前端工程师微专业大作业（注释版）https://reson-a.github.io/works/NetEaseFinalTask/index.html
+
 原生js纯手写，兼容至ie8,除圆角阴影渐变外完全实现需求（包括transition动画,placeholder及响应布局等）
 尝试着进行组件式开发，致力于提升复用性和便于后期维护
 使用工具:vscode + gulp 
