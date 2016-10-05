@@ -122,8 +122,10 @@ header nav a:hover {
 }
 
 header nav .search {
+    display: inline-block;
     width: 19px;
     height: 19px;
+    vertical-align: bottom;
     margin: 0;
     background: url(../img/sprite.png) -243px -64px no-repeat;
 }

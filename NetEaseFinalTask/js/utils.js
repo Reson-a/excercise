@@ -44,116 +44,111 @@ String.prototype.trim = String.prototype.trim || function() {
 
 
 
-//ajax工具类
-var ajaxUtils = (function() {
-
-    //ajax get方法
-    function get(url, options, callback) {
-        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        xhr.onreadystatechange = function(event) {
-            if (xhr.readyState == 4) {
-                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
-            }
-        };
-        xhr.open('get', url + '?' + serialize(options), true);
-        xhr.send(null);
-    }
-
-    //ajax post方法
-    function post(url, options, callback) {
-        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        xhr.onreadystatechange = function(event) {
-            if (xhr.readyState == 4) {
-                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
-            }
-        };
-        xhr.open('post', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send(serialize(options));
-    }
-
-    //字符串序列化
-    function serialize(data) {
-        if (!data) return '';
-        var arr = [];
-        for (var name in data) {
-            if (!data.hasOwnProperty(name) || typeof data[name] === 'function') continue;
-            var value = data[name].toString();
-            name = encodeURIComponent(name);
-            value = encodeURIComponent(value);
-            arr.push(name + '=' + value);
-        }
-        return arr.join('&');
-    }
-
-    //暴露接口
-    return {
-        get: get,
-        post: post
-    }
-}());
-
-
-
-//cookie工具类
-var cookieUtils = (function() {
-    //设置Cookie
-    function setCookie(name, value, expires, path, domain, secure) {
-        var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-        if (expires)
-            cookie += '; expires=' + expires.toGMTString();
-        if (path)
-            cookie += '; path=' + path;
-        if (domain)
-            cookie += '; domain=' + domain;
-        if (secure)
-            cookie += '; secure=' + secure;
-        document.cookie = cookie;
-    }
-
-    //获取从当前时间算起指定天数以后的日期,用于设置Cookie
-    function getFutureDate(day) {
-        var date = new Date();
-        date.setDate((date.getDate() + day));
-        return date;
-    }
-
-    //取得Cookie
-    function getCookies() {
-        var cookie = {}; //新建空对象用于返回
-        var all = document.cookie; //获取cookie
-        if (all === '') return cookie; //如果不存在则直接返回
-        var list = all.split('; '); //用分号分隔
-        for (var i = 0, len = list.length; i < len; i++) {
-            var item = list[i];
-            var p = item.indexOf('='); //获取等号位置
-            var name = item.substring(0, p); //分割出name字符串
-            name = decodeURIComponent(name); //name解码
-            var value = item.substring(p + 1); //分割出value字符串
-            value = decodeURIComponent(value); //value解码
-            cookie[name] = value; //设置为对象的属性
-        }
-        return cookie;
-    }
-
-    //删除Cookie
-    function removeCookie(name, path, domain) {
-        setCookie(name, '', new Date(), path, domain);
-    }
-
-    //暴露接口
-    return {
-        setCookie: setCookie,
-        getCookies: getCookies,
-        removeCookie: removeCookie,
-        getFutureDate: getFutureDate
-    }
-}());
-
-
-
 //封装的通用工具类，避免全局变量污染
 var utils = (function() {
+
+    //ajax工具类
+    var ajax = (function() {
+        //ajax get方法
+        function get(url, options, callback) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            xhr.onreadystatechange = function(event) {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
+                }
+            };
+            xhr.open('get', url + '?' + serialize(options), true);
+            xhr.send(null);
+        }
+
+        //ajax post方法
+        function post(url, options, callback) {
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            xhr.onreadystatechange = function(event) {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
+                }
+            };
+            xhr.open('post', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(serialize(options));
+        }
+
+        //字符串序列化
+        function serialize(data) {
+            if (!data) return '';
+            var arr = [];
+            for (var name in data) {
+                if (!data.hasOwnProperty(name) || typeof data[name] === 'function') continue;
+                var value = data[name].toString();
+                name = encodeURIComponent(name);
+                value = encodeURIComponent(value);
+                arr.push(name + '=' + value);
+            }
+            return arr.join('&');
+        }
+
+        return { //暴露接口
+            get: get,
+            post: post
+        }
+    }());
+
+
+    //cookie工具类
+    var cookie = (function() {
+        //设置Cookie
+        function setCookie(name, value, expires, path, domain, secure) {
+            var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+            if (expires)
+                cookie += '; expires=' + expires.toGMTString();
+            if (path)
+                cookie += '; path=' + path;
+            if (domain)
+                cookie += '; domain=' + domain;
+            if (secure)
+                cookie += '; secure=' + secure;
+            document.cookie = cookie;
+        }
+
+        //获取从当前时间算起指定天数以后的日期,用于设置Cookie
+        function getFutureDate(day) {
+            var date = new Date();
+            date.setDate((date.getDate() + day));
+            return date;
+        }
+
+        //取得Cookie
+        function getCookies() {
+            var cookie = {}; //新建空对象用于返回
+            var all = document.cookie; //获取cookie
+            if (all === '') return cookie; //如果不存在则直接返回
+            var list = all.split('; '); //用分号分隔
+            for (var i = 0, len = list.length; i < len; i++) {
+                var item = list[i];
+                var p = item.indexOf('='); //获取等号位置
+                var name = item.substring(0, p); //分割出name字符串
+                name = decodeURIComponent(name); //name解码
+                var value = item.substring(p + 1); //分割出value字符串
+                value = decodeURIComponent(value); //value解码
+                cookie[name] = value; //设置为对象的属性
+            }
+            return cookie;
+        }
+
+        //删除Cookie
+        function removeCookie(name, path, domain) {
+            setCookie(name, '', new Date(), path, domain);
+        }
+
+        return { //暴露接口
+            setCookie: setCookie,
+            getCookies: getCookies,
+            removeCookie: removeCookie,
+            getFutureDate: getFutureDate
+        }
+    }());
+
 
     //增加类名
     function addClass(node, className) {
@@ -304,6 +299,8 @@ var utils = (function() {
     }
 
     return { //暴露接口
+        ajax: ajax,
+        cookie: cookie,
         addClass: addClass,
         delClass: delClass,
         extend: extend,

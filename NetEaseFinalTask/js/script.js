@@ -11,7 +11,7 @@
             cookie.setCookie('topbar', true, cookie.getFutureDate(7)); //设置cookie 7天后过期
         });
     }
-}(cookieUtils));
+}(utils.cookie));
 
 
 
@@ -86,7 +86,7 @@
     //状态初始化
     if (cookie.getCookies().followSuc) hasFollowed();
     else notFollowed();
-}(cookieUtils, ajaxUtils));
+}(utils.cookie, utils.ajax));
 
 
 
@@ -124,7 +124,7 @@
 
 
 //视频弹窗模块
-(function(_) {
+(function() {
     var videoTrigger = $('#video-trigger');
     addEvent(videoTrigger, 'click', createVideo);
 
@@ -138,7 +138,7 @@
             loop: false
         });
     }
-}(utils));
+}());
 
 
 
@@ -327,7 +327,7 @@
             getCourse(pageIndex, pageSize, typeIndex);
         }
     };
-}(ajaxUtils));
+}(utils.ajax));
 
 
 
@@ -402,4 +402,4 @@
     //初始化操作
     getHot();
     updateHot();
-}(ajaxUtils));
+}(utils.ajax));
