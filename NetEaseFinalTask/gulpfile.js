@@ -74,7 +74,7 @@ gulp.task('htmlmin', function() {
         .pipe(gulp.dest('./dist'));
 });
 
-//服务器插件中，监视文件并自动刷新
+/*/服务器插件中，监视文件并自动刷新
 gulp.task('serve', function() {
     browserSync.init({
         server: {
@@ -85,7 +85,7 @@ gulp.task('serve', function() {
         gulp.run('lint', 'sass', 'scripts');
         browserSync.reload();
     });
-});
+});*/
 
 
 // 默认任务

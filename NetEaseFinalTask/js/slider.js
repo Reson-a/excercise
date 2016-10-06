@@ -92,7 +92,7 @@
             this._moveX(this.slider, -this.offsetAll / this.showNum * 100, function(offsetAll) {
                 if (offsetAll >= this.slidesNum) this._initPos(); //位置重置，避免offsetAll数值过大
                 if (this.isScroll) this.startScroll(); //若为滚动图则在回调中前进到下一页
-                this._onNav(); //更新图片状态,true表示有fade效果
+                this._onNav(); //更新图片状态
             }.bind(this, this.offsetAll));
         },
 

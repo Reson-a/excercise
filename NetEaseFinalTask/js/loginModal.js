@@ -1,54 +1,46 @@
 //登录弹窗组件,兼容ie8并实现placeholder
 (function(_) {
 
-    var template = '<div class="m-mask">\
-        <div class="g-align"></div>\
-        <form class="g-align m-login">\
-            <span id="login-close">×</span>\
-            <h2></h2>\
-            <input type="text" id="userName">\
-            <input type="password" id="password">\
-            <p class="s-invalid"></p>\
-            <button type="submit" id="login-submit">登录</button>\
-        </form>\
-    </div>';
+    var content = '<form>\
+                       <input type="text" id="userName">\
+                       <input type="password" id="password">\
+                       <p class="s-invalid"></p>\
+                       <button type="submit" id="login-submit">登录</button>\
+                   </form>';
 
     function LoginModal(options) {
         if (options) _.extend(this, options);
 
-        //获取相关节点
-        this.container = this.container || document.body;
-        this.loginModal = this._layout.cloneNode(true);
-        this.form = this.loginModal.querySelector('form');
-        this.title = this.loginModal.querySelector('h2');
-        this.close = this.loginModal.querySelector('#login-close');
-        this._userName = this.loginModal.querySelector('#userName');
-        this._password = this.loginModal.querySelector('#password');
-        this.invalidHint = this.loginModal.querySelector('p');
-        this.loginbtn = this.loginModal.querySelector('#login-submit');
-
         //提供自定义内容默认值
+        this.modalClassName = 'm-login';
         this.titleName = this.titleName || '登录';
-        this.placeholder = this.placeholder || { //设置placeholder显示的字，预防产品死抠字眼
-            userName: '用户名',
-            password: '密码'
-        };
-        this.pattern = this.pattern || {
-            userName: '^\\S{5,12}$',
-            password: '^\\S{6,20}$'
-        };
-
-        this._init();
-
-        this.container.appendChild(this.loginModal);
-    }
-    _.extend(LoginModal.prototype, _.emitter);
-    _.extend(LoginModal.prototype, {
-        //模板转换为节点
-        _layout: _.html2node(template),
+        this.content = _.html2node(content);
+        //设置placeholder显示的字，预防产品死抠字眼
+        this.placeholder = this.placeholder || { userName: '用户名', password: '密码' };
+        //用户名和密码匹配规则,默认规则用户名5-12位，密码8-16位，必须包含字母和数字
+        this.pattern = this.pattern || { userName: '^\\S{5,12}$', password: '^(?![0-9]+$)(?![a-zA-Z]+$)[\\S]{8,16}$' };
 
         //初始化操作
-        _init: function() {
+        this._init();
+        this._initLogin();
+
+        document.body.appendChild(this.container);
+    }
+
+    //混入Modal基础组件的属性和方法
+    _.extend(LoginModal.prototype, Modal.prototype);
+    //添加自定义扩展
+    _.extend(LoginModal.prototype, {
+
+        //登录初始化操作
+        _initLogin: function() {
+            //获取相关节点
+            this.form = this.container.querySelector('form');
+            this._userName = this.form.querySelector('#userName');
+            this._password = this.form.querySelector('#password');
+            this.invalidHint = this.form.querySelector('p');
+            this.loginbtn = this.form.querySelector('#login-submit');
+
             //设置相关属性
             this.form.action = this.action;
             this.form.method = this.method;
@@ -57,17 +49,11 @@
             this._setPlaceHolder(this._password, this.placeholder.password);
 
             //添加事件监听
-            addEvent(this.close, 'click', this._close.bind(this));
             addEvent(this.form, 'submit', this._login.bind(this));
             addEvent(this._userName, 'blur', this._blur.bind(this, 'userName'));
             addEvent(this._password, 'blur', this._blur.bind(this, 'password'));
             addEvent(this._userName, 'focus', this._focus.bind(this, 'userName'));
             addEvent(this._password, 'focus', this._focus.bind(this, 'password'));
-        },
-
-        //关闭登录Modal
-        _close: function() {
-            this.container.removeChild(this.loginModal);
         },
 
         //设置placeholder内容

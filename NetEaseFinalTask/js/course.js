@@ -1,5 +1,5 @@
 //课程组件
-(function(_) {
+(function (_) {
     var template = {
         //普通课程模板
         courseTemplate: '<li class="f-fl m-course">\
@@ -46,13 +46,8 @@
         this._description = this.course.querySelector('.description');
 
         //为自定义内容提供默认值        
-        this.baseLink = this.baseLink || '#';
-        this.contentOptions = this.contentOptions || {
-            id: '',
-            name: '',
-            price: '',
-            bigPhotoUrl: '',
-        };
+        this.baseLink = this.baseLink || 'http://study.163.com/course/introduction/';
+        this.contentOptions = this.contentOptions || { id: '', name: '', price: '', bigPhotoUrl: '' };
 
         this._init();
         this.container.appendChild(this.course);
@@ -60,12 +55,12 @@
 
     _.extend(Course.prototype, {
         //获取节点的方法，使用前必须先确定模板
-        _getLayout: function() {
+        _getLayout: function () {
             return _.html2node(this.template);
         },
 
         //初始化方法，根据参数操作相关节点
-        _init: function() {
+        _init: function () {
             for (var key in this.contentOptions) { //参数中未被定义的键不会被操作,以此实现不同模板使用同样的init方法而不会报错
                 var value = this.contentOptions[key];
                 switch (key) { //不同键的不同处理方式,写在switch里更加直观便于修改
@@ -91,7 +86,7 @@
         },
 
         //更新课程内容
-        update: function(options) {
+        update: function (options) {
             _.rewrite(this.contentOptions, options);
             this._init();
         }
@@ -100,4 +95,4 @@
     //暴露到全局
     window.Course = Course;
 
-}(utils));
+} (utils));

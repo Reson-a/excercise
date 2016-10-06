@@ -54,14 +54,7 @@
             action: 'https://study.163.com/webDev/login.htm',
             method: 'get',
             titleName: '登录网易云课堂',
-            placeholder: {
-                userName: '账号',
-                password: '密码'
-            },
-            pattern: {
-                userName: '^\\S{5,12}$', //用户名5-12位
-                password: '^(?![0-9]+$)(?![a-zA-Z]+$)[\\S]{8,16}$' //密码包含字母和数字 8-16位
-            },
+            placeholder: { userName: '账号', password: '密码' },
             sucCallback: loginCallback //回调函数
         });
         //登录成功回调
@@ -99,9 +92,7 @@
         links: ['http://open.163.com/', 'http://study.163.com/', 'http://www.icourse163.org/'],
         isCursor: true,
         isAutoPlay: true,
-        animeOptions: {
-            fadeIn: 500
-        }
+        animeOptions: { fadeIn: 500 }
     });
 }());
 
@@ -115,30 +106,27 @@
         showNum: 5,
         images: ['img/workplace1.jpg', 'img/workplace2.jpg', 'img/workplace3.jpg', 'img/workplace4.jpg', 'img/workplace5.jpg'],
         isScroll: true,
-        animeOptions: {
-            moveX: 10000
-        }
+        animeOptions: { moveX: 10000 }
     });
 }());
 
 
 
 //视频弹窗模块
-(function() {
+(function(_) {
     var videoTrigger = $('#video-trigger');
     addEvent(videoTrigger, 'click', createVideo);
+    var template = '<video src="http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4" poster="img/video.jpg" \
+            controls preload="auto">您的浏览器不支持H5视频</video>';
 
     function createVideo() {
-        return new VideoModal({
-            src: 'http://mov.bn.netease.com/open-movie/nos/mp4/2014/12/30/SADQ86F5S_shd.mp4',
-            poster: 'img/video.jpg',
-            controls: true,
-            autoplay: false,
-            preload: 'auto',
-            loop: false
+        return new Modal({
+            titleName: '请观看下面的视频',
+            modalClassName: 'm-video',
+            content: _.html2node(template)
         });
     }
-}());
+}(utils));
 
 
 
@@ -147,7 +135,7 @@
     var tabContainer = $('.m-tabbox');
     var courseContainer = $('.m-coursebox ul');
     var pagerContainer = $('.m-pagerbox');
-    var pageSize = 20; //每页课程的数量
+    var pageSize = 15; //每页课程的数量
     var pageMaxSize = 20; //每页课程的最大数量
     var typeList = ['10', '20']; //产品设计类型为10 编程语言20
     var typeIndex = 0; //初始状态为产品设计
@@ -200,15 +188,8 @@
     function createCourse(container) {
         return new Course({
             container: container,
-            baseLink: 'http://study.163.com/course/introduction/',
-            contentOptions: {
-                id: '', //这里声明的键表示该属性值存在并会从json中数据取值，否则不会
-                name: '',
-                provider: '',
-                learnerCount: '',
-                price: '',
-                bigPhotoUrl: ''
-            }
+            //这里声明的键表示该属性值存在并会从json中数据取值，否则不会
+            contentOptions: { id: '', name: '', provider: '', learnerCount: '', price: '', bigPhotoUrl: '' }
         });
     }
 
@@ -216,17 +197,8 @@
     function createDetail(container) {
         var detailCourse = new Course({
             container: container,
-            baseLink: 'http://study.163.com/course/introduction/',
             template: 'detailTemplate',
-            contentOptions: {
-                id: '',
-                name: '',
-                provider: '',
-                learnerCount: '',
-                bigPhotoUrl: '',
-                categoryName: '',
-                description: '',
-            }
+            contentOptions: { id: '', name: '', provider: '', learnerCount: '', bigPhotoUrl: '', categoryName: '', description: '', }
         });
         detailCourse.course.style.display = 'none';
         return detailCourse;
@@ -303,7 +275,7 @@
     function checkSize() {
         var changed = false;
         //使用innerwidth配合媒体查询，与@media中查询值相等,如果不存在则采用clientWidth模拟（有些许误差）
-        var checkWidth = window.innerWidth || document.documentElement.clientWidth
+        var checkWidth = window.innerWidth || document.documentElement.clientWidth;
         if (parseFloat(checkWidth) >= 1205) {
             if (pageSize == 15) changed = true;
             if (mediaStyle) mediaStyle.href = '';
@@ -358,7 +330,7 @@
             var options = data[index];
             var hot = hotList[i];
             if (!hot) { //课程不存在则添加课程
-                var hot = createHot();
+                hot = createHot();
                 hotList.push(hot);
             }
             var hotNode = hot.course;
@@ -374,14 +346,8 @@
     function createHot() {
         return new Course({
             container: hotContainer,
-            baseLink: 'http://study.163.com/course/introduction/',
             template: 'hotTemplate',
-            contentOptions: {
-                id: '',
-                name: '',
-                learnerCount: '',
-                smallPhotoUrl: ''
-            }
+            contentOptions: { id: '', name: '', learnerCount: '', smallPhotoUrl: '' }
         });
     }
 

@@ -15,7 +15,7 @@ function $$(selector) {
 }
 
 //数组slice方法兼容
-Array.prototype.slice = Array.prototype.slice || function(start, end) {
+Array.prototype.slice = Array.prototype.slice || function (start, end) {
     var l = this.length,
         result = [];
     if (start < 0) start += l;
@@ -28,31 +28,31 @@ Array.prototype.slice = Array.prototype.slice || function(start, end) {
 };
 
 //函数bind方法兼容
-Function.prototype.bind = Function.prototype.bind || function() {
+Function.prototype.bind = Function.prototype.bind || function () {
     var method = this,
         obj = arguments[0],
         args = [].slice.call(arguments, 1);
-    return function() {
+    return function () {
         method.apply(obj, [].concat.apply(args, arguments));
     };
 };
 
 //trim方法兼容
-String.prototype.trim = String.prototype.trim || function() {
+String.prototype.trim = String.prototype.trim || function () {
     return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 };
 
 
 
 //封装的通用工具类，避免全局变量污染
-var utils = (function() {
+var utils = (function () {
 
     //ajax工具类
-    var ajax = (function() {
+    var ajax = (function () {
         //ajax get方法
         function get(url, options, callback) {
             var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            xhr.onreadystatechange = function(event) {
+            xhr.onreadystatechange = function (event) {
                 if (xhr.readyState == 4) {
                     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
                 }
@@ -64,7 +64,7 @@ var utils = (function() {
         //ajax post方法
         function post(url, options, callback) {
             var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            xhr.onreadystatechange = function(event) {
+            xhr.onreadystatechange = function (event) {
                 if (xhr.readyState == 4) {
                     if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) callback(xhr.responseText);
                 }
@@ -91,12 +91,12 @@ var utils = (function() {
         return { //暴露接口
             get: get,
             post: post
-        }
-    }());
+        };
+    } ());
 
 
     //cookie工具类
-    var cookie = (function() {
+    var cookie = (function () {
         //设置Cookie
         function setCookie(name, value, expires, path, domain, secure) {
             var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
@@ -146,8 +146,8 @@ var utils = (function() {
             getCookies: getCookies,
             removeCookie: removeCookie,
             getFutureDate: getFutureDate
-        }
-    }());
+        };
+    } ());
 
 
     //增加类名
@@ -182,7 +182,7 @@ var utils = (function() {
     //自定义事件
     var emitter = {
         //注册事件
-        on: function(event, fn) {
+        on: function (event, fn) {
             var handles = this._handles || (this._handles = {}),
                 calls = handles[event] || (handles[event] = []);
             calls.push(fn);
@@ -190,7 +190,7 @@ var utils = (function() {
         },
 
         //解绑事件
-        off: function(event, fn) {
+        off: function (event, fn) {
             if (!event || !this._handles) this._handles = {};
             var handles = this._handles,
                 calls;
@@ -210,7 +210,7 @@ var utils = (function() {
         },
 
         //触发事件
-        emit: function(event) {
+        emit: function (event) {
             var args = [].slice.call(arguments, 1),
                 handles = this._handles,
                 calls;
@@ -245,22 +245,22 @@ var utils = (function() {
         function propFactory(node, prop) {
             switch (prop) {
                 case 'opacity':
-                    this.getValue = function() {
+                    this.getValue = function () {
                         var value = targetValue ? 0 : 1;
                         if (prop in node.style) node.style[prop] = value;
                         else node.style.filter = 'alpha(opacity=' + 100 * value + ')'; //兼容ie8
                         return value;
                     };
-                    this.setValue = function(value) {
+                    this.setValue = function (value) {
                         if (prop in node.style) node.style[prop] = value + '';
                         else node.style.filter = 'alpha(opacity=' + 100 * value + ')';
                     };
                     return;
                 case 'left':
-                    this.getValue = function() {
+                    this.getValue = function () {
                         return node.style[prop] === '' ? 0 : parseFloat(node.style[prop].slice(0, -1));
                     };
-                    this.setValue = function(value) {
+                    this.setValue = function (value) {
                         node.style[prop] = value + '%';
                     };
                     return;
@@ -309,5 +309,5 @@ var utils = (function() {
         html2node: html2node,
         clearSelection: clearSelection,
         anime: anime
-    }
-}());
+    };
+} ());
