@@ -37,7 +37,7 @@
 
     //发起关注请求
     function follow() {
-        ajax.get('https://study.163.com/webDev/attention.htm', null, followCallback);
+        ajax.get('http://study.163.com/webDev/attention.htm', null, followCallback);
         //关注成功回调
         function followCallback(responseText) {
             if (responseText == 1) {
@@ -51,7 +51,7 @@
     function createLogin() {
         //创建登录弹窗
         var loginModal = new LoginModal({
-            action: 'https://study.163.com/webDev/login.htm',
+            action: 'http://study.163.com/webDev/login.htm',
             method: 'get',
             titleName: '登录网易云课堂',
             placeholder: { userName: '账号', password: '密码' },
@@ -135,7 +135,7 @@
     var tabContainer = $('.m-tabbox');
     var courseContainer = $('.m-coursebox ul');
     var pagerContainer = $('.m-pagerbox');
-    var pageSize = 15; //每页课程的数量
+    var pageSize = 20; //每页课程的数量
     var pageMaxSize = 20; //每页课程的最大数量
     var typeList = ['10', '20']; //产品设计类型为10 编程语言20
     var typeIndex = 0; //初始状态为产品设计
@@ -154,7 +154,7 @@
             addCourse(pageNo, pageSize, typeIndex, newCourseData);
             pager = createPager(pageNo, data.totalPage);
         }
-        ajax.get('https://study.163.com/webDev/couresByCategory.htm', {
+        ajax.get('http://study.163.com/webDev/couresByCategory.htm', {
             pageNo: pageNo + 1,
             psize: psize,
             type: typeList[typeIndex]
@@ -319,7 +319,7 @@
             hotDataList = [].slice.call(JSON.parse(responseText));
             addHot(hotIndex, hotSize, 0, hotDataList);
         }
-        ajax.get('https://study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
+        ajax.get('http://study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
     }
 
     //添加热门排行

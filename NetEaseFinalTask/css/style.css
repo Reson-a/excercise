@@ -1,10 +1,11 @@
+@charset "utf-8";
+
+/*整体布局设置*/
+
 html,
 body {
     min-width: 1616px;
 }
-
-
-/*整体布局相关*/
 
 .g-wrap {
     width: 1205px;
