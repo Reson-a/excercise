@@ -37,7 +37,7 @@
 
     //发起关注请求
     function follow() {
-        ajax.get('http://study.163.com/webDev/attention.htm', null, followCallback);
+        ajax.get('https://study.163.com/webDev/attention.htm', null, followCallback);
         //关注成功回调
         function followCallback(responseText) {
             if (responseText == 1) {
@@ -51,7 +51,7 @@
     function createLogin() {
         //创建登录弹窗
         var loginModal = new LoginModal({
-            action: 'http://study.163.com/webDev/login.htm',
+            action: 'https://study.163.com/webDev/login.htm',
             method: 'get',
             titleName: '登录网易云课堂',
             placeholder: { userName: '账号', password: '密码' },
@@ -154,7 +154,7 @@
             addCourse(pageNo, pageSize, typeIndex, newCourseData);
             pager = createPager(pageNo, data.totalPage);
         }
-        ajax.get('http://study.163.com/webDev/couresByCategory.htm', {
+        ajax.get('https://study.163.com/webDev/couresByCategory.htm', {
             pageNo: pageNo + 1,
             psize: psize,
             type: typeList[typeIndex]
@@ -319,7 +319,7 @@
             hotDataList = [].slice.call(JSON.parse(responseText));
             addHot(hotIndex, hotSize, 0, hotDataList);
         }
-        ajax.get('http://study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
+        ajax.get('https://study.163.com/webDev/hotcouresByCategory.htm', null, hotCallback);
     }
 
     //添加热门排行
