@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>todolist组件</title>
+    <script src="https://cdn.bootcss.com/vue/2.0.1/vue.js"></script>
+    <style>
+        #todolist-container {
+            width: 300px;
+            margin: 0 auto;
+            color: #333;
+            font: 20px "Microsoft YaHei";
+            line-height: 40px;
+        }
+        
+        #todolist-container .new-todo {
+            line-height: 25px;
+        }
+        
+        #todolist-container [type="text"] {
+            width: 250px;
+            height: 25px;
+            font: 16px "Microsoft YaHei";
+            padding: 5px;
+            border-radius: 3px;
+        }
+        
+        #todolist-container button {
+            width: 25px;
+            height: 25px;
+            margin: 7px 5px;
+            font-size: 20px;
+            line-height: 25px;
+            color: #FFF;
+            border: none;
+            border-radius: 3px;
+            background-color: #6699CC;
+        }
+        
+        #todolist-container button:hover {
+            background-color: #3399CC;
+        }
+        
+        #todolist-container [type="checkbox"] {
+            margin: 12px 5px;
+            width: 16px;
+            height: 16px;
+        }
+        
+        #todolist-container span {
+            width: 238px;
+        }
+        
+        .slide-fade-enter-active {
+            transition: all .5s ease;
+        }
+        
+        .slide-fade-leave-active {
+            position: absolute;
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        
+        .slide-fade-enter,
+        .slide-fade-leave-active {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        
+        .slide-fade-move {
+            transition: all .8s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="todolist-container">
+        <todolist-component :todolist="['吃饭','睡觉','打豆豆','你要先吃饭','还是先洗澡','还是说……','那我们就开始吧~Yoooooooooooooo!']"></todolist-component>
+    </div>
+
+    <script type="text/x-template" id="todolist-template">
+        <div>
+            <div class="new-todo"><input type="text" v-model="item" :placeholder="holder"><button v-on:click="addItem">+</button></div>
+            <transition-group name="slide-fade" tag="ul" :style="{padding:'0',listStyle:'none'}" type="transition">
+                <li v-for="(todo,index) in todos" :style="{overflow:'hidden'}" :key="todo">
+                    <input type="checkbox" :value="index" v-model="selected" :style="flStyle">
+                    <span :style="[selectedStyleList[index],flStyle,epStyle]">{{todo}}</span>
+                    <button v-on:click="delItem(index) " :style="flStyle">-</button>
+                </li>
+            </transition-group>
+        </div>
+    </script>
+    <script src="js/todolist.js "></script>
+</body>
+
+</html>
