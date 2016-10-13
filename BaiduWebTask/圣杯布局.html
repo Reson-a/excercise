@@ -1,0 +1,71 @@
+<!DOCTYPE>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>双飞翼布局</title>
+    <style>
+        body {
+            text-align: center
+        }
+        
+        #hd {
+            width: 100%;
+            background-color: blue;
+        }
+        
+        #ft {
+            width: 100%;
+            background-color: pink;
+        }
+        
+        .main {
+            float: left;
+            width: 100%;
+            background-color: green;
+        }
+        
+        .sub {
+            float: left;
+            width: 190px;
+            margin-left: -100%;
+            background-color: yellow;
+            position: relative;
+            left: -190px;
+            margin-bottom: -9999px;
+            padding-bottom: 9999px;
+        }
+        
+        .extra {
+            float: left;
+            width: 230px;
+            margin-left: -230px;
+            background-color: red;
+            position: relative;
+            right: -230px;
+            margin-bottom: -9999px;
+            padding-bottom: 9999px;
+        }
+        
+        #bd {
+            overflow: hidden;
+            padding: 0 230px 0 190px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="page">
+        <div id="hd">我是顶栏</div>
+        <div id="bd">
+            <div class="main">我是主栏，优先加载,自适应啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦内容啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦内容啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦内容啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦内容啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦
+            </div>
+            <div class="sub">我是子栏</div>
+            <div class="extra">我是附加栏</div>
+        </div>
+        <div id="ft">我是底栏</div>
+    </div>
+</body>
+
+</html>

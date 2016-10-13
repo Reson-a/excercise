@@ -1,0 +1,64 @@
+<!DOCTYPE>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>自适应圆角矩形</title>
+    <style>
+        #mid {
+            margin: 0px 100px;
+            font-size: 20px;
+        }
+        
+        div.rtop {
+            display: block;
+        }
+        
+        div.rtop div {
+            display: block;
+            height: 1px;
+            overflow: hidden;
+            background: #21a557;
+        }
+        
+        div.r1 {
+            margin: 0 3px;
+        }
+        
+        div.r2 {
+            margin: 0 2px;
+        }
+        
+        div.r3 {
+            margin: 0 1px;
+        }
+        
+        div.rtop div.r4 {
+            margin: 0 1px;
+            height: 1px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div id="mid">
+        <div class="rtop">
+            <div class="r1"></div>
+            <div class="r2"></div>
+            <div class="r3"></div>
+            <div class="r4"></div>
+        </div>
+        <div class="rtop">
+            <div class="r4"></div>
+            <div class="r3"></div>
+            <div class="r2"></div>
+            <div class="r1"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
