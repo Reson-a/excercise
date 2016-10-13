@@ -1,0 +1,8 @@
+Vue初体验 
+
+一个简单的todolist demo https://reson-a.github.io/works/vue-project/project/todolist/index.html
+
+实现数据双向绑定，加入了复选框以方便后续功能扩展
+
+数据驱动的方式使得逻辑变的非常简单清晰
+主要难点在于动画，踩到两个坑花了半天才解决，不得不提基础的重要性，好歹死磕源码还是能找出问题所在的……
