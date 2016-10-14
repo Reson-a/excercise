@@ -1,0 +1,35 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>迷你版jq测试</title>
+
+</head>
+
+<body>
+    <div>
+        <ul id="list">
+            <li>
+                <img src="" alt="我是一张图片，点我并没有什么卵用">
+                <p>我是段落，通过事件委托到ul监听，点我文字都会变色</p>
+                <p>我是段落，通过事件委托到ul监听，点我文字都会变色</p>
+                <p>我是段落，通过事件委托到ul监听，点我文字都会变色</p>
+                <span>点我点我，我是span,然而并没有什么卵用</span>
+            </li>
+        </ul>
+    </div>
+    <script src="jq-mini.js"></script>
+    <script>
+        $('#list').addDelegate('p', 'click', function(event) {
+            this.style.backgroundColor = 'red';
+            console.log('你点击了段落，冒泡到整个ul被监听');
+        });
+        $('img').on('click', function(event) {
+            console.log('你点击了图片');
+        });
+    </script>
+
+</body>
+
+</html>
