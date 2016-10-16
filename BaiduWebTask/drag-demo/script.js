@@ -45,8 +45,10 @@
             this.addDelegate(this.outer, '.child', 'mousedown', this.dragStart.bind(this));
             this.outer.addEventListener('mousemove', this.drag.bind(this));
             this.outer.addEventListener('mouseup', this.dragEnd.bind(this));
+            this.outer.addEventListener('mouseleave', this.dragEnd.bind(this));
         },
         dragStart: function(event) {
+            this.isDrag = true;
             this.dragObj = event.target;
             this.dragObj.style.zIndex = 1;
             this.dragObj.style.opacity = 0.5;
@@ -57,6 +59,8 @@
         },
         drag: function(event) {
             if (!this.dragObj) return;
+            if (event.preventDefault) event.preventDefault();
+            else event.returnValue = false;
             var x = event.clientX - this.mouseX,
                 y = event.clientY - this.mouseY;
             this.dragObj.style.left = this.initX + x + 'px';
@@ -114,4 +118,4 @@
 }());
 
 
-new Container();
+var c = new Container();
