@@ -6,7 +6,8 @@
 vue初体验，一个todolist+过渡动画的demo  https://reson-a.github.io/works/vue-project/project/todolist/index.html
 
 
-vue单文件组件+webpack实现的一个任务管理系统(2015百度前端学院task3) https://reson-a.github.io/works/BaiduWebTask/task3/index.html
+vue单文件组件+webpack实现的一个任务管理系统(2015百度前端学院task3) 
+https://reson-a.github.io/works/BaiduWebTask/task3/index.html
 
 
 
