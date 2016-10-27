@@ -15,7 +15,7 @@
         this.next = this.pager.querySelector('.next');
 
         this.pageNum = this.pageNum || 2; //page数目,默认为2
-        this.showNum = this.showNum || 1; //展示page数目,默认为1
+        this.showNum = this.pageNum >= this.showNum ? this.showNum : this.pageNum; //展示page数目,不得大于总数目
         //当前选中的page,处理越界情况
         this.pageIndex = this.pageIndex > this.pageNum - 1 ? this.pageNum - 1 : (this.pageIndex < 0 ? 0 : this.pageIndex);
         //处理起始index，保证始终显示showNum个page

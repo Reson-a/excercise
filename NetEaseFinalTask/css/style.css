@@ -33,8 +33,10 @@ body {
 }
 
 .m-topbar p span {
+    margin-top: 12px;
+    line-height: 12px;
     padding-left: 15px;
-    background: url(../img/sprite.png) 0 13px no-repeat;
+    background: url(../img/sprite.png) 0 1px no-repeat;
     cursor: pointer;
 }
 
@@ -250,8 +252,12 @@ header nav .search:hover {
 /*主体下部*/
 
 .g-bd2 {
-    padding: 81px 0 120px;
+    padding: 81px 0 140px;
     background-color: #F8F8F8;
+}
+
+.g-bd2 .g-wrap {
+    position: relative;
 }
 
 .g-bd2 article {
@@ -281,7 +287,7 @@ header nav .search:hover {
 
 .m-coursebox ul {
     margin-left: -20px;
-    padding: 20px 0;
+    padding: 20px 0 0 0;
 }
 
 .m-coursebox li {
@@ -368,6 +374,12 @@ li.m-detail {
     background-color: #F8F8F8;
 }
 
+.m-pagerbox {
+    position: absolute;
+    bottom: -40px;
+    right: 243px;
+}
+
 .m-pager li {
     display: inline-block;
     font-size: 14px;
@@ -399,6 +411,10 @@ li.m-detail {
     font-weight: bold;
     color: #FFF;
     background-color: #9DD8B1;
+}
+
+.g-bd2 aside {
+    margin-bottom: 10px;
 }
 
 .m-org,
