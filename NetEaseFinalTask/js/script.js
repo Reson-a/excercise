@@ -149,8 +149,14 @@
     function getCourse(pageNo, psize, typeIndex) {
         //回调方法
         function courseCallback(responseText) {
+            if (!responseText) return;
             var data = JSON.parse(responseText);
-            var newCourseData = [].slice.call(data.list);
+            var newCourseData = [];
+            if (data.list) newCourseData = [].slice.call(data.list);
+            else {
+                getCourse(data.totalPage - 1, psize, typeIndex);
+                return;
+            }
             addCourse(pageNo, pageSize, typeIndex, newCourseData);
             pager = createPager(pageNo, data.totalPage);
         }
@@ -316,6 +322,7 @@
     function getHot() {
         //回调方法
         function hotCallback(responseText) {
+            if (!responseText) return;
             hotDataList = [].slice.call(JSON.parse(responseText));
             addHot(hotIndex, hotSize, 0, hotDataList);
         }
