@@ -1,0 +1,549 @@
+html {
+    overflow-x: hidden;
+}
+
+$topbarHeight:55px;
+$wrapWidth:1260px;
+$thinWrapWidth:1000px;
+$maxWidth:1920px;
+$thinMargin:5px;
+$themeColor:#bc2e2e;
+$normalWhite:#FEFEFE;
+$dakerWhite:#F3F3F3;
+.g-hd {
+    position: absolute;
+    z-index: 99;
+    height: $topbarHeight;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $normalWhite;
+    .g-wrap {
+        width: $wrapWidth;
+        height: 100%;
+        margin: 0 auto;
+        @media screen and (max-width: $wrapWidth) {
+            & {
+                width: $thinWrapWidth;
+            }
+        }
+    }
+    a.logo {
+        width: 133px;
+        height: 44px;
+        display: block;
+        margin-top: $thinMargin;
+        background: url(../img/logo.png) no-repeat;
+    }
+    .nav {
+        li {
+            line-height: 52px;
+            padding: 0 12px;
+            display: inline-block;
+            a {
+                display: inline-block;
+                height: 52px;
+            }
+            a:hover {
+                color: $themeColor;
+                border-bottom: 3px solid $themeColor;
+                background-color: $dakerWhite;
+                background-image: linear-gradient(to bottom, $dakerWhite, $normalWhite);
+            }
+        }
+        .game-index {
+            color: $themeColor;
+            span {
+                height: 10px;
+                width: 10px;
+                display: inline-block;
+                position: relative;
+                margin-left: 4px;
+            }
+            span:before {
+                content: '';
+                height: 0;
+                width: 0;
+                display: block;
+                border: 5px transparent solid;
+                border-bottom-width: 0;
+                border-top-color: $themeColor;
+                position: absolute;
+                top: 2px;
+                left: 0px;
+            }
+            div {
+                position: absolute;
+            }
+        }
+    }
+}
+
+.bg1 {
+    width: 100%;
+    height: 3240px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: url(../img/bg1.jpg) no-repeat 50% 50%
+}
+
+.bg2 {
+    width: 1704px;
+    height: 884px;
+    position: fixed;
+    left: 50%;
+    top: 100px;
+    margin-left: -852px;
+    background: url(../img/bg2.png) no-repeat;
+}
+
+@mixin absToCenter($width, $height, $posX, $posY, $zIndex, $url) {
+    position: absolute;
+    width: $width;
+    height: $height;
+    left: 50%;
+    margin-left: -$width/2+$posX;
+    top: $posY;
+    z-index: $zIndex;
+    @if($url) {
+        background: url($url) no-repeat center;
+    }
+}
+
+%positonToCenter {
+    position: absolute;
+    left: 50%;
+}
+
+.g-bd1 {
+    @extend %positonToCenter;
+    height: 1150px;
+    top: 0;
+    left: 0;
+    right: 0;
+    .slogan1 {
+        @extend %positonToCenter;
+        width: 511px;
+        height: 496px;
+        top: $topbarHeight+145px;
+        margin-left: -$thinWrapWidth/2-286px;
+        background: url(../img/slogan1.png) no-repeat;
+        a {
+            @extend %positonToCenter;
+            top: 50%;
+            font-size: 14px;
+            width: 75px;
+            height: 44px;
+            line-height: 44px;
+            color: $normalWhite;
+            margin-top: 149px;
+            margin-left: 36px;
+            text-align: center;
+        }
+        a:hover {
+            transition: all .5s;
+            transform: scale(1.05);
+        }
+    }
+    .slogan2 {
+        @extend %positonToCenter;
+        width: 161px;
+        height: 616px;
+        top: $topbarHeight+200px;
+        margin-left: $thinWrapWidth/2-150px;
+        background: url(../img/slogan2.png) no-repeat;
+        i {
+            @extend %positonToCenter;
+            width: 53px;
+            height: 53px;
+            top: -60px;
+            margin-left: -118px;
+            background: url(../img/fc.png) no-repeat;
+            animation: spining 3s linear infinite;
+        }
+        @keyframes spining {
+            0% {
+                transform: rotate3d(0, 0, 1, 0);
+            }
+            100% {
+                transform: rotate3d(0, 0, 1, 360deg);
+            }
+        }
+    }
+    .role {
+        @extend %positonToCenter;
+        width: $maxWidth;
+        height: 660px;
+        top: 145px;
+        margin-left: -960px;
+        background: url(../img/role.png) no-repeat;
+    }
+    .audio1 {
+        @extend %positonToCenter;
+        width: 55px;
+        height: 213px;
+        top: 265px;
+        margin-left: -220px;
+        background: url(../img/audio1.png) no-repeat;
+        transition: all .3s;
+    }
+    .audio1:hover {
+        transform: translateY(-5px);
+    }
+    .audio2 {
+        @extend %positonToCenter;
+        width: 54px;
+        height: 189px;
+        top: 475px;
+        margin-left: 10px;
+        background: url(../img/audio2.png) no-repeat;
+        transition: all .3s;
+    }
+    .audio2:hover {
+        transform: translateY(-5px);
+    }
+    .dl {
+        @extend %positonToCenter;
+        width: 455px;
+        height: 212px;
+        top: 710px;
+        margin-left: -152px;
+        background: url(../img/dl-bg.png) no-repeat;
+        .qr {
+            position: absolute;
+            width: 107px;
+            height: 107px;
+            left: 8px;
+            top: 43px;
+            background-color: $normalWhite;
+            border-radius: 5px;
+            img {
+                position: absolute;
+                width: 101px;
+                height: 101px;
+                top: 3px;
+                left: 3px;
+            }
+            .scan {
+                position: absolute;
+                width: 104px;
+                height: 9px;
+                left: 2px;
+                top: 0;
+                background: url(../img/scan.png) no-repeat center 50%;
+                animation: scan ease-out 3s infinite;
+            }
+            @keyframes scan {
+                0% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(98px);
+                }
+                100% {
+                    transform: translateY(0);
+                }
+            }
+        }
+        .ios-dl {
+            position: absolute;
+            width: 171px;
+            height: 51px;
+            left: 120px;
+            top: 43px;
+            background: url(../img/ios-dl.png) no-repeat;
+        }
+        .ios-dl:hover {
+            background: url(../img/ios-dl-hover.png) no-repeat;
+        }
+        .and-dl {
+            @extend .ios-dl;
+            top: 99px;
+            background: url(../img/and-dl.png) no-repeat;
+        }
+        .and-dl:hover {
+            background: url(../img/and-dl-hover.png) no-repeat;
+        }
+    }
+    .icon {
+        @extend %positonToCenter;
+        width: 118px;
+        height: 85px;
+        top: $topbarHeight+22px;
+        margin-left: -$thinWrapWidth/2;
+        background: url(../img/icon.png) no-repeat;
+        transition: all ease-out .5s;
+    }
+    .home-link {
+        @extend %positonToCenter;
+        width: 120px;
+        height: 30px;
+        top: $topbarHeight+150px;
+        margin-left: $thinWrapWidth/2-100px;
+        background: url(../img/home-link.png) no-repeat;
+    }
+    .home-link:hover {
+        background: url(../img/home-link-hover.png) no-repeat;
+    }
+}
+
+.g-bd2 {
+    @extend %positonToCenter;
+    width: $maxWidth;
+    height: 1210px;
+    top: 861px;
+    margin-left: -960px;
+    .content {
+        @extend %positonToCenter;
+        width: 1200px;
+        height: 850px;
+        top: 135px;
+        margin-left: -600px;
+        .content-title {
+            @extend %positonToCenter;
+            width: 650px;
+            height: 60px;
+            top: 0;
+            left: 50%;
+            margin-left: -325px;
+            background: url(../img/content-title.png) no-repeat center;
+        }
+    }
+    .gallery-container {
+        @extend %positonToCenter;
+        width: 1000px;
+        height: 550px;
+        top: 120px;
+        margin-left: -500px;
+        .m-gallery {
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            $lineMargin: 10px;
+            $lineWidth: 1px;
+            $imgWidth: 720px;
+            $imgHeight: 523px;
+            .gallery-item {
+                position: absolute;
+                text-align: center;
+                transition: all ease .5s;
+                cursor: pointer;
+                user-select: none;
+                img {
+                    display: inline-block;
+                    width: $imgWidth;
+                    height: $imgHeight;
+                }
+            }
+            .active {
+                left: 50%;
+                top: 50%;
+                z-index: 2;
+                transform: translate(-50%, -50%);
+                .line-t {
+                    background-color: #fff;
+                    position: absolute;
+                    height: $lineWidth;
+                    top: $lineMargin;
+                    left: $lineMargin;
+                    animation: l2r linear .2s .2s both;
+                }
+                .line-r {
+                    background-color: #fff;
+                    position: absolute;
+                    width: $lineWidth;
+                    top: $lineMargin;
+                    right: $lineMargin;
+                    animation: t2b linear .2s .4s both;
+                }
+                .line-b {
+                    @extend .line-t;
+                    top: auto;
+                    right: $lineMargin;
+                    bottom: $lineMargin;
+                    animation: r2l linear .2s .6s both;
+                }
+                .line-l {
+                    @extend .line-r;
+                    right: auto;
+                    bottom: $lineMargin;
+                    left: $lineMargin;
+                    animation: b2t linear .2s .8s both;
+                }
+                @keyframes l2r {
+                    0% {
+                        right: $imgWidth/1-$lineMargin;
+                    }
+                    100% {
+                        right: $lineMargin;
+                    }
+                }
+                @keyframes t2b {
+                    0% {
+                        bottom: $imgHeight/1-$lineMargin;
+                    }
+                    100% {
+                        bottom: $lineMargin;
+                    }
+                }
+                @keyframes r2l {
+                    0% {
+                        left: $imgWidth/1-$lineMargin;
+                    }
+                    100% {
+                        left: $lineMargin;
+                    }
+                }
+                @keyframes b2t {
+                    0% {
+                        top: $imgHeight/1-$lineMargin;
+                    }
+                    100% {
+                        top: $lineMargin;
+                    }
+                }
+            }
+            .next {
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                transform: translate3d(-5%, -50%, -200px) scale(0.6) rotate3d(0, 1, 0, -30deg);
+            }
+            .prev {
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                transform: translate3d(-95%, -50%, -200px) scale(0.6) rotate3d(0, 1, 0, 30deg);
+            }
+            .out {
+                left: 50%;
+                top: 50%;
+                z-index: -1;
+                transform: translate3d(-50%, -50%, 0) scale(0.6);
+            }
+        }
+    }
+    .shadow {
+        @extend %positonToCenter;
+        width: 1014px;
+        height: 190px;
+        bottom: 0;
+        margin-left: -507px;
+        background: url(../img/shadow.png) no-repeat;
+    }
+}
+
+.g-ft {
+    position: absolute;
+    height: 200px;
+    left: 0;
+    right: 0;
+    top: 1896px;
+    padding: 20px 0 40px;
+    color: #eee;
+    text-align: center;
+    .share {
+        width: 500px;
+        margin: 0 auto;
+        li {
+            float: left;
+            a {
+                display: inline-block;
+                padding-right: 10px;
+                margin-right: 0;
+                line-height: 20px;
+                font-size: 16px;
+                color: #ccc;
+            }
+        }
+    }
+    .logo {
+        display: inline-block;
+        position: relative;
+        top: 4px;
+        vertical-align: top;
+        .logo1 {
+            display: inline-block;
+            width: 118px;
+            height: 31px;
+            background: url(../img/logo1.png) no-repeat;
+        }
+        .logo2 {
+            display: inline-block;
+            width: 134px;
+            height: 31px;
+            padding-right: 15px;
+            background: url(../img/logo2.png) no-repeat;
+        }
+    }
+    .about {
+        display: inline-block;
+        text-align: left;
+        position: relative;
+        li {
+            display: inline-block;
+        }
+        a,
+        .copy {
+            line-height: 24px;
+            font-family: '宋体';
+            color: #eee;
+        }
+    }
+}
+
+@mixin sand($size, $pos, $url) {
+    position: fixed;
+    width: nth($size, 1);
+    height: nth($size, 2);
+    top: nth($pos, 1);
+    right: nth($pos, 2);
+    bottom: nth($pos, 3);
+    left: nth($pos, 4);
+    background: url($url) no-repeat;
+}
+
+.sand01 {
+    @include sand(134px 151px, 0 auto auto 0, '../img/sand01.png');
+}
+
+.sand02 {
+    @include sand(50px 66px, 345px auto auto 0, '../img/sand02.png');
+}
+
+.sand03 {
+    @include sand(484px 124px, auto auto 0 0, '../img/sand03.png');
+}
+
+.sand04 {
+    @include sand(505px 74px, 0 0 auto auto, '../img/sand04.png');
+}
+
+.sand05 {
+    @include sand(159px 77px, 192px 0 auto auto, '../img/sand05.png');
+}
+
+.sand06 {
+    @include sand(24px 42px, 495px 0 auto auto, '../img/sand06.png');
+}
+
+.sand07 {
+    @include sand(305px 51px, auto 0 0 auto, '../img/sand07.png');
+}
+
+.clearfix:after {
+    content: '.';
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.f-fl {
+    float: left;
+}
+
+.f-fr {
+    float: right;
+}
