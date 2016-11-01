@@ -6,15 +6,15 @@ var gallery = new Gallery({
         'http://res.yys.netease.com/pc/fab/20160829095101/img/tese-pic-4_eb592d7.jpg',
         'http://res.yys.netease.com/pc/fab/20160829095101/img/tese-pic-5_75fa5be.jpg',
     ]*/
-    images: ['./img/gallery-1.jpg',
-        './img/gallery-2.jpg',
-        './img/gallery-3.jpg',
-        './img/gallery-4.jpg',
-        './img/gallery-5.jpg',
+    images: ['img/gallery-1.jpg',
+        'img/gallery-2.jpg',
+        'img/gallery-3.jpg',
+        'img/gallery-4.jpg',
+        'img/gallery-5.jpg',
     ]
 });
 
-(function() { //沙子移动
+(function () { //沙子移动
     var topHeight = 55,
         sandTop = $('.sand-t'),
         sandLeft = $('.sand-l'),
@@ -30,11 +30,11 @@ var gallery = new Gallery({
     }
     setAbs();
 
-    $(window).scroll(function(event) {
+    $(window).scroll(function (event) {
         var y = window.scrollY;
         if (y < topHeight) setAbs();
         else setFixed();
         sandLeft.css('margin-left', -y * speed + 'px');
         sandRight.css('margin-right', -y * speed + 'px');
     });
-}());
+} ());
