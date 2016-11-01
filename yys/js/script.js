@@ -6,11 +6,11 @@ var gallery = new Gallery({
         'http://res.yys.netease.com/pc/fab/20160829095101/img/tese-pic-4_eb592d7.jpg',
         'http://res.yys.netease.com/pc/fab/20160829095101/img/tese-pic-5_75fa5be.jpg',
     ]*/
-    images: ['../img/gallery-1.jpg',
-        '../img/gallery-2.jpg',
-        '../img/gallery-3.jpg',
-        '../img/gallery-4.jpg',
-        '../img/gallery-5.jpg',
+    images: ['./img/gallery-1.jpg',
+        './img/gallery-2.jpg',
+        './img/gallery-3.jpg',
+        './img/gallery-4.jpg',
+        './img/gallery-5.jpg',
     ]
 });
 
