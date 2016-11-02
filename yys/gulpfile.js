@@ -18,13 +18,15 @@ var browserSync = require('browser-sync').create();
 var image = require('gulp-image');
 var imgSrc = 'source/images/*';
 var imgDest = 'dist/pages/images';
-var htmlmin = require('gulp-htmlmin')
+var htmlmin = require('gulp-htmlmin');
+var spriter = require('gulp-css-spriter');
+var cssBase64 = require('gulp-css-base64');
 
 //压缩图片
 gulp.task('image', function () {
     gulp.src('./img/*')
         .pipe(image({
-            optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）
+            optimizationLevel: 3, //类型：Number  默认：3  取值范围：0-7（优化等级）
             progressive: true, //类型：Boolean 默认：false 无损压缩jpg图片
             interlaced: true, //类型：Boolean 默认：false 隔行扫描gif进行渲染
             multipass: true //类型：Boolean 默认：false 多次优化svg直到完全优化
@@ -52,7 +54,18 @@ gulp.task('sass', function () {
         // 去掉css注释
         .pipe(stripCssComments())
         // auto prefix  
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .pipe(autoprefixer({
+            browsers: [
+                'last 2 versions',
+                'Edge >= 11',
+                'Safari >= 5',
+                'Firefox >= 20',
+                'ie >= 8',
+                'Opera >=12',
+                'iOS >= 6',
+                'Android >= 4.0'
+            ]
+        }))
         // css格式化、美化（因为有f2ehint，故在此不再做语法等的检查与修复）  
         /*.pipe(mapStream(function (file, cb) {
             // 添加css代码的格式化  
@@ -73,7 +86,7 @@ gulp.task('sass', function () {
 gulp.task('scripts', function () {
     gulp.src('./js/*.js')
         .pipe(concat('all.js'))
-        .pipe(gulp.dest('./dist'))
+        //.pipe(gulp.dest('./dist'))
         .pipe(rename('all.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
@@ -84,7 +97,18 @@ gulp.task('scripts', function () {
 gulp.task('styles', function () {
     gulp.src('./css/*.css')
         .pipe(concat('all.css'))
-        .pipe(gulp.dest('./dist'))
+        //.pipe(gulp.dest('./dist'))
+        .pipe(spriter({
+            'spriteSheet': './dist/img/sprite.png', //生成的spriter的位置
+            'pathToSpriteSheetFromCSS': '../img/sprite.png' //生成样式文件图片引用地址的路径
+        }))
+        /*.pipe(cssBase64({
+            //baseDir: "./img",// 有绝对路径时在配置此选项
+            //extensions: ['png'],
+            //maxImageSize: 50 * 1024, // bytes
+            maxWeightResource: 20 * 1024,
+            extensionsAllowed: ['.gif', '.jpg', '.png']
+        }))*/
         .pipe(rename('all.min.css'))
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/css'));
@@ -123,8 +147,9 @@ gulp.task('default', function () {
 
     // 监听js文件变化
     gulp.watch('./js/*.js', ['lint', 'scripts']);
-    // 监听css文件变化
-    gulp.watch('./css/*.{scss,css,sass}', ['sass', 'styles']);
+    // 监听scss文件变化
+    gulp.watch('./css/*.{scss,sass}', ['sass', 'styles']);
+    // 浏览器重新加载
     gulp.watch(['./js/*.js', './css/*.css', './*.html'], function () {
         browserSync.reload();
     });

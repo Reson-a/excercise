@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
     var template = '<div class="gallery-item"><img><div class="line-t"></div><div class="line-r"></div><div class="line-b"></div><div class="line-l"></div></div>';
 
     function Gallery(options) {
@@ -13,38 +13,39 @@
     }
     $.extend(Gallery.prototype, {
         _layout: $('<div class="m-gallery"></div>'),
-        _init: function () {
+        _init: function() {
             var that = this;
             for (var i = 0; i < this.imageNum; i++) {
                 this.gallery.append(template);
             }
-            this.gallery.find('img').each(function (index) {
+            this.gallery.find('img').each(function(index) {
                 this.src = that.images[index];
             });
-            this.gallery.on('click', 'div', function () {
+            this.gallery.on('click', 'img', function(event) {
                 var className = event.target.parentNode.className;
+                if (!className) return false;
                 if (className.indexOf('next') >= 0) that.next();
                 if (className.indexOf('prev') >= 0) that.prev();
                 return false;
             });
-            this.gallery.on('mousedown', function () {
+            this.gallery.on('mousedown', function() {
                 return false;
             });
             this.items = this.gallery.find('.gallery-item');
             this._onNav();
         },
-        prev: function () {
+        prev: function() {
             this.imageIndex = this._normalize(--this.imageIndex);
             this._onNav();
         },
-        next: function () {
+        next: function() {
             this.imageIndex = this._normalize(++this.imageIndex);
             this._onNav();
         },
-        _onNav: function () {
+        _onNav: function() {
             var imageIndex = this.imageIndex;
             var that = this;
-            this.items.each(function (index) {
+            this.items.each(function(index) {
                 var _this = $(this);
                 if (imageIndex === index) _this.addClass('active').removeClass('prev next out');
                 else if (that._normalize(imageIndex - 1) === index) _this.addClass('prev').removeClass('active next out');
@@ -52,12 +53,12 @@
                 else _this.addClass('out').removeClass('prev next active');
             });
         },
-        _normalize: function (index) {
+        _normalize: function(index) {
             return (index + this.imageNum) % this.imageNum;
         }
     });
     window.Gallery = Gallery;
-} (jQuery));
+}(jQuery));
 /*scss部分 仅作示例用数值部分请根据图片大小进行具体调整
 .m-gallery {
             width: 100%;

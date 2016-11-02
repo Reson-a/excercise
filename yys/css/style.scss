@@ -2,6 +2,12 @@ html {
     overflow-x: hidden;
 }
 
+html,
+body {
+    width: 100%;
+    height: 100px;
+}
+
 $topbarHeight:55px;
 $wrapWidth:1260px;
 $thinWrapWidth:1000px;
@@ -33,16 +39,16 @@ $dakerWhite:#F3F3F3;
         height: 44px;
         display: block;
         margin-top: $thinMargin;
-        background: url(../img/logo.png) no-repeat;
+        background: url(../img/logo.png?__spriter) no-repeat;
     }
     .nav {
         li {
             line-height: 52px;
-            padding: 0 12px;
             display: inline-block;
             a {
                 display: inline-block;
                 height: 52px;
+                padding: 0 12px;
             }
             a:hover {
                 color: $themeColor;
@@ -53,27 +59,27 @@ $dakerWhite:#F3F3F3;
         }
         .game-index {
             color: $themeColor;
-            span {
-                height: 10px;
-                width: 10px;
-                display: inline-block;
-                position: relative;
-                margin-left: 4px;
-            }
-            span:before {
-                content: '';
-                height: 0;
-                width: 0;
-                display: block;
-                border: 5px transparent solid;
-                border-bottom-width: 0;
-                border-top-color: $themeColor;
-                position: absolute;
-                top: 2px;
-                left: 0px;
-            }
-            div {
-                position: absolute;
+            a {
+                color: $themeColor;
+                span {
+                    height: 10px;
+                    width: 10px;
+                    display: inline-block;
+                    position: relative;
+                    margin-left: 4px;
+                }
+                span:before {
+                    content: '';
+                    height: 0;
+                    width: 0;
+                    display: block;
+                    border: 5px transparent solid;
+                    border-bottom-width: 0;
+                    border-top-color: $themeColor;
+                    position: absolute;
+                    top: 2px;
+                    left: 0px;
+                }
             }
         }
     }
@@ -116,6 +122,10 @@ $dakerWhite:#F3F3F3;
     left: 50%;
 }
 
+%hide {
+    opacity: 0;
+}
+
 .g-bd1 {
     @extend %positonToCenter;
     height: 1150px;
@@ -124,11 +134,14 @@ $dakerWhite:#F3F3F3;
     right: 0;
     .slogan1 {
         @extend %positonToCenter;
+        @extend %hide;
         width: 511px;
         height: 496px;
         top: $topbarHeight+145px;
         margin-left: -$thinWrapWidth/2-286px;
         background: url(../img/slogan1.png) no-repeat;
+        transition: opacity 1.5s, transform 1.5s;
+        transform: translateY(-200px);
         a {
             @extend %positonToCenter;
             top: 50%;
@@ -142,24 +155,26 @@ $dakerWhite:#F3F3F3;
             text-align: center;
         }
         a:hover {
-            transition: all .5s;
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
     }
     .slogan2 {
         @extend %positonToCenter;
+        @extend %hide;
         width: 161px;
         height: 616px;
         top: $topbarHeight+200px;
         margin-left: $thinWrapWidth/2-150px;
         background: url(../img/slogan2.png) no-repeat;
+        transform: translateY(200px);
+        transition: opacity 1.5s, transform 1.5s;
         i {
             @extend %positonToCenter;
             width: 53px;
             height: 53px;
             top: -60px;
             margin-left: -118px;
-            background: url(../img/fc.png) no-repeat;
+            background: url(../img/fc.png?__spriter) no-repeat;
             animation: spining 3s linear infinite;
         }
         @keyframes spining {
@@ -173,43 +188,51 @@ $dakerWhite:#F3F3F3;
     }
     .role {
         @extend %positonToCenter;
+        @extend %hide;
         width: $maxWidth;
         height: 660px;
         top: 145px;
         margin-left: -960px;
         background: url(../img/role.png) no-repeat;
+        transform: translateY(350px);
+        transition: opacity .8s .3s, transform .8s .3s;
     }
     .audio1 {
         @extend %positonToCenter;
+        @extend %hide;
         width: 55px;
         height: 213px;
         top: 265px;
         margin-left: -220px;
-        background: url(../img/audio1.png) no-repeat;
-        transition: all .3s;
+        background: url(../img/audio1.png?__spriter) no-repeat;
+        transform: scale(.01, .01);
+        transition: opacity .3s 1s, transform .3s .9s;
     }
     .audio1:hover {
-        transform: translateY(-5px);
+        margin-top: -5px;
     }
     .audio2 {
-        @extend %positonToCenter;
+        @extend .audio1;
         width: 54px;
         height: 189px;
         top: 475px;
         margin-left: 10px;
-        background: url(../img/audio2.png) no-repeat;
-        transition: all .3s;
+        background: url(../img/audio2.png?__spriter) no-repeat;
+        transition: opacity .3s 1.1s, transform .3s 1.1s
     }
     .audio2:hover {
-        transform: translateY(-5px);
+        margin-top: -5px;
     }
     .dl {
         @extend %positonToCenter;
+        @extend %hide;
         width: 455px;
-        height: 212px;
+        height: 193px;
         top: 710px;
         margin-left: -152px;
-        background: url(../img/dl-bg.png) no-repeat;
+        background: url(../img/dl-bg.png?__spriter) no-repeat;
+        transition: opacity 1s 1s, transform 1s 1s;
+        transform: translateY(50px);
         .qr {
             position: absolute;
             width: 107px;
@@ -231,7 +254,7 @@ $dakerWhite:#F3F3F3;
                 height: 9px;
                 left: 2px;
                 top: 0;
-                background: url(../img/scan.png) no-repeat center 50%;
+                background: url(../img/scan.png?__spriter) no-repeat center 50%;
                 animation: scan ease-out 3s infinite;
             }
             @keyframes scan {
@@ -252,39 +275,44 @@ $dakerWhite:#F3F3F3;
             height: 51px;
             left: 120px;
             top: 43px;
-            background: url(../img/ios-dl.png) no-repeat;
+            background: url(../img/ios-dl.png?__spriter) no-repeat;
         }
         .ios-dl:hover {
-            background: url(../img/ios-dl-hover.png) no-repeat;
+            background: url(../img/ios-dl-hover.png?__spriter) no-repeat;
         }
         .and-dl {
             @extend .ios-dl;
             top: 99px;
-            background: url(../img/and-dl.png) no-repeat;
+            background: url(../img/and-dl.png?__spriter) no-repeat;
         }
         .and-dl:hover {
-            background: url(../img/and-dl-hover.png) no-repeat;
+            background: url(../img/and-dl-hover.png?__spriter) no-repeat;
         }
     }
     .icon {
         @extend %positonToCenter;
+        @extend %hide;
         width: 118px;
         height: 85px;
         top: $topbarHeight+22px;
         margin-left: -$thinWrapWidth/2;
-        background: url(../img/icon.png) no-repeat;
-        transition: all ease-out .5s;
+        background: url(../img/icon.png?__spriter) no-repeat;
+        transition: opacity 1s 1.2s, transform 1s 1s;
+        transform: translateX(-50px);
     }
     .home-link {
         @extend %positonToCenter;
+        @extend %hide;
         width: 120px;
         height: 30px;
         top: $topbarHeight+150px;
         margin-left: $thinWrapWidth/2-100px;
-        background: url(../img/home-link.png) no-repeat;
+        background: url(../img/home-link.png?__spriter) no-repeat;
+        transition: opacity 1s 1.2s, transform 1s 1s;
+        transform: translateX(50px);
     }
     .home-link:hover {
-        background: url(../img/home-link-hover.png) no-repeat;
+        background: url(../img/home-link-hover.png?__spriter) no-repeat;
     }
 }
 
@@ -302,20 +330,26 @@ $dakerWhite:#F3F3F3;
         margin-left: -600px;
         .content-title {
             @extend %positonToCenter;
-            width: 650px;
+            @extend %hide;
+            width: 520px;
             height: 60px;
             top: 0;
             left: 50%;
-            margin-left: -325px;
-            background: url(../img/content-title.png) no-repeat center;
+            margin-left: -260px;
+            background: url(../img/content-title.png?__spriter) no-repeat;
+            transition: all 1s;
+            transform: translateY(200px);
         }
     }
     .gallery-container {
         @extend %positonToCenter;
+        @extend %hide;
         width: 1000px;
         height: 550px;
         top: 120px;
         margin-left: -500px;
+        transition: all 1s .1s;
+        transform: translateY(200px);
         .m-gallery {
             width: 100%;
             height: 100%;
@@ -417,6 +451,7 @@ $dakerWhite:#F3F3F3;
                 transform: translate3d(-95%, -50%, -200px) scale(0.6) rotate3d(0, 1, 0, 30deg);
             }
             .out {
+                opacity: 0;
                 left: 50%;
                 top: 50%;
                 z-index: -1;
@@ -430,7 +465,7 @@ $dakerWhite:#F3F3F3;
         height: 190px;
         bottom: 0;
         margin-left: -507px;
-        background: url(../img/shadow.png) no-repeat;
+        background: url(../img/shadow.png?__spriter) no-repeat;
     }
 }
 
@@ -467,14 +502,14 @@ $dakerWhite:#F3F3F3;
             display: inline-block;
             width: 118px;
             height: 31px;
-            background: url(../img/logo1.png) no-repeat;
+            background: url(../img/logo1.png?__spriter) no-repeat;
         }
         .logo2 {
             display: inline-block;
             width: 134px;
             height: 31px;
-            padding-right: 15px;
-            background: url(../img/logo2.png) no-repeat;
+            margin-right: 15px;
+            background: url(../img/logo2.png?__spriter) no-repeat;
         }
     }
     .about {
@@ -501,35 +536,46 @@ $dakerWhite:#F3F3F3;
     right: nth($pos, 2);
     bottom: nth($pos, 3);
     left: nth($pos, 4);
+    z-index: 10;
     background: url($url) no-repeat;
 }
 
 .sand01 {
-    @include sand(134px 151px, 0 auto auto 0, '../img/sand01.png');
+    @include sand(134px 151px, 0 auto auto 0, '../img/sand01.png?__spriter');
 }
 
 .sand02 {
-    @include sand(50px 66px, 345px auto auto 0, '../img/sand02.png');
+    @include sand(50px 66px, 345px auto auto 0, '../img/sand02.png?__spriter');
 }
 
 .sand03 {
-    @include sand(484px 124px, auto auto 0 0, '../img/sand03.png');
+    @include sand(484px 124px, auto auto 0 0, '../img/sand03.png?__spriter');
 }
 
 .sand04 {
-    @include sand(505px 74px, 0 0 auto auto, '../img/sand04.png');
+    @include sand(505px 74px, 0 0 auto auto, '../img/sand04.png?__spriter');
 }
 
 .sand05 {
-    @include sand(159px 77px, 192px 0 auto auto, '../img/sand05.png');
+    @include sand(159px 77px, 192px 0 auto auto, '../img/sand05.png?__spriter');
 }
 
 .sand06 {
-    @include sand(24px 42px, 495px 0 auto auto, '../img/sand06.png');
+    @include sand(24px 42px, 495px 0 auto auto, '../img/sand06.png?__spriter');
 }
 
 .sand07 {
-    @include sand(305px 51px, auto 0 0 auto, '../img/sand07.png');
+    @include sand(305px 51px, auto 0 0 auto, '../img/sand07.png?__spriter');
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    background: #1e1c3e;
 }
 
 .clearfix:after {

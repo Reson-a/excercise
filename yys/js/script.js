@@ -14,12 +14,23 @@ var gallery = new Gallery({
     ]
 });
 
-(function () { //沙子移动
+//资源加载完成时显示loading及出场特效
+window.onload = function() {
+    $('.loading').css('display', 'none');
+    $('.show').css({ opacity: 1, transform: 'translate(0,0) scale(1)' });
+};
+
+
+//元素随鼠标滚轮移动
+(function() {
     var topHeight = 55,
+        triggerHeight = 300,
         sandTop = $('.sand-t'),
         sandLeft = $('.sand-l'),
         sandRight = $('.sand-r'),
-        speed = 1 / 50;
+        sandSpeed = 1 / 50,
+        moveDelay = $('.move-delay'),
+        delaySpeed = 1 / 3;
 
     function setAbs() {
         sandTop.css({ marginTop: topHeight, position: 'absolute' });
@@ -30,11 +41,13 @@ var gallery = new Gallery({
     }
     setAbs();
 
-    $(window).scroll(function (event) {
-        var y = window.scrollY;
+    $(window).scroll(function(event) {
+        var y = window.pageYOffset; //document.documentElement.scrollTop window.pageYOffset window.scrollY
         if (y < topHeight) setAbs();
         else setFixed();
-        sandLeft.css('margin-left', -y * speed + 'px');
-        sandRight.css('margin-right', -y * speed + 'px');
+        if (y > triggerHeight) $('.show-later').css({ opacity: 1, transform: 'translate(0,0) scale(1)' });
+        sandLeft.css('margin-left', -y * sandSpeed + 'px');
+        sandRight.css('margin-right', -y * sandSpeed + 'px');
+        moveDelay.css('margin-top', -y * delaySpeed + 'px');
     });
-} ());
+}());
