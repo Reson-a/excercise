@@ -4,7 +4,7 @@
 
 html,
 body {
-    min-width: 1616px;
+    overflow-x: hidden;
 }
 
 .g-wrap {
@@ -126,15 +126,15 @@ header nav a:hover {
 
 header nav .search {
     display: inline-block;
-    width: 19px;
-    height: 19px;
+    width: 20px;
+    height: 20px;
     vertical-align: bottom;
     margin: 0;
-    background: url(../img/sprite.png) -243px -64px no-repeat;
+    background: url(../img/sprite.png) -242px -64px no-repeat;
 }
 
 header nav .search:hover {
-    background: url(../img/sprite.png) -243px -86px no-repeat;
+    background: url(../img/sprite.png) -242px -86px no-repeat;
 }
 
 
@@ -271,14 +271,14 @@ header nav .search:hover {
     font-size: 20px;
     text-align: center;
     line-height: 50px;
-    color: #21A557;
+    color: #39A030;
     background-color: #FFF;
     box-shadow: 0 1px 1px 1px #D3D3D3;
 }
 
 .m-tab li.z-ac {
     color: #FFF;
-    background-color: #21A557;
+    background-color: #39A030;
 }
 
 .m-tab li:hover {
