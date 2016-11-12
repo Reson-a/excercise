@@ -685,10 +685,6 @@ footer .logo h1 {
 /*媒体查询，实现响应式布局,ie8下通过单独引入CSS文件实现*/
 
 @media screen and (max-width:1204px) {
-    html,
-    body {
-        min-width: 1205px;
-    }
     .g-wrap {
         width: 960px;
         margin: 0 auto;

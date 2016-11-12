@@ -2,11 +2,6 @@
 
 /*ie8时引入,兼容媒体查询*/
 
-html,
-body {
-    min-width: 1205px;
-}
-
 .g-wrap {
     width: 960px;
     margin: 0 auto;
