@@ -22,7 +22,7 @@
 <ul>
 <li>使用预处理器语言scss编写模块化和高复用性的的css样式代码</li>
 <li>基于自动化工具gulp进行项目构建，cssspriter优化合并图片,autoprefixer自动处理兼容前缀</li>
-<li>css3动画配合jQuery实现各种页面交互效果，包括anime动画，3d变换等</li>
+<li>css3动画配合jQuery实现各种页面交互效果，包括animation动画，3d变换等</li>
 <li>注：此为编译后版本，源码可在项目目录中查看，因时间关系有部分细节并未实现</li>
 </ul></li>
 </ul>
