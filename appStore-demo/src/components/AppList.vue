@@ -67,7 +67,6 @@
                         display: inline-block;                        
                         margin-left: 0.5rem;
                         padding: 2px 3px;
-                        font-size: 10px;
                         color: #FFF;
                         background-color: #20A0FF;
                         border-radius: 2px;
