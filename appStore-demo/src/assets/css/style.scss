@@ -1,0 +1,155 @@
+$LightBlue:#58B7FF;
+$Blue: #20A0FF;
+$DarkBlue: #1D8CE0;
+$Success: #13CE66;
+$Warning: #F7BA2A;
+$Danger:#FF4949;
+$Black: #1F2D3D;
+$LightBlack: #324057;
+$ExtraLightBlack: #475669;
+$Silver: #8492A6;
+$LightSilver: #C0CCDA;
+$Gray: #D3DCE6;
+$LightGray: #E5E9F2;
+$ExtraLightGray: #EFF2F7;
+$DarkWhite: #F9FAFC;
+$White: #FFFFFF;
+$ExtraLarge:20px;
+$Large:18px;
+$Medium:16px;
+$Small:14px;
+$ExtraSmall:13px;
+$ExtraExtraSmall:12px;
+$baseFont:"Helvetica Neue",
+Helvetica,
+"PingFang SC",
+"Hiragino Sans GB",
+"Microsoft YaHei",
+"微软雅黑",
+Arial,
+sans-serif;
+html {
+    font-size: $ExtraExtraSmall;
+    font-family: $baseFont;
+    color: $ExtraLightBlack;
+}
+
+html,
+body,
+p,
+h1,
+{
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: $LightBlack;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: $Small;
+    }
+}
+
+.f-center {
+    text-align: center;
+}
+
+header {
+    background-color: $ExtraLightGray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 0 0;
+    z-index: 10;
+    .el-input {
+        margin: 0 3rem;
+        .el-input__inner {
+            height: 3rem;
+            line-height: 3rem;
+            padding-left: 35px;
+        }
+        .el-input__icon {
+            left: 0;
+            right: auto;
+        }
+    }
+    .el-menu.el-menu--horizontal {
+        text-align: center;
+        .el-menu-item {
+            width:20%;
+            float: none;
+            display: inline-block;
+            height: 3rem;
+            line-height: 3rem;
+        }
+    }
+}
+.border-bottom:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #D3DCE6;
+}
+
+.border-right:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    border-right: 1px solid #D3DCE6;
+}
+@media (-webkit-min-device-pixel-ratio: 2) {
+    .border-bottom:after{
+        -webkit-transform: scaleY(.5);
+        -webkit-transform-origin: 0 0;
+    }
+    .border-right:after{
+        -webkit-transform: scaleX(.5);
+        -webkit-transform-origin: 0 0;
+    }
+}
+.f-fl{
+    float:left;        
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+}
+.f-fr{
+    float:right;
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    right:0;
+}
+#loading{
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:999;
+    text-align:center;
+    vertical-align:middle;
+    background-color:#FFF;
+    i{
+        display:inline-block;
+        font-size:4rem;
+        line-height:100vh;
+    }    
+}
+
+
