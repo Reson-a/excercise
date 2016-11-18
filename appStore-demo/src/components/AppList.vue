@@ -53,8 +53,8 @@
                 overflow: hidden;
                 div {
                     display: table-cell;
-                    line-height: 14px;
                     vertical-align: middle;
+                    line-height:1;
                     h1 {
                         display: inline-block;
                         font-size: 1.2rem;
@@ -64,11 +64,10 @@
                         }
                     }
                     >span {
-                        display: inline-block;
+                        display: inline-block;                        
                         margin-left: 0.5rem;
-                        padding: 0 3px;
+                        padding: 2px 3px;
                         font-size: 10px;
-                        height: 14px;
                         color: #FFF;
                         background-color: #20A0FF;
                         border-radius: 2px;
@@ -76,7 +75,7 @@
                     }
                 }
                 p {
-                    margin-top: 0.5rem;
+                    margin-top: 0.4rem;
                 }
                 &:after {
                     left: 5rem;

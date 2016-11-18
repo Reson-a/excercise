@@ -100,20 +100,20 @@
                 slides: [{
                     value: '',
                     image: '',
-                    alt: ''
+                    alt: '轮播图1'
                 }, {
                     value: '',
                     image: '',
-                    alt: ''
+                    alt: '轮播图2'
 
                 }, {
                     value: '',
                     image: '',
-                    alt: ''
+                    alt: '轮播图3'
                 }, {
                     value: '',
                     image: '',
-                    alt: ''
+                    alt: '轮播图4'
                 }],
                 appData
             }
@@ -155,7 +155,7 @@
                     width: 100%;
                     height: 4rem;
                     &.small{
-                        height: 2rem;
+                        height: 3rem;
                     }
                     &.icon{
                         width: 3rem;
