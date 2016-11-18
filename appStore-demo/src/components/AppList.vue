@@ -57,7 +57,7 @@
                     line-height:1rem;
                     h1 {
                         display: inline-block;
-                        font-size: 1.2rem;
+                        font-size: 1.4rem;
                         vertical-align: middle;
                         .top-three {
                             color: #F7BA2A;
@@ -74,7 +74,7 @@
                     }
                 }
                 p {
-                    margin-top: 0.4rem;
+                    margin-top: 0.5rem;
                 }
                 &:after {
                     left: 5rem;
