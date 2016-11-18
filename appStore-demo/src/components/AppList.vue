@@ -2,7 +2,7 @@
     <ul class="app-list">
         <li class="app-item" v-for="(app,index) in appData" :key="index">  
             <img :src="app.icon" :alt="app.name" class="f-fl">
-            <el-button type="success" size="mini" class="f-fr">安装</el-button>            
+            <el-button type="success" size="small" class="f-fr">安装</el-button>            
             <div class="app-list-content border-bottom">
                 <div>                     
                      <h1><span v-if="isRank" :class="{'top-three':index<3}">{{index+1}}. </span>{{app.name}}</h1>
@@ -54,7 +54,7 @@
                 div {
                     display: table-cell;
                     vertical-align: middle;
-                    line-height:1;
+                    line-height:1rem;
                     h1 {
                         display: inline-block;
                         font-size: 1.2rem;
@@ -81,7 +81,7 @@
                 }
             }
             .el-button {
-                height: 21.6px;
+                height: 27.6px;
             }
         }
     }
