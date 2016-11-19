@@ -1,6 +1,6 @@
 <template>
 	<el-row>
-            <el-col :span="2">&nbsp;
+            <el-col :span="2">&nbsp;</div>
             </el-col>
             <el-col :span="20">
                 <slot></slot>

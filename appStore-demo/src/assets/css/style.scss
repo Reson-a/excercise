@@ -52,9 +52,21 @@ a {
     text-decoration: none;
 }
 
-@media (min-width: 768px) {
+@media screen and(min-width: 768px) {
+    html {
+        font-size: $ExtraSmall;
+    }
+}
+
+@media screen and(min-width: 992px) {
     html {
         font-size: $Small;
+    }
+}
+
+@media screen and(min-width: 1200px) {
+    html {
+        font-size: $Medium;
     }
 }
 
