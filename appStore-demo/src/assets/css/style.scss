@@ -153,4 +153,18 @@ header {
     }    
 }
 
+.slide-left-enter-active,.slide-right-enter-active {
+  transition: all .5s ease;
+}
+.slide-left-leave-active,.slide-right-leave-active {
+  transition: all .5s ease;
+}
+.slide-left-enter, .slide-right-leave-active {
+  transform:translateX(-100%);
+}
+ 
+.slide-right-enter, .slide-left-leave-active {
+  transform:translateX(100%);
+}
+
 

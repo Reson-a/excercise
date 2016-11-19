@@ -63,7 +63,7 @@
     div{
         margin-left:4rem;
         h1{
-            font-size:1.2rem;
+            font-size:1.5rem;
             margin-bottom:0.5rem;
         }
     }

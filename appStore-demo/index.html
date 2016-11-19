@@ -20,7 +20,11 @@
                 <el-menu-item index="4" v-text="'我的'"></el-menu-item>
             </el-menu>
         </header>
-        <router-view class="g-bd"></router-view>
+        <transition :name="transition.name">
+            <keep-alive>
+                <router-view class="g-bd"></router-view>
+            </keep-alive>
+        </transition>
     </div>
 </body>
 

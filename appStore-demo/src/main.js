@@ -35,10 +35,22 @@ const routes = [
     { path: '/4', component: Me }
 ]
 const router = new VueRouter({
-    routes
+    routes,
+});
+
+router.beforeEach((to,from,next)=>{
+    let fromPath = from.path;
+    let toPath = to.path;
+    if (fromPath==='/'||toPath==='/'||fromPath===toPath) transition.name='';
+    else transition.name = toPath > fromPath ? 'slide-right' : 'slide-left';
+    next(); 
 });
 
 const elem = document.getElementById('app');
+
+const transition={
+    name:''
+}
 
 const vm = new Vue({
     el:elem,
@@ -49,6 +61,9 @@ const vm = new Vue({
         CateGory,
         Me
     ],
+    data:{
+        transition
+    },
     mounted(){
         document.getElementById('loading').style.display='none';        
     }
