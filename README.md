@@ -25,6 +25,12 @@
 <li>css3动画配合jQuery实现各种页面交互效果，包括animation动画，3d变换等</li>
 <li>注：此为编译后版本，源码可在项目目录中查看，因时间关系有部分细节并未实现</li>
 </ul></li>
+<li><a href="https://reson-a.github.io/works/appStore-demo/dist/index.html">移动端应用商店简易demo</a>
+<ul>
+<li>使用了Vue.js+Element.UI框架，配合vue-router实现单页路由跳转</li>
+<li>主要练习了移动端的百分比栅格布局，用媒体查询+rem以适配不同尺寸的移动设备</li>
+<li>实现retina屏的1px边框，用tap代替click事件(vue-tap插件)等技术点</li>
+</ul></li>
 </ul>
  
 
