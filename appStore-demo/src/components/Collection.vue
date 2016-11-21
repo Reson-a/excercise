@@ -3,7 +3,7 @@
         <slider :pagination-visible="true" :slides="slides" :repeating="true" :auto="5000" class="">
             <div v-for="(slide,index) in slides" :key="index">
                 <a :href="slide.value">
-                   <img width="100%" height="150px" :src="slide.image" :alt="slide.alt"/>
+                   <img width="100%" height="100%" :src="slide.image" :alt="slide.alt"/>
                 </a>
             </div>
         </slider>
@@ -138,6 +138,7 @@
     }
     
     .swiper {
+        height:15rem;
         margin: 1rem 0 0;
     }
     
@@ -160,7 +161,7 @@
                     &.icon{
                         width: 3rem;
                         height: 3rem;
-                        margin:0.5rem auto;
+                        margin:0.25rem auto 0.5rem;
                     }
                 }
             }

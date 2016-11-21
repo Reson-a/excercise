@@ -66,10 +66,10 @@
                     >span {
                         display: inline-block;                        
                         margin-left: 0.5rem;
-                        padding: 2px 3px;
+                        padding: 0.2rem 0.3rem;
                         color: #FFF;
                         background-color: #20A0FF;
-                        border-radius: 2px;
+                        border-radius: 0.2rem;
                         vertical-align: middle;
                     }
                 }
@@ -80,8 +80,12 @@
                     left: 5rem;
                 }
             }
-            .el-button {
-                height: 27.6px;
+            .el-button.el-button--small{
+                font-size:1rem;
+                padding:0.5rem 0.7rem;
+                border-radius: 0.4rem;
+                border-width:0.08rem;
+                height: calc(2.16rem);
             }
         }
     }
