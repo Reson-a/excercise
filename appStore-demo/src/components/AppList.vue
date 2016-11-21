@@ -52,29 +52,28 @@
                 padding: 1rem 4rem 1rem 0;
                 overflow: hidden;
                 div {
-                    display: table-cell;
-                    vertical-align: middle;
-                    line-height:1rem;
+                    line-height:1;                              
                     h1 {
                         display: inline-block;
                         font-size: 1.4rem;
-                        vertical-align: middle;
+                        vertical-align:middle;                  
                         .top-three {
                             color: #F7BA2A;
                         }
+                                                
                     }
                     >span {
                         display: inline-block;                        
-                        margin-left: 0.5rem;
+                        margin-left: 0.4rem;
                         padding: 0.2rem 0.3rem;
                         color: #FFF;
                         background-color: #20A0FF;
                         border-radius: 0.2rem;
-                        vertical-align: middle;
+                        vertical-align:middle; 
                     }
                 }
                 p {
-                    margin-top: 0.5rem;
+                    margin-top: 0.6rem;
                 }
                 &:after {
                     left: 5rem;
@@ -82,10 +81,10 @@
             }
             .el-button.el-button--small{
                 font-size:1rem;
-                padding:0.5rem 0.7rem;
+                padding:0.4rem 0.8rem;
                 border-radius: 0.4rem;
-                border-width:0.08rem;
-                height: calc(2.16rem);
+                border-width:0.2rem;
+                height: 2.2rem;
             }
         }
     }

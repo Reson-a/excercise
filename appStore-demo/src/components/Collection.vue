@@ -35,14 +35,14 @@
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西',
+        slogan: '第一时间告诉你新鲜好玩东西',
         isPromoted: false
     }, {
         icon: '',
         name: 'QQ阅读',
         size: '12.1',
         userCount: '1111',
-        slogan: '致力于打造优秀极致的阅读体验',
+        slogan: '致力打造优秀极致的阅读体验',
         isPromoted: true
     }, {
         icon: '',
@@ -56,43 +56,43 @@
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }];
     export default {
         data() {
@@ -150,9 +150,9 @@
                 display: block;
                 width: 100%;
                 height: 100%;
-                text-align:center;
+                text-align:center;    
                 img {
-                    display:inline-block;                    
+                    display:block;                                                          
                     width: 100%;
                     height: 4rem;
                     &.small{
@@ -161,7 +161,7 @@
                     &.icon{
                         width: 3rem;
                         height: 3rem;
-                        margin:0.25rem auto 0.5rem;
+                        margin:0.4rem auto 0.6rem;
                     }
                 }
             }
@@ -172,15 +172,15 @@
     }
     
     .splitter {
-        border-bottom: 1rem solid #EFF2F7;
+        border-bottom: 1.2rem solid #EFF2F7;
     }
     
     .app-list-title {
         padding: 1rem 0;
         border-bottom: 1px solid #D3DCE6;
         span {
-            border-left: 3px solid #20A0FF;
-            padding-left: 5px;
+            border-left: 0.2rem solid #20A0FF;
+            padding-left: 0.6rem;
         }
         a {
             float: right;

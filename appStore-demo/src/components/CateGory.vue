@@ -35,11 +35,12 @@
 <style lang="scss">
 .category-details{
     height:7rem;
+    line-height:1rem;
     .border-right{        
         position:relative;
         &:after{
-            top:0.5rem;
-            bottom:0.5rem;
+            top:0.6rem;
+            bottom:1.2rem;
         }
     }
     span{

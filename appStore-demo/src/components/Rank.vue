@@ -21,7 +21,7 @@
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西',
+        slogan: '第一时间告诉你新鲜好玩东西',
         isPromoted: false
     }, {
         icon: '',
@@ -42,43 +42,43 @@
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }, {
         icon: '',
         name: '即刻',
         size: '10.7',
         userCount: '69',
-        slogan: '第一时间告诉你新鲜好玩的东西'
+        slogan: '第一时间告诉你新鲜好玩东西'
     }];
     export default {
         data() {

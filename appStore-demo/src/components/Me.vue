@@ -21,7 +21,7 @@
                 <p>安装记录</p>                
                 <i class="el-icon-arrow-right f-fr"></i>
             </div>
-            <div class="me-item border-bottom">
+            <div class="me-item">
                 <i class="el-icon-setting f-fl"></i>                                   
                 <p>设置</p>                
                 <i class="el-icon-arrow-right f-fr"></i>
@@ -57,33 +57,34 @@
     position:relative;
     img{
         width:3rem;
-        height:3rem;
+        height:3rem;        
     }
     
     div{
-        margin-left:4rem;
-        h1{
-            font-size:1.5rem;
-            margin-bottom:0.5rem;
+        margin-left:4.4rem;
+        h1{            
+            font-size:1.4rem;
+            margin-bottom:0.6rem;
+            line-height:1;
         }
     }
     >p{
         font-size:1.2rem;
-        margin-left:4rem;
+        margin-left:4.4rem;
     }
        
 
     i{        
-        font-size:1.5rem;
+        font-size:1.6rem;
         color:#D3DCE6;
-        height:1.5rem;
-        width:1.5rem;        
+        height:1.6rem;
+        width:1.6rem;        
     }
 }
 
 .me-item{
     .f-fl{
-        left:0.75rem;
+        left:0.8rem;
     }
 }
 
