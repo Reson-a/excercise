@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>vue-demo</title>
+    <style>
+        .bg-dark {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <th>编辑</th>
+                <th>货物名称</th>
+                <th>品牌/厂家</th>
+                <th>规格型号</th>
+                <th>运输数量</th>
+                <th>产品数量</th>
+                <th>包装数量</th>
+                <th>运输附件</th>
+            </thead>
+            <tr v-for="(item,index) in goodsData">
+                <td :class="{'bg-dark':(index%2)}">
+                    <input v-show="!buttonIndex" type="checkbox" :value="index" v-model="selected">
+                    <button v-show="!buttonIndex" type="button" @click="buttonIndex=1;editIndex=index">编辑</button>
+                </td>
+                <td :class="{'bg-dark':!(index%2)}"><span v-show="!isEdit(index)">{{item.name}}</span><input v-model="item.name" v-show="isEdit(index)"></td>
+                <td :class="{'bg-dark':(index%2)}"><span v-show="!isEdit(index)">{{item.manufacturer}}</span><input v-model="item.manufacturer" v-show="isEdit(index)"></td>
+                <td :class="{'bg-dark':!(index%2)}"><span v-show="!isEdit(index)">{{item.specification}}</span><input v-model="item.specification" v-show="isEdit(index)"></td>
+                <td :class="{'bg-dark':(index%2)}"><span v-show="!isEdit(index)">{{item.tNum}}吨</span><input v-model="item.tNum" v-show="isEdit(index)"></td>
+                <td :class="{'bg-dark':!(index%2)}"><span v-show="!isEdit(index)">{{item.gNum}}吨</span><input v-model="item.gNum" v-show="isEdit(index)"></td>
+                <td :class="{'bg-dark':(index%2)}"><span v-show="!isEdit(index)">{{item.pNum}}箱</span><input v-model="item.pNum" v-show="isEdit(index)"></td>
+                <td :class="{'bg-dark':!(index%2)}"><span v-show="!isEdit(index)">{{item.accessory}}</span><input v-model="item.accessory" v-show="isEdit(index)"></td>
+            </tr>
+            <tr v-show="buttonIndex==1&&editIndex===undefined">
+                <td></td>
+                <td><input v-model="newItem.name"></td>
+                <td><input v-model="newItem.manufacturer"></td>
+                <td><input v-model="newItem.specification"></td>
+                <td><input v-model="newItem.tNum"></td>
+                <td><input v-model="newItem.gNum"></td>
+                <td><input v-model="newItem.pNum"></td>
+                <td><input v-model="newItem.accessory"></td>
+            </tr>
+        </table>
+        <button type="button" @click="buttonClick">{{buttons[buttonIndex]}}</button><button type="button" @click="cancelClick">{{cancelButtons[buttonIndex]}}</button>
+    </div>
+    <script src="js/vue.js">
+    </script>
+    <script src="js/script.js">
+    </script>
+</body>
+
+</html>
