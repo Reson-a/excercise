@@ -8,22 +8,15 @@
   aid: '7260153',//aid，即大家熟知的番号
   cid: '11868869',//cid 可以调用接口获取弹幕信息
   details: 
-   { zoneid: '151339074',
-     login: 'false',
+   { zoneid: '151339074',     
      chatid: '11868869',
      credits: '0',
      click: '1167224',//点击数
      suggest_comment: 'false',
      duration: '14:52',//视频时长
-     acceptguest: 'true',//非会员能不能看，B站看片指日可待
+     acceptguest: 'true',//只有会员知道的世界，B站看片指日可待
      maxlimit: '1500',//弹幕限制
      danmu: '24483',//弹幕数量
-     acceptaccel: 'false',
-     country: '中国',
-     server: 'chat.bilibili.com',
-     vtype: 'vupload',
-     fw_click: '19622',
-     shot: 'false',
      typeid: '27',//分类id
      favourites: '22177',//收藏
      coins: '57995',//硬币
