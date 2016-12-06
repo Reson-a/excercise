@@ -1,5 +1,44 @@
 <h3>基于node.js的一个B站视频信息小爬虫</h3>
-<p>使用方法：修改crawler.js中url变量为对应链接地址  切换到对应目录，安装好相应依赖后，npm start即可，在目录下即可找到对应番号的文本文件，抓取了包括标题，作者，点击、收藏、硬币等信息</p>
+<p>使用方法：修改crawler.js中url变量为对应链接地址  切换到对应目录，安装好相应依赖后，npm start即可，在目录下即可找到对应番号的文本文件</p>
+<code>
+{ title: '听说《名侦探柯南纯黑的噩梦》上映了，那我们就愉快的来吐槽它吧',
+  author: 'LexBurner',
+  category: '动画综合',
+  time: '2016-11-26 14:25',
+  aid: '7260153',
+  cid: '11868869',
+  details: 
+   { zoneid: '151339074',
+     login: 'false',
+     chatid: '11868869',
+     credits: '0',
+     click: '1167224',
+     suggest_comment: 'false',
+     duration: '14:52',
+     acceptguest: 'true',
+     pid: '1',
+     isp: '联通',
+     honor: 
+      [ { _: '3', '$': { d: '1480176000', t: 'coins' } },
+        { _: '3', '$': { d: '1480262400', t: 'coins' } },
+        { _: '5', '$': { d: '1480348800', t: 'coins' } },
+        [length]: 3 ],
+     sinapi: '1',
+     bottom: '0',
+     maxlimit: '1500',
+     danmu: '24483',
+     acceptaccel: 'false',
+     country: '中国',
+     server: 'chat.bilibili.com',
+     vtype: 'vupload',
+     fw_click: '19622',
+     shot: 'false',
+     typeid: '27',
+     favourites: '22177',
+     coins: '57995',
+     arctype: 'Original',
+     aid: '7260153',
+     ip: '123.119.235.0' } }</code>
 <p>主要实现思路，利用cheerio根据选择器获取主html文档上有关视频的基本信息，用正则表达式在脚本中捕获aid和cid，并调用相关接口，进一步获取视频详细信息</p>
 
 遇到的几个坑：
