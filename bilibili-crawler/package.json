@@ -1,0 +1,17 @@
+{
+  "name": "danmaku-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "crawler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node crawler.js"
+  },
+  "author": "Reson-a",
+  "license": "ISC",
+  "devDependencies": {
+    "cheerio": "^0.22.0",
+    "request": "^2.79.0",
+    "xml2js": "^0.4.17"
+  }
+}
