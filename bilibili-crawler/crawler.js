@@ -88,7 +88,7 @@ function getDanmakuAsnyc(msg) { //这部分有乱码问题暂时没有解决
 
 //将数据作为字符串写入文件
 function writeData(msg) {
-    msg = msg[0];
+    if (msg.length > 0) msg = msg[msg.length - 1]; //多个异步操作情况下只取一个数据
     let dir = path.resolve(__dirname, 'av' + msg.aid + '.rtf'); //指定路径写入文件 
     fs.writeFile(dir, util.inspect(msg, true, null), (err) => {
         if (err) return console.log(err);
