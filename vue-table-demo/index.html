@@ -15,7 +15,7 @@
     <div id="app">
         <table>
             <thead>
-                <th>编辑</th>
+                <th><input type="checkbox" v-show="editIndex===undefined" @click="selectAll">编辑</th>
                 <th>货物名称</th>
                 <th>品牌/厂家</th>
                 <th>规格型号</th>

@@ -95,6 +95,11 @@ var vm = new Vue({
         },
         isEdit: function(index) {
             return index === this.editIndex;
+        },
+        selectAll: function() {
+            for (var i = 0; i < this.goodsData.length; i++) {
+                if (this.selected.indexOf(i) < 0) this.selected.push(i);
+            }
         }
 
     },

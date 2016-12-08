@@ -164,7 +164,7 @@ header nav .search:hover {
 
 .m-sliderbox .slide img {
     display: inline-block;
-    width: 100%;
+    max-width: 100%;
 }
 
 .m-cursor {
