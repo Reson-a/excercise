@@ -31,6 +31,7 @@
 <li>主要练习了移动端的百分比栅格布局，用媒体查询+rem以适配不同尺寸的移动设备</li>
 <li>实现retina屏的1px边框，用tap代替click事件(vue-tap插件)等技术要点</li>
 </ul></li>
+<li><a href="https://github.com/Reson-a/works/tree/master/bilibili-crawler">基于nodejs实现的一个获取B站视频页详细信息的小爬虫</a></li>
 </ul>
  
 
