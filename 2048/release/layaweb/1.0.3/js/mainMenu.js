@@ -22,12 +22,16 @@ var MainMenu = (function (_super) {
     };
     //更新最高分
     MainMenu.prototype.upDateBest = function () {
-        var score = window.localStorage["best"];
+        this.best.text = this.best.text || 0 + '';
+        var score = 0;
+        if (window.localStorage)
+            score = parseInt(window.localStorage["best"]);
+        else
+            score = parseInt(this.best.text);
         if (score && Game.instance.score > score) {
-            window.localStorage["best"] = this.best.text = Game.instance.score + '';
-        }
-        else {
-            this.best.text = window.localStorage["best"] || 0 + '';
+            this.best.text = Game.instance.score + '';
+            if (window.localStorage)
+                window.localStorage["best"] = this.best.text;
         }
     };
     //开始新游戏

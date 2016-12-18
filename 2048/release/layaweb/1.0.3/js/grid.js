@@ -65,16 +65,23 @@ var Grid = (function () {
     //更新文字及样式
     Grid.prototype.upDate = function () {
         var i = this.exp, text = this.text, style = Grid.styles[i];
-        Object.assign(text, Grid.commonStyle, style); //混入样式
+        //Object.assign(text, Grid.commonStyle, style); //混入样式 TS不会对Object assign进行编译
+        extend(text, Grid.commonStyle);
+        extend(text, style);
         text.text = this.num ? this.num + '' : ''; //设置文字
+        function extend(o1, o2) {
+            for (var key in o2) {
+                o1[key] = o2[key];
+            }
+        }
     };
     //设置位置,isTween表示是否有缓动效果
     Grid.prototype.setPos = function (x, y, isTween, callback) {
         var _this = this;
         if (x > gameConfig.column || y > gameConfig.row)
             return;
-        x = (Grid.gridWidth + Grid.borderWidth) * x + Grid.gridWidth / 2;
-        y = (Grid.gridHeight + Grid.borderWidth) * y + Grid.gridHeight / 2;
+        x = (Grid.gridWidth + Grid.borderWidth) * x + Grid.gridWidth / 2 + Grid.borderWidth;
+        y = (Grid.gridHeight + Grid.borderWidth) * y + Grid.gridHeight / 2 + Grid.borderWidth;
         if (isTween) {
             Grid.tweenList.push(this);
             this.tween = Tween.to(this.text, { x: x, y: y }, 300, Laya.Ease.linearNone, laya.utils.Handler.create(this, function () {
@@ -92,7 +99,7 @@ var Grid = (function () {
         this.exp = exp || 0; //设置相关属性
         this.num = exp ? Math.pow(2, exp) : 0;
         if (showAsnyc)
-            this.showValue(!isTween);
+            this.showValue(isTween);
     };
     //显示数字的值,isTween表示是否播放缓动动画
     Grid.prototype.showValue = function (isTween, callback) {
@@ -127,7 +134,7 @@ var Grid = (function () {
 Grid.commonStyle = commonStyle; //公共样式
 Grid.styles = stylesArr; //样式列表
 Grid.borderWidth = 10;
-Grid.gridWidth = gameConfig.width / gameConfig.column - Grid.borderWidth * (1 - 1 / gameConfig.column); //每格的宽度
-Grid.gridHeight = gameConfig.height / gameConfig.row - Grid.borderWidth * (1 - 1 / gameConfig.column); //每格的高度  
+Grid.gridWidth = gameConfig.width / gameConfig.column - Grid.borderWidth * (1 + 1 / gameConfig.column); //每格的宽度
+Grid.gridHeight = gameConfig.height / gameConfig.row - Grid.borderWidth * (1 + 1 / gameConfig.row); //每格的高度  
 Grid.tweenList = [];
 //# sourceMappingURL=grid.js.map

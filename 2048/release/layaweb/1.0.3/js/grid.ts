@@ -53,9 +53,9 @@ class Grid {
     public text: Laya.Label;//文字
     private static commonStyle = commonStyle;//公共样式
     private static styles = stylesArr; //样式列表
-    private static borderWidth = 10;
-    private static gridWidth = gameConfig.width / gameConfig.column - Grid.borderWidth * (1 - 1 / gameConfig.column);//每格的宽度
-    private static gridHeight = gameConfig.height / gameConfig.row - Grid.borderWidth * (1 - 1 / gameConfig.column);//每格的高度  
+    public static borderWidth = 10;
+    private static gridWidth = gameConfig.width / gameConfig.column - Grid.borderWidth * (1 + 1 / gameConfig.column);//每格的宽度
+    private static gridHeight = gameConfig.height / gameConfig.row - Grid.borderWidth * (1 + 1 / gameConfig.row);//每格的高度  
     public tween: Tween;
     public static tweenList = [];
 
@@ -78,14 +78,22 @@ class Grid {
         let i = this.exp,
             text = this.text,
             style = Grid.styles[i];
-        (<any>Object).assign(text, Grid.commonStyle, style);//混入样式
-        text.text = this.num ? this.num + '' : '';//设置文字
+        //Object.assign(text, Grid.commonStyle, style); //混入样式 TS不会对Object assign进行编译
+        extend(text, Grid.commonStyle);
+        extend(text, style);
+        text.text = this.num ? this.num + '' : ''; //设置文字
+
+        function extend(o1, o2) {
+            for (let key in o2) {
+                o1[key] = o2[key]
+            }
+        }
     }
     //设置位置,isTween表示是否有缓动效果
     setPos(x?: number, y?: number, isTween?: boolean, callback?: laya.utils.Handler): void {
         if (x > gameConfig.column || y > gameConfig.row) return;
-        x = (Grid.gridWidth + Grid.borderWidth) * x + Grid.gridWidth / 2;
-        y = (Grid.gridHeight + Grid.borderWidth) * y + Grid.gridHeight / 2;
+        x = (Grid.gridWidth + Grid.borderWidth) * x + Grid.gridWidth / 2 + Grid.borderWidth;
+        y = (Grid.gridHeight + Grid.borderWidth) * y + Grid.gridHeight / 2 + Grid.borderWidth;
 
         if (isTween) {
             Grid.tweenList.push(this);
@@ -103,7 +111,7 @@ class Grid {
         let isTween = this.text.text != exp + '';
         this.exp = exp || 0;//设置相关属性
         this.num = exp ? Math.pow(2, exp) : 0;
-        if (showAsnyc) this.showValue(!isTween);
+        if (showAsnyc) this.showValue(isTween);
     }
     //显示数字的值,isTween表示是否播放缓动动画
     showValue(isTween?: boolean, callback?: laya.utils.Handler) {

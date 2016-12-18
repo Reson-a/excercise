@@ -9,21 +9,22 @@ var Game = (function () {
         Game.instance = this;
         this.stageInit();
         this.startNew();
+        //Laya.Stat.show(0, 0);
     }
     //舞台初始化，只调用一次
     Game.prototype.stageInit = function () {
+        //Laya.init(640, 1136);//iphone5为初始尺寸
         Laya.init(640, 1136, Laya.WebGL); //iphone5为初始尺寸
-        Laya.stage.scaleMode = "showAll"; //适配模式
-        Laya.stage.screenMode = "vertical"; //自动竖屏
+        Laya.stage.scaleMode = Laya.Stage.SCALE_NOBORDER; //适配模式
+        Laya.stage.screenMode = Laya.Stage.SCREEN_VERTICAL; //自动竖屏        
         Laya.stage.bgColor = '#FAF8EF';
         //初始化并添加方格容器
-        this.container = new Laya.HTMLDivElement();
+        this.container = new Laya.Label();
         this.container.width = gameConfig.width;
         this.container.height = gameConfig.height;
         this.container.x = (640 - gameConfig.width) / 2; //居中显示
-        this.container.y = (1136 - gameConfig.height) / 2; //居中显示
-        this.container.style.border = '20px solid #BBAD9F'; //设置容器样式        
-        this.container.style.backgroundColor = '#BBAD9F';
+        this.container.y = (1136 - gameConfig.height) / 2; //居中显示   
+        this.container.bgColor = '#BBAD9F';
         Laya.stage.addChild(this.container);
         //初始化并添加UI
         this.mainMenu = new MainMenu();
@@ -71,6 +72,9 @@ var Game = (function () {
             var i = this.getRandom(this.column);
             var j = this.getRandom(this.row);
             if (!this.data[i][j].getExp()) {
+                var a = Math.random();
+                if (a > 3 / 4)
+                    exp += 1;
                 this.data[i][j].setValue(exp, true);
                 count++;
                 this.numCount++;

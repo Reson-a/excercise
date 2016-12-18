@@ -1,8 +1,8 @@
 //游戏配置项
 var gameConfig = {
-    width: 560,
+    width: 600,
     row: 4,
-    height: 560,
+    height: 600,
     column: 4,
     startNumber: 2
 };

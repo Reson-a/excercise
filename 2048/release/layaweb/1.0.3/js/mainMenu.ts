@@ -15,12 +15,13 @@ class MainMenu extends ui.mainUI {
     }
     //更新最高分
     upDateBest(): void {
-        let score = window.localStorage["best"];
+        this.best.text = this.best.text || 0 + '';
+        let score = 0;
+        if (window.localStorage) score = parseInt(window.localStorage["best"]);
+        else score = parseInt(this.best.text);
         if (score && Game.instance.score > score) {
-            window.localStorage["best"] = this.best.text = Game.instance.score + '';
-        }
-        else {
-            this.best.text = window.localStorage["best"] || 0 + '';
+            this.best.text = Game.instance.score + '';
+            if (window.localStorage) window.localStorage["best"] = this.best.text;
         }
     }
     //开始新游戏
