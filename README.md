@@ -32,7 +32,9 @@
 <li>实现retina屏的1px边框，用tap代替click事件(vue-tap插件)等技术要点</li>
 </ul></li>
 <li><a href="https://github.com/Reson-a/works/tree/master/bilibili-crawler">基于nodejs实现的一个获取B站视频页详细信息的小爬虫</a></li>
+<li><a href="https://github.com/Reson-a/works/tree/master/2048/release/layaweb/1.0.3">2048小游戏--TypeScript+LayaAir</a></li>
 </ul>
+
  
 
 
