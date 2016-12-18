@@ -73,9 +73,10 @@ var Game = (function () {
             var j = this.getRandom(this.row);
             if (!this.data[i][j].getExp()) {
                 var a = Math.random();
-                if (a > 3 / 4)
-                    exp += 1;
-                this.data[i][j].setValue(exp, true);
+                if (a > 9 / 10)
+                    this.data[i][j].setValue(exp + 1, true);
+                else
+                    this.data[i][j].setValue(exp, true);
                 count++;
                 this.numCount++;
             }
