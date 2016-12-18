@@ -1,8 +1,8 @@
 //游戏配置项
 const gameConfig: GameConfig = {
-    width: 600,
+    width: 560,
     row: 4,
-    height: 600,
+    height: 560,
     column: 4,
     startNumber: 2
 }
