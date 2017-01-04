@@ -10,12 +10,12 @@
 
 
 
-###代码示例
+###简单示例
 
-  
     // lineCount:4, 文本行数，超过裁剪
-    // maxLength:160  可能最大字符数，一般用半角计算，帮助减少判断
-    <p class="artist-brief" v-text-clamp="{lineCount:4,maxLength:160}">{{msg.brief || '暂无简介'}}</p>
+    // maxLength:160  可能最大字符数，一般用半角计算，帮助减少判断
+    
+    v-text-clamp="{lineCount:4,maxLength:160}"
 
     import { textClamp } from 'directive.js'
     // ......
