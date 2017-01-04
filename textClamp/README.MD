@@ -1,5 +1,5 @@
-### vue自定义指令----多行文本裁剪
-#
+## vue自定义指令----多行文本裁剪
+
 分享一个项目中自己写的vue指令，解决非webkit浏览器多行文本裁剪的问题（webkit可用line-clamp）
 
 网上一搜也有很多五花八门的解决方案，但都有各有缺陷，基本上一个非等宽字体就能废掉绝大部分，要么就是代码长的吓人(处理的很完美不过也太长了吧)
@@ -10,11 +10,11 @@
 
 
 
-代码示例
+###代码示例
 
-    // lineCount:4, 文本行数，超过裁剪
+  
+    // lineCount:4, 文本行数，超过裁剪
     // maxLength:160  可能最大字符数，一般用半角计算，帮助减少判断
-    
     <p class="artist-brief" v-text-clamp="{lineCount:4,maxLength:160}">{{msg.brief || '暂无简介'}}</p>
 
     import { textClamp } from 'directive.js'
