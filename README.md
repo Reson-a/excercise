@@ -1,8 +1,6 @@
 # works
 
 <ul>
-<li><a href="https://reson-a.github.io/works/Slider/slider.html">轮播组件</a>
-<ul><li>组件化初尝试，支持定制任意数量图片的无缝循环播放</li><li>实现拖拽滑动操作</li></ul></li>
 <li><a href="https://reson-a.github.io/works/NetEaseFinalTask/index.html">网易云课堂前端工程师微专业大作业（注释版)</a>
 <ul><li>未使用任何库及框架，纯原生js实现</li>
 <li>组件化开发，实现了顶部通知条，弹窗，轮播，分页器等组件</li>
@@ -33,6 +31,7 @@
 </ul></li>
 <li><a href="https://github.com/Reson-a/works/tree/master/bilibili-crawler">基于nodejs实现的一个获取B站视频页详细信息的小爬虫</a></li>
 <li><a href="https://github.com/Reson-a/works/tree/master/2048/release/layaweb/1.0.3">2048小游戏--TypeScript+LayaAir</a></li>
+<li><a href="https://github.com/Reson-a/vue-simple">vue.js的一个简单实现</a></li>
 </ul>
 
  
