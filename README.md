@@ -31,6 +31,7 @@
 </ul></li>
 <li><a href="https://github.com/Reson-a/works/tree/master/bilibili-crawler">基于nodejs实现的一个获取B站视频页详细信息的小爬虫</a></li>
 <li><a href="https://github.com/Reson-a/works/tree/master/2048/release/layaweb/1.0.3">2048小游戏--TypeScript+LayaAir</a></li>
+<li><a href="https://github.com/Reson-a/wechat-demo">小程序商城demo</a></li>
 <li><a href="https://github.com/Reson-a/vue-simple">vue.js的一个简单实现</a></li>
 </ul>
 
